@@ -2,7 +2,7 @@
 semester-project-group-5-commerce created by GitHub Classroom
 
 ## Members
-<<<<<<< HEAD
+Trevor Poirier
 David Hoang
 Davith Lon
->>>>>>> main
+
