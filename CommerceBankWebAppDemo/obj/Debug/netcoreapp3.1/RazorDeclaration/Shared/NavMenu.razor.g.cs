@@ -83,8 +83,9 @@ using CommerceBankWebAppDemo.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 30 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\Shared\NavMenu.razor"
+#line 18 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\Shared\NavMenu.razor"
        
+    
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -93,6 +94,8 @@ using CommerceBankWebAppDemo.Shared;
     {
         collapseNavMenu = !collapseNavMenu;
     }
+    
+
 
 #line default
 #line hidden
