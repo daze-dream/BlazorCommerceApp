@@ -83,7 +83,7 @@ using CommerceBankWebAppDemo.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\Shared\NavMenu.razor"
+#line 31 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 
