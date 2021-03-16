@@ -94,8 +94,6 @@ using CommerceBankWebAppDemo.Shared;
     {
         collapseNavMenu = !collapseNavMenu;
     }
-    
-
 
 #line default
 #line hidden
