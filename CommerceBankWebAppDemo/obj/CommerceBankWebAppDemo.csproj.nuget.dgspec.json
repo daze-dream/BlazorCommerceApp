@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\CommerceBankWebAppDemo.csproj": {}
+    "C:\\Users\\degag\\Source\\Repos\\UMKC-CS451R-Spring-2021\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\CommerceBankWebAppDemo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\CommerceBankWebAppDemo.csproj": {
+    "C:\\Users\\degag\\Source\\Repos\\UMKC-CS451R-Spring-2021\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\CommerceBankWebAppDemo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\CommerceBankWebAppDemo.csproj",
+        "projectUniqueName": "C:\\Users\\degag\\Source\\Repos\\UMKC-CS451R-Spring-2021\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\CommerceBankWebAppDemo.csproj",
         "projectName": "CommerceBankWebAppDemo",
-        "projectPath": "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\CommerceBankWebAppDemo.csproj",
-        "packagesPath": "C:\\Users\\Sandy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\obj\\",
+        "projectPath": "C:\\Users\\degag\\Source\\Repos\\UMKC-CS451R-Spring-2021\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\CommerceBankWebAppDemo.csproj",
+        "packagesPath": "C:\\Users\\degag\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\degag\\Source\\Repos\\UMKC-CS451R-Spring-2021\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Sandy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\degag\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +26,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -38,7 +37,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -57,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
