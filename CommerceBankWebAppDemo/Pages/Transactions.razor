@@ -28,6 +28,7 @@ else
         <tr>
             <th>Transaction ID</th>
             <th>Amount</th>
+            <th>Location</th>
             <th>Description</th>
         </tr>
     </thead>
@@ -37,6 +38,7 @@ else
             <tr>
                 <td> @x.TransactionId.ToString()</td>
                 <td> @x.Transactionamount</td>
+                <td> @x.LocationState</td>
                 <td> @x.Description</td>
             </tr>
         }

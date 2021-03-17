@@ -57,6 +57,8 @@ namespace CommerceBankWebAppDemo
             }
 
             app.UseHttpsRedirection();
+
+
             app.UseStaticFiles();
 
             app.UseRouting();
