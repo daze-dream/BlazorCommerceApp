@@ -1,7 +1,10 @@
 ﻿@page "/transactions"
-@using CommerceBankWebAppDemo.Data.Commerce
+@using EndToEndTest.Data.CommerceDataModels
 @using Data
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Http;
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IHttpContextAccessor HttpContextAccessor
 @*
     Using OwningComponentBase ensures that the service and related services
     that share its scope are disposed with the component.
@@ -10,51 +13,60 @@
     connected for a long time.
     We access WeatherForecastService using @Service
 *@
-@inherits OwningComponentBase<DemoService>
+@inherits OwningComponentBase<TransactionServices>
 
-
-<h1>Transactions</h1>
-@if (transactionsList == null)
-{
-    <!-- Show this if the current user has no data... yet... -->
-
-    <p><em>Loading...</em></p>
-
-}
-else
-
-{<table class="table">
-    <thead>
-        <tr>
-            <th>Transaction ID</th>
-            <th>Amount</th>
-            <th>Location</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var x in transactionsList)
+<AuthorizeView>
+    <Authorized>
+        <h1>Transactions</h1>
+        @if (transactionsList == null)
         {
-            <tr>
-                <td> @x.TransactionId.ToString()</td>
-                <td> @x.Transactionamount</td>
-                <td> @x.LocationState</td>
-                <td> @x.Description</td>
-                <td> @x.UserId</td>
-            </tr>
-        }
-    </tbody>
+            <!-- Show this if the current user has no data... yet... -->
 
-</table>
-}
+            <p><em>Loading...</em></p>
+
+        }
+        else
+
+        {<table class="table">
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Amount</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in transactionsList)
+                    {
+                        <tr>
+                            <td> @x.TransactionId.ToString()</td>
+                            <td> @x.Transactionamount</td>
+                            <td> @x.LocationState</td>
+                            <td> @x.Description</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You're not signed in.</p>
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     List<Transactionsmaster> transactionsList;
+    private readonly IHttpContextAccessor _httpCA;
     protected override async Task OnInitializedAsync()
     {
-        transactionsList = await Service.GetTransactions();
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+        transactionsList = await Service.GetTransactions(userId);
     }
 
 

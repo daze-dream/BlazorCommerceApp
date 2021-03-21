@@ -7,8 +7,8 @@
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "Data\\Commerce",
-   "ProjectRootNamespace": "CommerceBankWebAppDemo",
+   "OutputPath": "Data\\CommerceDataModels",
+   "ProjectRootNamespace": "EndToEndTest",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 0,
@@ -23,10 +23,6 @@
       },
       {
          "Name": "[dbo].[location_constraint]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Login]",
          "ObjectType": 0
       },
       {
