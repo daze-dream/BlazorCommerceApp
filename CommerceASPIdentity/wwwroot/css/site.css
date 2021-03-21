@@ -1,0 +1,140 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Poppins:wght@200&display=swap');
+
+:root {
+    --DarkGreen: #006747;
+    --Green: #4FA800;
+    --Blue: #007AA3;
+    --YellowOrange: #FFB300;
+    --Red: #E30000;
+    --White: #FFF;
+    --Black: #000;
+    --Poppins: 'Poppins', sans-serif;
+    --OpenSans: 'Open Sans', sans-serif;
+}
+
+h1{
+    font-weight: bold;
+    color: var(--White);
+    font-size: 5rem;
+}
+
+h2 {
+    font-weight: bold;
+    color: var(--DarkGreen);
+    font-size: 2.5rem;
+}
+
+h5 {
+    font-weight: bold;
+    color: var(--DarkGreen);
+    font-size: 1.5rem;
+}
+
+.primary_button {
+    border-radius: 8px;
+    font: var(--OpenSans);
+    background-color: var(--DarkGreen);
+    padding: 15px 20px 15px 20px;
+    border: 0px;
+    margin: 5px 5px 5px 5px;
+    font-size: 18px !important;
+}
+    /* Will need to fix hover attributes */
+    .primary_button:hover{
+        background-color: var(--White);
+    }
+    .primary_button:visited{
+
+    }
+    .primary_button:active{
+
+    }
+
+html, body {
+}
+
+app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+    font-family: var(--Poppins);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--Black);
+    text-align: left;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+/***************** NAV BAR CSS ********************/
+.navbar {
+    background-color: var(--DarkGreen) !important;
+}
+
+    .navbar .navbar-brand {
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+.navbar_div {
+    width: 100%;
+    font-family: var(--OpenSans);
+    font-size: 18px;
+    color: var(--White);
+}
+
+.navbar-nav:hover {
+    color: var(--Black);
+}
+
+
+
+/****************** About Page CSS ****************/
+.custom-background-color {
+    background-color: var(--Blue);
+    padding: 10px 10px 10px 10px;
+}
+
+#round_image {
+    border-radius: 50%;
+    height: 25vw;
+    width: 25vw;
+}
+
+#square_image {
+    height: 25vw;
+    width: 25vw;
+}
+
+.custom_hr_solid {
+    border-top: 5px solid var(--Green);
+    margin-bottom:0;
+}
+
+li::marker {
+    color: var(--DarkGreen);
+}

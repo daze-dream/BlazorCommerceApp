@@ -1,0 +1,61 @@
+﻿@page "/transactions"
+@using CommerceBankWebAppDemo.Data.Commerce
+@using Data
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@*
+    Using OwningComponentBase ensures that the service and related services
+    that share its scope are disposed with the component.
+    Otherwise DbContext in ForecastService will live for the life of the
+    connection, which may be problematic if clients stay
+    connected for a long time.
+    We access WeatherForecastService using @Service
+*@
+@inherits OwningComponentBase<DemoService>
+
+
+<h1>Transactions</h1>
+@if (transactionsList == null)
+{
+    <!-- Show this if the current user has no data... yet... -->
+
+    <p><em>Loading...</em></p>
+
+}
+else
+
+{<table class="table">
+    <thead>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Amount</th>
+            <th>Location</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in transactionsList)
+        {
+            <tr>
+                <td> @x.TransactionId.ToString()</td>
+                <td> @x.Transactionamount</td>
+                <td> @x.LocationState</td>
+                <td> @x.Description</td>
+                <td> @x.UserId</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+}
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    List<Transactionsmaster> transactionsList;
+    protected override async Task OnInitializedAsync()
+    {
+        transactionsList = await Service.GetTransactions();
+    }
+
+
+}
