@@ -1,4 +1,4 @@
-﻿@page "/transactions"
+﻿@page "/Transactions"
 @using EndToEndTest.Data.CommerceDataModels
 @using Data
 @using System.Security.Claims
@@ -17,42 +17,50 @@
 
 <AuthorizeView>
     <Authorized>
-        <h1>Transactions</h1>
-        @if (transactionsList == null)
-        {
-            <!-- Show this if the current user has no data... yet... -->
+        <div class="container mt-5">
+            <h2>Transactions</h2>
+            <hr class="solid mt-5 custom_hr_solid" />
+        </div>
+        <div class="container mt-5">
+            @if (transactionsList == null)
+            {
+                <!-- Show this if the current user has no data... yet... -->
 
-            <p><em>Loading...</em></p>
+                <p><em>Loading...</em></p>
 
-        }
-        else
+            }
+            else
 
-        {<table class="table">
-                <thead>
-                    <tr>
-                        <th>Transaction ID</th>
-                        <th>Amount</th>
-                        <th>Location</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var x in transactionsList)
-                    {
+            {<table class="table">
+                    <thead>
                         <tr>
-                            <td> @x.TransactionId.ToString()</td>
-                            <td> @x.Transactionamount</td>
-                            <td> @x.LocationState</td>
-                            <td> @x.Description</td>
+                            <th>Transaction ID</th>
+                            <th>Amount</th>
+                            <th>Location</th>
+                            <th>Description</th>
                         </tr>
-                    }
-                </tbody>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in transactionsList)
+                        {
+                            <tr>
+                                <td> @x.TransactionId.ToString()</td>
+                                <td> @x.Transactionamount</td>
+                                <td> @x.LocationState</td>
+                                <td> @x.Description</td>
+                            </tr>
+                        }
+                    </tbody>
 
-            </table>
-        }
+                </table>
+
+            }
+        </div>
     </Authorized>
     <NotAuthorized>
-        <p>You're not signed in.</p>
+        <div class="container mt-5">
+            <h6>Please sign in to access your account information.</h6>
+        </div>
     </NotAuthorized>
 </AuthorizeView>
 

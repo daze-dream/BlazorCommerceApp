@@ -47,6 +47,7 @@ namespace EndToEndTest.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
+            [StringLength(100)]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -60,6 +61,53 @@ namespace EndToEndTest.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [StringLength(150)]
+            [Display(Name = "Address line 1")]
+
+            public string AddressOne { get; set; }
+            
+            [Required]
+            [StringLength(100)]
+            [Display(Name = "Address line 2")]
+
+            public string AddressTwo { get; set; }
+            
+            [Required]
+            [StringLength(100)]
+            [Display(Name = "City")]
+
+            public string City { get; set; }
+            
+            [Required]
+            [StringLength(100)]
+            [Display(Name = "State")]
+
+            public string State { get; set; }
+            
+            [Required]
+            [DataType(DataType.PostalCode)]
+            [Display(Name = "ZIP")]
+
+            public int ZIP { get; set; }
+
+            [Required]
+            [StringLength(120)]
+            [DataType(DataType.Text)]
+            [Display(Name = "Country")]
+
+            public string Country { get; set; }
+
+            [Required]
+            [StringLength(20)]
+            [Display(Name = "Phone number")]
+            public string PhoneNum { get; set; }
+
+            [Required]
+            [DataType(DataType.Date)]
+            [Display(Name = "Date of birth")]
+            public DateTime DOB { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)

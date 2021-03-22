@@ -1,6 +1,49 @@
 ﻿@page "/Dashboard"
 
-<h3>Dashboard</h3>
+<AuthorizeView>
+    <Authorized>
+        @page "/Account"
+            <div class="container mt-5">
+                <h2>My Dashboard</h2>
+                <hr class="solid mt-5 custom_hr_solid" />
+            </div>
+            <div class="container mt-5">
+                <div class="card text-left">
+                    <div class="card-header">
+                        <h2>Notification Rules</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <n1>1.</n1> Balance updates (Mondays @@ 11am) <br />
+                            <n1>2.</n1> Monthly payment withdrawals (Over $200) <br />
+                            <n1>3.</n1> Low balance warnings (Under $100) <br />
+                            <n1>4.</n1> Transfer alerts - other accounts <br />
+                            <n1>5.</n1> Mute alerts for gift items purchased on Amazon <br />
+                        </p>
+                    </div>
+                </div>
+                <br />
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h2>My Notification Center</h2>
+                    </div>
+                    <div class="card-body">
+                        <n1 class="card-title">Banking updates. Your way.</n1>
+                        <p class="card-text">Prioritize what alerts you want to receive, and how often, for each separate account.</p>
+                        <a href="#" class="btn btn-primary">Notification settings</a>
+                    </div>
+                </div>
+            </div>
+
+            @code { }
+        </Authorized>
+    <NotAuthorized>
+        <div class="container">
+            <h6>Please sign in to access your account information.</h6>
+            <!-- <n1>You're not signed in.</n1> -->
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
 
