@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CommerceBankWebAppDemo.Data
+namespace EndToEndTest.Data
 {
     public class WeatherForecastService
     {

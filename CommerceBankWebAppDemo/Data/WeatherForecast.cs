@@ -1,6 +1,6 @@
 using System;
 
-namespace CommerceBankWebAppDemo.Data
+namespace EndToEndTest.Data
 {
     public class WeatherForecast
     {

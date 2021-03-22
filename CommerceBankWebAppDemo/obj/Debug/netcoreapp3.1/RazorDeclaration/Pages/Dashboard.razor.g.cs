@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace CommerceBankWebAppDemo.Pages
+namespace EndToEndTest.Pages
 {
     #line hidden
     using System;
@@ -13,68 +13,70 @@ namespace CommerceBankWebAppDemo.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\_Imports.razor"
+#line 1 "C:\Users\Trevor\Desktop\CommerceASPIdentityZIP\CommerceASPIdentity\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\_Imports.razor"
+#line 2 "C:\Users\Trevor\Desktop\CommerceASPIdentityZIP\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\_Imports.razor"
+#line 3 "C:\Users\Trevor\Desktop\CommerceASPIdentityZIP\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\_Imports.razor"
+#line 4 "C:\Users\Trevor\Desktop\CommerceASPIdentityZIP\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\_Imports.razor"
+#line 5 "C:\Users\Trevor\Desktop\CommerceASPIdentityZIP\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\_Imports.razor"
+#line 6 "C:\Users\Trevor\Desktop\CommerceASPIdentityZIP\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\_Imports.razor"
+#line 7 "C:\Users\Trevor\Desktop\CommerceASPIdentityZIP\CommerceASPIdentity\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\_Imports.razor"
-using CommerceBankWebAppDemo;
+#line 8 "C:\Users\Trevor\Desktop\CommerceASPIdentityZIP\CommerceASPIdentity\_Imports.razor"
+using EndToEndTest;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceBankWebAppDemo\_Imports.razor"
-using CommerceBankWebAppDemo.Shared;
+#line 9 "C:\Users\Trevor\Desktop\CommerceASPIdentityZIP\CommerceASPIdentity\_Imports.razor"
+using EndToEndTest.Shared;
 
 #line default
 #line hidden
 #nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Dashboard")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Account")]
     public partial class Dashboard : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
