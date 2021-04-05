@@ -112,7 +112,7 @@ using Microsoft.AspNetCore.Http;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 59 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Transactions.razor"
+#line 67 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Transactions.razor"
        
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
