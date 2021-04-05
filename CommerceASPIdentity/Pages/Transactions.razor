@@ -1,0 +1,81 @@
+﻿@page "/Transactions"
+@using EndToEndTest.Data.CommerceDataModels
+@using Data
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Http;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IHttpContextAccessor HttpContextAccessor
+@*
+    Using OwningComponentBase ensures that the service and related services
+    that share its scope are disposed with the component.
+    Otherwise DbContext in ForecastService will live for the life of the
+    connection, which may be problematic if clients stay
+    connected for a long time.
+    We access WeatherForecastService using @Service
+*@
+@inherits OwningComponentBase<TransactionServices>
+
+<AuthorizeView>
+    <Authorized>
+        <div class="container mt-5">
+            <h2>Transactions</h2>
+            <hr class="solid mt-5 custom_hr_solid" />
+        </div>
+        <div class="container mt-5">
+            @if (transactionsList == null)
+            {
+                <!-- Show this if the current user has no data... yet... -->
+
+                <p><em>Loading...</em></p>
+
+            }
+            else
+
+            {<table class="table">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Amount</th>
+                            <th>Location</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in transactionsList)
+                        {
+                            <tr>
+                                <td> @x.TransactionId.ToString()</td>
+                                <td> @x.Transactionamount</td>
+                                <td> @x.LocationState</td>
+                                <td> @x.Description</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            }
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div class="container mt-5">
+            <h6>Please sign in to access your account information.</h6>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    List<Transactionsmaster> transactionsList;
+    private readonly IHttpContextAccessor _httpCA;
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+        transactionsList = await Service.GetTransactions(userId);
+    }
+
+
+}
