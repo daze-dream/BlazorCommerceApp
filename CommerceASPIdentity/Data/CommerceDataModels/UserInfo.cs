@@ -15,7 +15,7 @@ namespace EndToEndTest.Data.CommerceDataModels
         [Required]
         [Column("userID")]
         [StringLength(450)]
-        public string UserId { get; set; }
+        public string UserID { get; set; }
         [Required]
         [Column("firstname")]
         [StringLength(100)]
