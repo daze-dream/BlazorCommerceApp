@@ -3,6 +3,8 @@
 @using Data
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Http;
+@using Microsoft.Data.SqlClient
+@using Microsoft.AspNetCore.Components.Forms
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
 @*
@@ -13,7 +15,7 @@
     connected for a long time.
     We access WeatherForecastService using @Service
 *@
-@inherits OwningComponentBase<TransactionServices>
+@inherits OwningComponentBase<TransactionServices> 
 
 <AuthorizeView>
     <Authorized>
@@ -55,6 +57,66 @@
                 </table>
 
             }
+            <p>
+
+                <!-- Add a new forecast -->
+
+                <button class="btn btn-primary"
+                        @onclick="AddNewTransaction">
+
+                    Add Transaction
+
+                </button>
+
+            </p>
+            @if (showPopup)
+            {
+                <!--TODO: temporary popup for transaction adding-->
+                <div class="modal" tabindex="-1" style="display:block" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">TEMP EDIT/CREATE</h3>
+                                <button type="button" class="close"
+                                        @onclick="ClosePopup">
+                                    <span aria-hidden="true">X</span>
+                                </button>
+                            </div>
+                            <!--General form for adding transactions-->
+                            <div class="modal-body">
+                                Transaction type
+                                <br /> <br />
+                                <select @bind="objTransactionsmaster.Transactiontype">
+                                    <option value="CR">Deposit</option>
+                                    <option value="DR">Withdrawal</option>
+                                </select>
+                                <br /> 
+                                    Amount
+                                    <br /> <br />
+                                    <input class="form-control" type="number"
+                                           placeholder="amount"
+                                           @bind="objTransactionsmaster.Transactionamount" />
+                                    Description
+                                    <br /> <br />
+                                    <input class="form-control" type="text"
+                                           placeholder="description"
+                                           @bind="objTransactionsmaster.Description" />
+                                    Location (State)
+                                    <br /> <br/>
+                                    <input class="form-control" type="text"
+                                           placeholder="location"
+                                           @bind="objTransactionsmaster.LocationState" />
+                                    <br />
+                                    <button class="btn btn-primary"
+                                            @onclick="SaveTransaction">
+                                        Add
+                                    </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </Authorized>
     <NotAuthorized>
@@ -68,7 +130,11 @@
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     List<Transactionsmaster> transactionsList;
+    
+    Transactionsmaster objTransactionsmaster = new Transactionsmaster();
+    bool showPopup = false;
     private readonly IHttpContextAccessor _httpCA;
+
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -76,6 +142,35 @@
 
         transactionsList = await Service.GetTransactions(userId);
     }
+    void ClosePopup()
+    {
+        showPopup = false;
+    }
+
+    void AddNewTransaction()
+    {
+        objTransactionsmaster = new Transactionsmaster();
+        objTransactionsmaster.TransactionId = 0;
+        showPopup = true;
+    }
+
+    async Task SaveTransaction()
+    {
+        showPopup = false;
+        // get current userID
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+        SqlCommand
+        if (objTransactionsmaster.AccountId == 0)
+        {
+            Transactionsmaster newTrans = new Transactionsmaster();
+
+
+        }
+
+
+    }
+
 
 
 }
