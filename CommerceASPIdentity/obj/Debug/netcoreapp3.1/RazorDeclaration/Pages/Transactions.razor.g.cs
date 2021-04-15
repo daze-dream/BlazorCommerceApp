@@ -98,6 +98,13 @@ using Microsoft.AspNetCore.Http;
 #nullable disable
 #nullable restore
 #line 6 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+using Microsoft.Data.SqlClient;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
@@ -112,34 +119,49 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 128 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+#line 140 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
        
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     List<Transactionsmaster> transactionsList;
+    List<Accounts> usersBankAccount;
+
+
+
     Transactionsmaster objTransactionsmaster = new Transactionsmaster();
     bool showPopup = false;
     private readonly IHttpContextAccessor _httpCA;
+    string credit = "CR";
+    string debit = "DR";
 
+
+    /// <summary>get the transactions when loading in the page </summary> 
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
         string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
 
         transactionsList = await Service.GetTransactions(userId);
+        usersBankAccount = await Service.GetAccount(userId);
     }
+    /// <summary>bool to open and close the Transaction popup</summary> 
     void ClosePopup()
     {
         showPopup = false;
     }
-
+    /// <summary>
+    /// prepares the transaction to be added
+    /// </summary>
     void AddNewTransaction()
     {
         objTransactionsmaster = new Transactionsmaster();
         objTransactionsmaster.TransactionId = 0;
         showPopup = true;
     }
-
+    /// <summary>
+    /// creates the final transaction and saves it to the server. Then, refreshes the view to update the account and transactions view
+    /// </summary>
+    /// <returns> Task, or rather nothing </returns>
     async Task SaveTransaction()
     {
         showPopup = false;
@@ -149,10 +171,31 @@ using Microsoft.AspNetCore.Components.Forms;
         if (objTransactionsmaster.AccountId == 0)
         {
             Transactionsmaster newTrans = new Transactionsmaster();
-
-
+            newTrans.UserId = userId;
+            newTrans.AccountId = await Service.getUsersBankAccountID(userId);
+            newTrans.Transactiondate = System.DateTime.Now;
+            newTrans.Openingbalance = Convert.ToDecimal(await Service.GetAccountCurrentBalance(newTrans.AccountId));
+            newTrans.Transactiontype = objTransactionsmaster.Transactiontype;
+            if(objTransactionsmaster.Transactiontype == "DR")
+            {
+                newTrans.Transactionamount = objTransactionsmaster.Transactionamount * -1;
+            }
+            else
+            {
+                newTrans.Transactionamount = objTransactionsmaster.Transactionamount;
+            }
+            newTrans.Description = objTransactionsmaster.Description;
+            newTrans.LocationState = objTransactionsmaster.LocationState;
+            var result = Service.CreateTransactionAsync(newTrans);
+            await Service.updateUsersBankBalanceAfterTransaction(newTrans, userId);
         }
-
+        else
+        {
+            // updates
+        }
+        // refreshes the transactions afterwards
+        transactionsList = await Service.GetTransactions(userId);
+        usersBankAccount = await Service.GetAccount(userId);
 
     }
 
