@@ -13,92 +13,99 @@ namespace EndToEndTest.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
+#line 1 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
+#line 2 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
+#line 3 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-using Microsoft.AspNetCore.Components.Forms;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 5 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
+#line 5 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
+#line 6 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
+#line 7 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
+#line 8 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
 using EndToEndTest;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
+#line 9 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
 using EndToEndTest.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Transactions.razor"
+#line 2 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
 using EndToEndTest.Data.CommerceDataModels;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Transactions.razor"
+#line 3 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
 using Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Transactions.razor"
+#line 4 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
 using System.Security.Claims;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Transactions.razor"
+#line 5 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
 using Microsoft.AspNetCore.Http;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+using Microsoft.Data.SqlClient;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
@@ -112,19 +119,86 @@ using Microsoft.AspNetCore.Http;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 67 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Transactions.razor"
+#line 140 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
        
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     List<Transactionsmaster> transactionsList;
+    List<Accounts> usersBankAccount;
+
+
+
+    Transactionsmaster objTransactionsmaster = new Transactionsmaster();
+    bool showPopup = false;
     private readonly IHttpContextAccessor _httpCA;
+    string credit = "CR";
+    string debit = "DR";
+
+
+    /// <summary>get the transactions when loading in the page </summary> 
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
         string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
 
         transactionsList = await Service.GetTransactions(userId);
+        usersBankAccount = await Service.GetAccount(userId);
     }
+    /// <summary>bool to open and close the Transaction popup</summary> 
+    void ClosePopup()
+    {
+        showPopup = false;
+    }
+    /// <summary>
+    /// prepares the transaction to be added
+    /// </summary>
+    void AddNewTransaction()
+    {
+        objTransactionsmaster = new Transactionsmaster();
+        objTransactionsmaster.TransactionId = 0;
+        showPopup = true;
+    }
+    /// <summary>
+    /// creates the final transaction and saves it to the server. Then, refreshes the view to update the account and transactions view
+    /// </summary>
+    /// <returns> Task, or rather nothing </returns>
+    async Task SaveTransaction()
+    {
+        showPopup = false;
+        // get current userID
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+        if (objTransactionsmaster.AccountId == 0)
+        {
+            Transactionsmaster newTrans = new Transactionsmaster();
+            newTrans.UserId = userId;
+            newTrans.AccountId = await Service.getUsersBankAccountID(userId);
+            newTrans.Transactiondate = System.DateTime.Now;
+            newTrans.Openingbalance = Convert.ToDecimal(await Service.GetAccountCurrentBalance(newTrans.AccountId));
+            newTrans.Transactiontype = objTransactionsmaster.Transactiontype;
+            if(objTransactionsmaster.Transactiontype == "DR")
+            {
+                newTrans.Transactionamount = objTransactionsmaster.Transactionamount * -1;
+            }
+            else
+            {
+                newTrans.Transactionamount = objTransactionsmaster.Transactionamount;
+            }
+            newTrans.Description = objTransactionsmaster.Description;
+            newTrans.LocationState = objTransactionsmaster.LocationState;
+            var result = Service.CreateTransactionAsync(newTrans);
+            await Service.updateUsersBankBalanceAfterTransaction(newTrans, userId);
+        }
+        else
+        {
+            // updates
+        }
+        // refreshes the transactions afterwards
+        transactionsList = await Service.GetTransactions(userId);
+        usersBankAccount = await Service.GetAccount(userId);
+
+    }
+
 
 
 
