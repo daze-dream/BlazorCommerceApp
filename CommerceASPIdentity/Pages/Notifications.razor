@@ -1,0 +1,148 @@
+﻿@page "/Notifications"
+
+<AuthorizeView>
+    <Authorized>
+        <div class="container mt-5">
+            <h2>My Notifications</h2>
+            <hr class="solid mt-5 custom_hr_solid" />
+        </div>
+
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-7 my-auto">
+                    <p>Total Notifications: </p>
+                </div>
+                <div class="col-5">
+                    <table class="float-right">
+                        <tr>
+                            <td>
+                                <button class="primary_button float-right" @onclick="AddNewNotification">
+                                    Add Notification
+                                </button>
+                            </td>
+                        </tr><tr>
+                            <td>
+                                <button class="primary_button float-right">
+                                    Export
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container mt-5">
+            <div class="jumbotron jumbotron-fluid shadow">
+                <div class="container">
+                    <h5 class="display-5">2pm - 5pm</h5>
+                    <div class="row">
+                        <div class="col-10">
+                            <p class="lead">Notifications will be sent when transactions:</p>
+                            <ul>
+                                <li>Fall between 2pm -5pm.</li>
+                            </ul>
+                        </div>
+                        <div class="col-2">
+                            <div class="row">
+                                <button class="btn float-right mr-5" @onclick="AddNewNotification"><i class="oi oi-pencil "></i></button>
+                                <button class="btn float-right mr-5" @onclick="AddNewNotification"><i class="oi oi-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            <div class="jumbotron jumbotron-fluid shadow">
+                <div class="container">
+                    <h5 class="display-5">Out of State</h5>
+                    <div class="row">
+                        <div class="col-10">
+                            <p class="lead">Notifications will be sent when transactions:</p>
+                            <ul>
+                                <li>Made Out-Of-State.</li>
+                            </ul>
+                        </div>
+                        <div class="col-2">
+                            <div class="row">
+                                <button class="btn float-right mr-5" @onclick="AddNewNotification"><i class="oi oi-pencil "></i></button>
+                                <button class="btn float-right mr-5" @onclick="AddNewNotification"><i class="oi oi-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jumbotron jumbotron-fluid shadow">
+                <div class="container">
+                    <h5 class="display-5">In State + 12am-3am</h5>
+                    <div class="row">
+                        <div class="col-10">
+                            <p class="lead">Notifications will be sent when transactions:</p>
+                            <ul>
+                                <li>Made In-State.</li>
+                                <li>Fall between 12am -3am.</li>
+                            </ul>
+                        </div>
+                        <div class="col-2">
+                            <div class="row">
+                                <button class="btn float-right mr-5" @onclick="AddNewNotification"><i class="oi oi-pencil "></i></button>
+                                <button class="btn float-right mr-5" @onclick="AddNewNotification"><i class="oi oi-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+        
+
+        @if (showPopup)
+        {
+            <div class="modal" tabindex="-1" style="display:block" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="col-12 modal-title text-center">ADD NOTIFICATION</h5>
+                        </div>
+
+                        <div class="modal-body">
+                            <hr class="solid custom_hr_solid mb-3" />
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="primary_button">
+                                Add
+                            </button>
+                            <button class="primary_button ml-auto" @onclick="ClosePopup">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </Authorized>
+
+    <NotAuthorized>
+        <div class="container mt-5">
+            <h6>Please sign in to access your account information.</h6>
+        </div>
+    </NotAuthorized>
+
+</AuthorizeView>
+
+
+@code {
+    bool showPopup = false;
+
+    void AddNewNotification()
+    {
+        showPopup = true;
+    }
+
+    void ClosePopup()
+    {
+        showPopup = false;
+    }
+}

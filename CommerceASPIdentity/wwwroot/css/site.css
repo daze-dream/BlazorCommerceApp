@@ -1,0 +1,339 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Poppins:wght@200&display=swap');
+
+:root {
+    --DarkGreen: #006747;
+    --Green: #4FA800;
+    --Blue: #007AA3;
+    --YellowOrange: #FFB300;
+    --Red: #E30000;
+    --White: #FFF;
+    --Black: #000;
+    --Poppins: 'Poppins', sans-serif;
+    --OpenSans: 'Open Sans', sans-serif;
+}
+
+html, body {
+}
+
+h1 {
+    font-weight: bold;
+    color: var(--White);
+    font-size: 4rem;
+}
+
+h2 {
+    font-weight: bold;
+    color: var(--DarkGreen);
+    font-size: 2.5rem;
+}
+
+h4 {
+    color: var(--Black);
+    font-size: 1.25rem;
+}
+
+h5 {
+    font-weight: bold;
+    color: var(--DarkGreen);
+    font-size: 1.5rem;
+}
+
+h6 {
+    font-weight: bold;
+    color: var(--Red);
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+n1 {
+    font-weight: bold;
+    color: var(--Blue);
+}
+
+/* Table: Odd Numbered Rows - Stripe Color*/
+.table.table.table-striped tbody > tr:nth-child(odd) {
+    background-color: rgba(0, 122, 163, 0.15);
+}
+
+/*
+a, .btn-link {
+    color: #0366d6;
+} */
+
+.primary_button {
+    border-radius: 8px;
+    font-family: var(--OpenSans);
+    color: var(--White) !important;
+    font-size: 22px !important;
+    background-color: var(--DarkGreen);
+    padding: 5px 20px 5px 20px;
+    border: 0px;
+    margin: 5px 5px 5px 5px;
+}
+    /* Will need to fix hover attributes */
+    .primary_button:hover {
+        background-color: #1A4857;
+    }
+
+    .primary_button:visited {
+    }
+
+    .primary_button:active {
+    }
+
+app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+    font-family: var(--Poppins);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--Black);
+    text-align: left;
+}
+
+/***************** NAV BAR CSS ********************/
+#Bank_Logo {
+    max-width: 175px;
+    margin: 20px 5px 9px 5px;
+    display:inline-block
+}
+
+.navbar {
+    background-color: var(--DarkGreen) !important;
+}
+
+    .navbar .navbar-brand {
+        font-size: 40px;
+        font-weight: bold;
+        color: var(--White);
+        font-family: var(--OpenSans);
+        display: flex;
+    }
+
+.nav-item {
+    font-family: var(--OpenSans);
+    font-size: 22px;
+}
+
+.navbar-nav {
+    font-family: var(--OpenSans);
+    font-size: 22px;
+}
+
+a.nav-link{
+    color: var(--White) !important;
+}
+
+a {
+    color: var(--White) !important;
+    font-family: var(--Poppins);
+    padding: 7px 7px 7px 0;
+}
+
+.nav_bar_button {
+    font-family: var(--Poppins);
+    color: var(--White) !important;
+    font-size: 22px;
+}
+
+span.oi.oi-bell.ml-3.mr-1  {
+    color: red;
+}
+
+/****************** LOG IN PAGE CSS ****************/
+.form-control {
+    font-family: var(--OpenSans);
+    font-size: 1.25rem;
+    border: 2px solid var(--DarkGreen);
+}
+
+#Input_RememberMe{
+    font-family: var(--OpenSans);
+}
+
+.login_small_links {
+    color: black !important;
+}
+
+.col-form-label {
+    font-family: var(--Poppins);
+    font-size: 1.15rem;
+}
+
+label {
+    font-family: var(--Poppins);
+}
+
+/****************** About Page CSS ****************/
+.custom-background-color {
+    background-color: var(--Blue);
+    padding: 10px 10px 10px 10px;
+}
+
+#round_image {
+    border-radius: 50%;
+    height: 25vw;
+    width: 25vw;
+}
+
+#square_image {
+    height: 25vw;
+    width: 25vw;
+}
+
+.custom_hr_solid {
+    border-top: 5px solid var(--Green);
+    margin-bottom: 0;
+}
+
+li::marker {
+    color: var(--DarkGreen);
+}
+
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+    font-size:18px;
+    font-family:var(--OpenSans);
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+/**************** Dashboard Page CSS **************/
+.card-text {
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+    line-height: 30px;
+    padding: 15px;
+}
+
+.card-header {
+    text-align: center;
+}
+
+.btn-primary {
+    color: var(--White);
+    background-color: var(--Blue);
+    border-color: var(--Blue);
+    border-width: 0.75px;
+}
+
+.btn-primary:hover {
+    color: var(--Black);
+    background-color: #00678a;
+    border-color: var(--YellowOrange);
+    border-width: 1.25px;
+}
+
+
+/************** TRANSACTIONS PAGE CSS****************/
+
+thead{
+    background-color: var(--Blue);
+    font-family: var(--OpenSans);
+    color: var(--White);    
+    font-weight: bold;
+}
+
+tbody{
+    font-family: var(--OpenSans);
+}
+
+.modal-content {
+    margin: 25% auto;
+    border: 3px solid var(--Black);
+}
+
+.modal-header {
+    border-bottom: 0;
+    padding: 1rem 1rem 0 1rem;
+}
+
+.modal-footer {
+    border: 0;
+    padding: 0rem 1rem 1rem 1rem;
+}
+
+/*
+@media (max-width: 767.98px) {
+    .main .top-row:not(.auth) {
+        display: none;
+    }
+
+    .main .top-row.auth {
+        justify-content: space-between;
+    }
+
+    .main .top-row a, .main .top-row .btn-link {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    app {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .main .top-row {
+        position: sticky;
+        top: 0;
+    }
+
+    .main > div {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    .sidebar .collapse {
+        /* Never collapse the sidebar for wide screens 
+        display: block;
+    }
+}
+    */
+
+
