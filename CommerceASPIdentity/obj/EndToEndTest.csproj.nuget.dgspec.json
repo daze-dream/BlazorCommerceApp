@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {}
+    "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {
+    "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
+        "projectUniqueName": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
         "projectName": "EndToEndTest",
-        "projectPath": "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
+        "projectPath": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
         "packagesPath": "C:\\Users\\Sandy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceASPIdentity\\obj\\",
+        "outputPath": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Sandy\\AppData\\Roaming\\NuGet\\NuGet.Config",

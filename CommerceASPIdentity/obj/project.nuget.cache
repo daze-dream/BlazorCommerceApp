@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qY3BgeAGtzDTGzdDeKiQdJGnwpoJF/5Q7w68U9FXXNvRhxe8MA5MvBb8V+DDniXlTP/v9UD7ZbsHPzkCMbzb9w==",
+  "dgSpecHash": "Pe01QqHXv2ccAt89SkNonbhuEnWFEyrEPlQPT98QUn/DVLobMGoSiTdErNcT8wF8olL3i1crqsJJ82mUzvIPyg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
+  "projectFilePath": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Sandy\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Sandy\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.14\\microsoft.aspnetcore.authorization.3.1.14.nupkg.sha512",
