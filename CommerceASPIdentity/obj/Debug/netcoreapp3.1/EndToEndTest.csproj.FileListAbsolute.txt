@@ -987,6 +987,7 @@ C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\Comme
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Components.Forms.dll
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Metadata.dll
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Microsoft.JSInterop.dll
+<<<<<<< HEAD
 C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authorization.dll
 C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Components.dll
 C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Components.Forms.dll
@@ -994,3 +995,5 @@ C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIde
 C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Microsoft.JSInterop.dll
 C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Notifications.razor.g.cs
 C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Notifications.razor.g.cs
+=======
+>>>>>>> main
