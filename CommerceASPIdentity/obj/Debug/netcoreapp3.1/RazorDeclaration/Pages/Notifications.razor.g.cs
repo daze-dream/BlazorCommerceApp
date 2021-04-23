@@ -75,15 +75,32 @@ using EndToEndTest.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Dashboard")]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Account")]
-    public partial class Dashboard : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Notifications")]
+    public partial class Notifications : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 136 "C:\Users\Sandy\Desktop\Capstone\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+       
+    bool showPopup = false;
+
+    void AddNewNotification()
+    {
+        showPopup = true;
+    }
+
+    void ClosePopup()
+    {
+        showPopup = false;
+    }
+
+#line default
+#line hidden
+#nullable disable
     }
 }
 #pragma warning restore 1591
