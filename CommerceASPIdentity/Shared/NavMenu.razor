@@ -1,12 +1,12 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-dark shadow p-3 mb-5">
-    <a class="navbar-brand" href="/">NotiFi</a>
+    <a class="navbar-brand" href="/">NotiFi <img id="Bank_Logo" src="/Commerce_Logo_White.png"/></a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="@NavMenuCssClass navbar-collapse justify-content-end" @onclick="ToggleNavMenu" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item">
-            <a class="nav-link" aria="page" href="/">About</a>
+                <div class="row align-items-center ml-1"><a class="nav-link" aria="page" href="/">About</a></div>
             </li>
             <LoginDisplay />
         </ul>

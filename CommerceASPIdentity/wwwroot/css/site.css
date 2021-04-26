@@ -29,6 +29,11 @@ h2 {
     font-size: 2.5rem;
 }
 
+h4 {
+    color: var(--Black);
+    font-size: 1.25rem;
+}
+
 h5 {
     font-weight: bold;
     color: var(--DarkGreen);
@@ -45,6 +50,11 @@ h6 {
 n1 {
     font-weight: bold;
     color: var(--Blue);
+}
+
+/* Table: Odd Numbered Rows - Stripe Color*/
+.table.table.table-striped tbody > tr:nth-child(odd) {
+    background-color: rgba(0, 122, 163, 0.15);
 }
 
 /*
@@ -90,6 +100,12 @@ app {
 }
 
 /***************** NAV BAR CSS ********************/
+#Bank_Logo {
+    max-width: 175px;
+    margin: 20px 5px 9px 5px;
+    display:inline-block
+}
+
 .navbar {
     background-color: var(--DarkGreen) !important;
 }
@@ -99,6 +115,7 @@ app {
         font-weight: bold;
         color: var(--White);
         font-family: var(--OpenSans);
+        display: flex;
     }
 
 .nav-item {
@@ -125,6 +142,10 @@ a {
     font-family: var(--Poppins);
     color: var(--White) !important;
     font-size: 22px;
+}
+
+span.oi.oi-bell.ml-3.mr-1  {
+    color: red;
 }
 
 /****************** LOG IN PAGE CSS ****************/
@@ -188,6 +209,8 @@ li::marker {
 
 .validation-message {
     color: red;
+    font-size:18px;
+    font-family:var(--OpenSans);
 }
 
 #blazor-error-ui {
@@ -234,6 +257,35 @@ li::marker {
     background-color: #00678a;
     border-color: var(--YellowOrange);
     border-width: 1.25px;
+}
+
+
+/************** TRANSACTIONS PAGE CSS****************/
+
+thead{
+    background-color: var(--Blue);
+    font-family: var(--OpenSans);
+    color: var(--White);    
+    font-weight: bold;
+}
+
+tbody{
+    font-family: var(--OpenSans);
+}
+
+.modal-content {
+    margin: 25% auto;
+    border: 3px solid var(--Black);
+}
+
+.modal-header {
+    border-bottom: 0;
+    padding: 1rem 1rem 0 1rem;
+}
+
+.modal-footer {
+    border: 0;
+    padding: 0rem 1rem 1rem 1rem;
 }
 
 /*
