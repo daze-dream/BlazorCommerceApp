@@ -67,6 +67,8 @@ namespace EndToEndTest.Data.CommerceDataModels
 
             modelBuilder.Entity<Transactionsmaster>(entity =>
             {
+                entity.Property(e => e.TransactionId).ValueGeneratedNever();
+
                 entity.Property(e => e.Description).IsUnicode(false);
 
                 entity.Property(e => e.LocationState).IsUnicode(false);
