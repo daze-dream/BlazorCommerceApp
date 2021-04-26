@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {}
+    "D:\\Users\\Trevor\\Google Drive\\School\\Spring 2021\\CS456\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {
+    "D:\\Users\\Trevor\\Google Drive\\School\\Spring 2021\\CS456\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
+        "projectUniqueName": "D:\\Users\\Trevor\\Google Drive\\School\\Spring 2021\\CS456\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
         "projectName": "EndToEndTest",
-        "projectPath": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
-        "packagesPath": "C:\\Users\\Sandy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\obj\\",
+        "projectPath": "D:\\Users\\Trevor\\Google Drive\\School\\Spring 2021\\CS456\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
+        "packagesPath": "C:\\Users\\Trevor\\.nuget\\packages\\",
+        "outputPath": "D:\\Users\\Trevor\\Google Drive\\School\\Spring 2021\\CS456\\semester-project-group-5-commerce\\CommerceASPIdentity\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Sandy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Trevor\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -89,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
