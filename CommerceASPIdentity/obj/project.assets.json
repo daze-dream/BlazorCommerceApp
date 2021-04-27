@@ -9139,19 +9139,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sandy\\.nuget\\packages\\": {}
+    "C:\\Users\\degag\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
+      "projectUniqueName": "C:\\Users\\degag\\source\\repos\\commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
       "projectName": "EndToEndTest",
-      "projectPath": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
-      "packagesPath": "C:\\Users\\Sandy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\obj\\",
+      "projectPath": "C:\\Users\\degag\\source\\repos\\commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
+      "packagesPath": "C:\\Users\\degag\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\degag\\source\\repos\\commerce\\CommerceASPIdentity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Sandy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\degag\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9163,7 +9163,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -9175,7 +9174,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Forms": {
             "target": "Package",
@@ -9226,7 +9224,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
