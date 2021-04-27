@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
 <<<<<<< HEAD:CommerceBankWebAppDemo/obj/CommerceBankWebAppDemo.csproj.nuget.dgspec.json
     "C:\\Users\\degag\\Source\\Repos\\UMKC-CS451R-Spring-2021\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\CommerceBankWebAppDemo.csproj": {}
   },
@@ -15,17 +16,24 @@
         "outputPath": "C:\\Users\\degag\\Source\\Repos\\UMKC-CS451R-Spring-2021\\semester-project-group-5-commerce\\CommerceBankWebAppDemo\\obj\\",
 =======
     "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {}
+=======
+    "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {}
+>>>>>>> main
   },
   "projects": {
-    "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {
+    "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
+        "projectUniqueName": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
         "projectName": "EndToEndTest",
-        "projectPath": "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
+        "projectPath": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
         "packagesPath": "C:\\Users\\Sandy\\.nuget\\packages\\",
+<<<<<<< HEAD
         "outputPath": "C:\\Users\\Sandy\\Desktop\\Capstone\\semester-project-group-5-commerce\\CommerceASPIdentity\\obj\\",
 >>>>>>> main:CommerceASPIdentity/obj/EndToEndTest.csproj.nuget.dgspec.json
+=======
+        "outputPath": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\obj\\",
+>>>>>>> main
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\degag\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -55,6 +63,10 @@
 =======
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.AspNetCore.Components.Forms": {
+              "target": "Package",
+              "version": "[3.1.14, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.9, )"
