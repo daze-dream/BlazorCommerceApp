@@ -23,6 +23,7 @@ namespace EndToEndTest.Data.CommerceDataModels
         public virtual DbSet<LocationConstraint> LocationConstraint { get; set; }
         public virtual DbSet<TimeConstraint> TimeConstraint { get; set; }
         public virtual DbSet<Transactionsmaster> Transactionsmaster { get; set; }
+        public virtual DbSet<TriggeredNotif> TriggeredNotif { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
         public virtual DbSet<UserToNotifications> UserToNotifications { get; set; }
         public virtual DbSet<Userstoaccounts> Userstoaccounts { get; set; }
@@ -34,6 +35,8 @@ namespace EndToEndTest.Data.CommerceDataModels
             modelBuilder.Entity<Accounts>(entity =>
             {
                 entity.Property(e => e.AccountId).ValueGeneratedNever();
+
+                entity.Property(e => e.Balance).HasDefaultValueSql("((0.00))");
             });
 
             modelBuilder.Entity<AmountConstraint>(entity =>
@@ -82,6 +85,13 @@ namespace EndToEndTest.Data.CommerceDataModels
                     .HasConstraintName("FK_transactionsmaster_accounts");
             });
 
+            modelBuilder.Entity<TriggeredNotif>(entity =>
+            {
+                entity.Property(e => e.DateAdded).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.TrigNotifId).ValueGeneratedOnAdd();
+            });
+
             modelBuilder.Entity<UserInfo>(entity =>
             {
                 entity.Property(e => e.Additionalname).IsUnicode(false);
@@ -103,11 +113,6 @@ namespace EndToEndTest.Data.CommerceDataModels
                 entity.Property(e => e.Phonenumber).IsUnicode(false);
 
                 entity.Property(e => e.State).IsUnicode(false);
-            });
-
-            modelBuilder.Entity<UserToNotifications>(entity =>
-            {
-                entity.Property(e => e.NotificationId).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Userstoaccounts>(entity =>

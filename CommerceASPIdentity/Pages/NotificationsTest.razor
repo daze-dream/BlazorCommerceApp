@@ -1,0 +1,131 @@
+﻿@page "/notificationtest"
+@using EndToEndTest.Data.CommerceDataModels
+@using Data
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.Data.SqlClient
+@using Microsoft.AspNetCore.Components.Forms
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IHttpContextAccessor HttpContextAccessor
+@*
+    Using OwningComponentBase ensures that the service and related services
+    that share its scope are disposed with the component.
+    Otherwise DbContext in ForecastService will live for the life of the
+    connection, which may be problematic if clients stay
+    connected for a long time.
+    We access WeatherForecastService using @Service
+*@
+@inherits OwningComponentBase<NotificationServices>
+
+<h1>NotificationsTest</h1>
+
+<AuthorizeView>
+    <h2> Amount Constraints</h2>
+    @if (ac == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <p> @ac.Count()</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th> Min </th>
+                    <th> Max </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in ac)
+                {
+                    <tr>
+                        <td>$ @x.Min</td>
+                        <td>$ @x.Max</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    <h2> Time Constraints</h2>
+    @if (tc == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <p> @tc.Count()</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th> Start </th>
+                    <th> End </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in tc)
+                {
+                    <tr>
+                        <td>$ @x.TimeIn</td>
+                        <td>$ @x.TimeOut</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <h2> Location Constraints</h2>
+    @if (lc == null)
+    {
+        <p><em>None</em></p>
+    }
+    else
+    {
+        <p> @lc.Count()</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th> Location </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in lc)
+                {
+                    <tr>
+                        <td>$ @x.Location</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+
+
+</AuthorizeView>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    List<AmountConstraint> ac;
+    List<TimeConstraint> tc;
+    List<LocationConstraint> lc;
+    List<UserToNotifications> notifList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+        notifList = await Service.GetNotifJoinTable(userId);
+        ac = await Service.GetAmountConstraints(notifList);
+        tc = await Service.GetTimeConstraints(notifList);
+        lc = await Service.GetLocationConstraints(notifList);
+    }
+
+    //var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+    //string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+
+
+
+}
