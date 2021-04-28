@@ -47,6 +47,7 @@ namespace EndToEndTest
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             //services.AddSingleton<WeatherForecastService>();
             services.AddScoped<TransactionServices>();
+            services.AddScoped<NotificationServices>();
 
         }
 

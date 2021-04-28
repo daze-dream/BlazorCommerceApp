@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EndToEndTest.Data.CommerceDataModels
 {
-    [Keyless]
     [Table("location_constraint")]
     public partial class LocationConstraint
     {
+        [Key]
         [Column("notificationID")]
         public int NotificationId { get; set; }
         [Required]
@@ -21,6 +21,7 @@ namespace EndToEndTest.Data.CommerceDataModels
         public string Location { get; set; }
 
         [ForeignKey(nameof(NotificationId))]
+        [InverseProperty(nameof(UserToNotifications.LocationConstraint))]
         public virtual UserToNotifications Notification { get; set; }
     }
 }

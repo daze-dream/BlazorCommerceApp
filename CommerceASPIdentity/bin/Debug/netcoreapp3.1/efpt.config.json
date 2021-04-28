@@ -8,6 +8,7 @@
    "ModelNamespace": null,
    "OutputContextPath": null,
    "OutputPath": "Data\\CommerceDataModels",
+   "ProceduresReturnList": false,
    "ProjectRootNamespace": "EndToEndTest",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
@@ -31,6 +32,10 @@
       },
       {
          "Name": "[dbo].[transactionsmaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[triggeredNotif]",
          "ObjectType": 0
       },
       {
