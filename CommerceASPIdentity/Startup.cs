@@ -47,7 +47,7 @@ namespace EndToEndTest
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             //services.AddSingleton<WeatherForecastService>();
             services.AddScoped<TransactionServices>();
-
+            services.AddScoped<TransactionSummary>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

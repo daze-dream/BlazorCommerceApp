@@ -1406,3 +1406,5 @@ C:\Users\degag\source\repos\commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1
 C:\Users\degag\source\repos\commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\EndToEndTest.RazorTargetAssemblyInfo.cs
 C:\Users\degag\source\repos\commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\EndToEndTest.Views.pdb
 C:\Users\degag\source\repos\commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\EndToEndTest.csproj.CopyComplete
+C:\Users\degag\source\repos\commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\TestSummary.razor.g.cs
+C:\Users\degag\source\repos\commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\TestSummary.razor.g.cs
