@@ -1202,3 +1202,5 @@ C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\Comme
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Notifications.razor.g.cs
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\NotificationsTest.razor.g.cs
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\NotificationsTest.razor.g.cs
+C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\NotificationsTest.razor.g.cs
+C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\NotificationsTest.razor.g.cs

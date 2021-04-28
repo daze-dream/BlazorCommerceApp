@@ -9139,19 +9139,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\miste\\.nuget\\packages\\": {}
+    "C:\\Users\\Sandy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\miste\\Desktop\\School Stuff\\CS 451 Capstone\\CommerceApp\\davidhoang\\CommerceASPIdentity\\EndToEndTest.csproj",
+      "projectUniqueName": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
       "projectName": "EndToEndTest",
-      "projectPath": "C:\\Users\\miste\\Desktop\\School Stuff\\CS 451 Capstone\\CommerceApp\\davidhoang\\CommerceASPIdentity\\EndToEndTest.csproj",
-      "packagesPath": "C:\\Users\\miste\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\miste\\Desktop\\School Stuff\\CS 451 Capstone\\CommerceApp\\davidhoang\\CommerceASPIdentity\\obj\\",
+      "projectPath": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
+      "packagesPath": "C:\\Users\\Sandy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Sandy\\Documents\\GitHub\\semester-project-group-5-commerce\\CommerceASPIdentity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\miste\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Sandy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
