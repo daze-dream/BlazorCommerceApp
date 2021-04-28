@@ -28,6 +28,38 @@
     else
     {
         <p> @ac.Count()</p>
+        <p>
+            <!-- Add a rule -->
+            <button class="btn btn-primary" @onclick="AddNewAmountNotif">
+
+                Add new amount rule
+            </button>
+        </p>
+        @if (ShowACPopup)
+        {
+            <div class="modal" tabindex="-1" style="display:block" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Add or editing Amount rule</h3>
+                            <button type="button" class="close" @onclick="ClosePopup"><span aria-hidden="true"></span> X </button>
+                        </div>
+                        <div class="modal-body">
+                            Min
+                            <input class="form-control" type="number" min="0.01" step="0.01" inputmode="decimal"
+                                   placeholder="0.01" @bind="tempAC.Min" />
+                            <br />
+                            Max
+                            <input class="form-control" type="number" min="0.01" step="0.01" inputmode="decimal"
+                                   placeholder="0.01" @bind="tempAC.Max" />
+                            <br />
+                            <!--lambda function to be able to pass parameters in -->
+                            <button class="btn btn-primary" @onclick="() => SaveNotification(tempAC)"> Save </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
         <table class="table">
             <thead>
                 <tr>
@@ -55,6 +87,37 @@
     else
     {
         <p> @tc.Count()</p>
+        <p>
+            <!-- Add a rule -->
+            <button class="btn btn-primary"
+                    @onclick="AddNewTimeNotif">
+                Add new time rule
+            </button>
+        </p>
+        @if (ShowTCPopup)
+        {
+            <div class="modal" tabindex="-1" style="display:block" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Add or editing Time rule</h3>
+                            <button type="button" class="close" @onclick="ClosePopup"><span aria-hidden="true"></span> X </button>
+                        </div>
+                        <div class="modal-body">
+                            Start Time
+                            <input class="form-control" type="time"
+                                   placeholder="Time" @bind="tempMin" />
+                            <br />
+                            End Time
+                            <input class="form-control" type="time"
+                                   placeholder="Time" @bind="tempMax" />
+                            <br />
+                            <button class="btn btn-primary" @onclick="() => SaveNotification(tempTC)"> Save </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
         <table class="table">
             <thead>
                 <tr>
@@ -66,8 +129,8 @@
                 @foreach (var x in tc)
                 {
                     <tr>
-                        <td>$ @x.TimeIn</td>
-                        <td>$ @x.TimeOut</td>
+                        <td>@x.TimeIn</td>
+                        <td>@x.TimeOut</td>
                     </tr>
                 }
             </tbody>
@@ -76,11 +139,38 @@
     <h2> Location Constraints</h2>
     @if (lc == null)
     {
-        <p><em>None</em></p>
+        <p><em>Loading...</em></p>
     }
     else
     {
         <p> @lc.Count()</p>
+        <p>
+            <!-- Add a rule -->
+            <button class="btn btn-primary"
+                    @onclick="AddNewLocationNotif">
+                Add new description rule
+            </button>
+        </p>
+        @if (ShowLCPopup)
+        {
+            <div class="modal" tabindex="-1" style="display:block" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Add or editing Description rule</h3>
+                            <button type="button" class="close" @onclick="ClosePopup"><span aria-hidden="true"></span> X </button>
+                        </div>
+                        <div class="modal-body">
+                            Description 
+                            <input class="form-control" type="text"
+                                   placeholder="enter text here" @bind="tempLC.Location" />
+                            <br />
+                            <button class="btn btn-primary" @onclick="() => SaveNotification(tempLC)"> Save </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
         <table class="table">
             <thead>
                 <tr>
@@ -91,7 +181,7 @@
                 @foreach (var x in lc)
                 {
                     <tr>
-                        <td>$ @x.Location</td>
+                        <td>@x.Location</td>
                     </tr>
                 }
             </tbody>
@@ -111,6 +201,21 @@
     List<LocationConstraint> lc;
     List<UserToNotifications> notifList;
 
+    DateTime tempMin;
+    DateTime tempMax;
+
+    AmountConstraint tempAC = new AmountConstraint();
+    TimeConstraint tempTC = new TimeConstraint();
+    LocationConstraint tempLC = new LocationConstraint();
+
+    bool ShowACPopup = false;
+    bool ShowTCPopup = false;
+    bool ShowLCPopup = false;
+
+    /// <summary>
+    /// Initializes all the appropriate variables to be displayed as soon as the page is loaded
+    /// </summary>
+    /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -125,6 +230,104 @@
     //var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
     //string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
 
+    //Whew...here we go with the jank
+    // prepare yourself
+
+    /// <summary>
+    /// prepares new notification to be added, used in the HTML forms.
+    /// </summary>
+    void AddNewAmountNotif()
+    {
+        tempAC = new AmountConstraint();
+        tempAC.NotificationId = 0;
+        ShowACPopup = true;
+    }
+
+    /// <summary>
+    /// prepares new notification to be added, used in the HTML forms.
+    /// </summary>
+    void AddNewTimeNotif()
+    {
+        tempTC = new TimeConstraint();
+        tempTC.NotificationId = 0;
+        ShowTCPopup = true;
+    }
+
+    /// <summary>
+    /// prepares new notification to be added, used in the HTML forms.
+    /// </summary>
+    void AddNewLocationNotif()
+    {
+        tempLC = new LocationConstraint();
+        tempLC.NotificationId = 0;
+        ShowLCPopup = true;
+    }
+
+
+    /// <summary>
+    /// Prepares new notification to be added, used in the HTML forms. Checks incoming object type to determine what to add.
+    /// Each scenario first adds a new entry to the join table, then to the corresponding table.
+    /// </summary>
+    async Task SaveNotification(object x)
+    {
+        ShowACPopup = false;
+        ShowLCPopup = false;
+        ShowTCPopup = false;
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+        if(x is AmountConstraint)
+        {
+            prepareNewUserToNotifJoinEntry(userId);
+            AmountConstraint newNotif = (AmountConstraint)x;
+            newNotif.Min = tempAC.Min;
+            newNotif.Max = tempAC.Max;
+            newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
+            var result = Service.AddAmountNotification(newNotif);
+
+        }
+        else if(x is TimeConstraint)
+        {
+            prepareNewUserToNotifJoinEntry(userId);
+            TimeConstraint newNotif = (TimeConstraint)x;
+            newNotif.TimeIn = tempMin.TimeOfDay;
+            newNotif.TimeOut = tempMax.TimeOfDay;
+            newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
+
+            var result = Service.AddTimeNotification(newNotif);
+        }
+        else if(x is LocationConstraint)
+        {
+            prepareNewUserToNotifJoinEntry(userId);
+            LocationConstraint newNotif = (LocationConstraint)x;
+            newNotif.Location = tempLC.Location;
+            newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
+
+            var result = Service.AddLocationNotification(newNotif);
+
+        }
+
+        notifList = await Service.GetNotifJoinTable(userId);
+        ac = await Service.GetAmountConstraints(notifList);
+        tc = await Service.GetTimeConstraints(notifList);
+        lc = await Service.GetLocationConstraints(notifList);
+
+
+    }
+
+    void ClosePopup()
+    {
+        ShowACPopup = false;
+        ShowLCPopup = false;
+        ShowTCPopup = false;
+    }
+
+    void prepareNewUserToNotifJoinEntry(string userID)
+    {
+        UserToNotifications newEntry = new UserToNotifications();
+        newEntry.UserId = userID;
+        Service.AddNewUsersToNotifJoinTableEntry(newEntry);
+
+    }
 
 
 

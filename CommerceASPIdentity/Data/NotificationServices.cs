@@ -37,6 +37,22 @@ namespace EndToEndTest
             .ToListAsync();
         }
 
+        /// <summary>
+        /// ONLY TO BE USED WHEN ADDING A NEW NOTIFICATION RULE.
+        /// Gets the most recent notification rule ID that was added in. This is used for the join table to connect with the actual table
+        /// </summary>
+        /// <param name="currUserID"></param>
+        /// <returns>List of NotificationJoin</returns>
+        public async Task<int> GetMostRecentNotifJoinTableRule(string currUserID)
+        {
+           int toReturn =_context.UserToNotifications
+                .Where(x => x.UserId == currUserID)
+                .OrderByDescending(x => x.NotificationId)
+                .ToList()[0].NotificationId;
+            await Task.CompletedTask;
+            return toReturn;
+        }
+
         public async Task<List<UserToNotifications>> GetNotifJoinTable (string currUserID)
         {
             return await _context.UserToNotifications
@@ -112,14 +128,61 @@ namespace EndToEndTest
             return locationConstraints;
         }
 
+        /// <summary>
+        /// Adds a new AmountConstraint notification rule to database context
+        /// </summary>
+        /// <param name="newNotif"></param>
+        /// <returns>true or false from Task</returns>
+        public Task<AmountConstraint> AddAmountNotification(AmountConstraint newNotif)
+        {
+            _context.AmountConstraint.Add(newNotif);
+            _context.SaveChanges();
+            return Task.FromResult(newNotif);
+        }
+
+
+        /// <summary>
+        /// Adds a new TimeConstraint notification rule to database context
+        /// </summary>
+        /// <param name="newNotif"></param>
+        /// <returns>true or false from Task</returns>
+        public Task<TimeConstraint> AddTimeNotification(TimeConstraint newNotif)
+        {
+            _context.TimeConstraint.Add(newNotif);
+            _context.SaveChanges();
+            return Task.FromResult(newNotif);
+        }
+
+
+        /// <summary>
+        /// Adds a new LocationConstraint notification rule to database context
+        /// </summary>
+        /// <param name="newNotif"></param>
+        /// <returns>true or false from Task</returns>
+        public Task<LocationConstraint> AddLocationNotification(LocationConstraint newNotif)
+        {
+            _context.LocationConstraint.Add(newNotif);
+            _context.SaveChanges();
+            return Task.FromResult(newNotif);
+        }
 
 
 
+        public Task<bool> AddNewUsersToNotifJoinTableEntry(UserToNotifications x)
+        {
+            _context.UserToNotifications.Add(x);
+            int result = _context.SaveChanges();
+            if(result > 0)
+            {
+                return Task.FromResult(true);
+            }
+            else
+            {
+                return Task.FromResult(false);
+            }
+            
 
-
-
-
-
+        }
 
 
     }
