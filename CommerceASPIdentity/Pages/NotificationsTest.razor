@@ -55,6 +55,10 @@
                             <br />
                             <!--lambda function to be able to pass parameters in -->
                             <button class="btn btn-primary" @onclick="() => SaveNotification(tempAC)"> Save </button>
+                            @if(tempAC.NotificationId > 0)
+                        {
+                            <button class=" = 'btn btn-primary" @onclick="() => DeleteNotif(tempAC)">Delete</button>
+                        }
                         </div>
                     </div>
                 </div>
@@ -73,6 +77,9 @@
                     <tr>
                         <td>$ @x.Min</td>
                         <td>$ @x.Max</td>
+                        <td>
+                            <button class="btn btn-primary" @onclick="() => EditNotif(x)">Edit</button>
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -113,6 +120,10 @@
                                    placeholder="Time" @bind="tempMax" />
                             <br />
                             <button class="btn btn-primary" @onclick="() => SaveNotification(tempTC)"> Save </button>
+                            @if (tempTC.NotificationId > 0)
+                            {
+                                <button class=" = 'btn btn-primary" @onclick="() => DeleteNotif(tempTC)">Delete</button>
+                            }
                         </div>
                     </div>
                 </div>
@@ -128,10 +139,13 @@
             <tbody>
                 @foreach (var x in tc)
                 {
-                    <tr>
-                        <td>@x.TimeIn</td>
-                        <td>@x.TimeOut</td>
-                    </tr>
+                <tr>
+                    <td>@x.TimeIn</td>
+                    <td>@x.TimeOut</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditNotif(x)">Edit</button>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -161,11 +175,15 @@
                             <button type="button" class="close" @onclick="ClosePopup"><span aria-hidden="true"></span> X </button>
                         </div>
                         <div class="modal-body">
-                            Description 
+                            Description
                             <input class="form-control" type="text"
                                    placeholder="enter text here" @bind="tempLC.Location" />
                             <br />
                             <button class="btn btn-primary" @onclick="() => SaveNotification(tempLC)"> Save </button>
+                            @if (tempLC.NotificationId > 0)
+                            {
+                                <button class=" = 'btn btn-primary" @onclick="() => DeleteNotif(tempLC)">Delete</button>
+                            }
                         </div>
                     </div>
                 </div>
@@ -180,9 +198,12 @@
             <tbody>
                 @foreach (var x in lc)
                 {
-                    <tr>
-                        <td>@x.Location</td>
-                    </tr>
+                <tr>
+                    <td>@x.Location</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditNotif(x)">Edit</button>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -249,6 +270,8 @@
     void AddNewTimeNotif()
     {
         tempTC = new TimeConstraint();
+        tempMin = new DateTime();
+        tempMax = new DateTime();
         tempTC.NotificationId = 0;
         ShowTCPopup = true;
     }
@@ -277,34 +300,79 @@
         string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
         if(x is AmountConstraint)
         {
-            prepareNewUserToNotifJoinEntry(userId);
-            AmountConstraint newNotif = (AmountConstraint)x;
-            newNotif.Min = tempAC.Min;
-            newNotif.Max = tempAC.Max;
-            newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
-            var result = Service.AddAmountNotification(newNotif);
+            if (tempAC.NotificationId == 0)
+            {
+                prepareNewUserToNotifJoinEntry(userId);
+                AmountConstraint newNotif = (AmountConstraint)x;
+                newNotif.Min = tempAC.Min;
+                newNotif.Max = tempAC.Max;
+                newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
+                var result = Service.AddAmountNotification(newNotif);
+            }
+            else
+            {
+                var result = Service.updateNotificationsAsync(tempAC);
+            }
 
         }
         else if(x is TimeConstraint)
         {
-            prepareNewUserToNotifJoinEntry(userId);
-            TimeConstraint newNotif = (TimeConstraint)x;
-            newNotif.TimeIn = tempMin.TimeOfDay;
-            newNotif.TimeOut = tempMax.TimeOfDay;
-            newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
+            if (tempTC.NotificationId == 0)
+            {
+                prepareNewUserToNotifJoinEntry(userId);
+                TimeConstraint newNotif = (TimeConstraint)x;
+                newNotif.TimeIn = tempMin.TimeOfDay;
+                newNotif.TimeOut = tempMax.TimeOfDay;
+                newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
 
-            var result = Service.AddTimeNotification(newNotif);
+                var result = Service.AddTimeNotification(newNotif);
+            }
+            else
+            {
+                tempTC.TimeIn = tempMin.TimeOfDay;
+                tempTC.TimeOut = tempMax.TimeOfDay;
+                var result = Service.updateNotificationsAsync(tempTC);
+
+            }
         }
         else if(x is LocationConstraint)
         {
-            prepareNewUserToNotifJoinEntry(userId);
-            LocationConstraint newNotif = (LocationConstraint)x;
-            newNotif.Location = tempLC.Location;
-            newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
+            if (tempLC.NotificationId == 0)
+            {
+                prepareNewUserToNotifJoinEntry(userId);
+                LocationConstraint newNotif = (LocationConstraint)x;
+                newNotif.Location = tempLC.Location;
+                newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
 
-            var result = Service.AddLocationNotification(newNotif);
+                var result = Service.AddLocationNotification(newNotif);
+            }
+            else
+            {
+                var result = Service.updateNotificationsAsync(tempLC);
+
+            }
 
         }
+
+        notifList = await Service.GetNotifJoinTable(userId);
+        ac = await Service.GetAmountConstraints(notifList);
+        tc = await Service.GetTimeConstraints(notifList);
+        lc = await Service.GetLocationConstraints(notifList);
+
+
+    }
+
+    async Task DeleteNotif(object notif)
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+        ShowACPopup = false;
+        ShowTCPopup = false;
+        ShowLCPopup = false;
+
+        var result = Service.DeleteNotificationAsync(notif);
+
 
         notifList = await Service.GetNotifJoinTable(userId);
         ac = await Service.GetAmountConstraints(notifList);
@@ -328,6 +396,29 @@
         Service.AddNewUsersToNotifJoinTableEntry(newEntry);
 
     }
+
+    void EditNotif(object notif)
+    {
+        if(notif is AmountConstraint)
+        {
+            tempAC = (AmountConstraint)notif;
+            ShowACPopup = true;
+        }
+        else if(notif is TimeConstraint)
+        {
+            tempTC = (TimeConstraint)notif;
+            tempMin = Convert.ToDateTime(tempTC.TimeIn.ToString());
+            tempMax = Convert.ToDateTime( tempTC.TimeOut.ToString());
+
+            ShowTCPopup = true;
+        }
+        else if (notif is LocationConstraint)
+        {
+            tempLC = (LocationConstraint)notif;
+            ShowLCPopup = true;
+        }
+    }
+
 
 
 

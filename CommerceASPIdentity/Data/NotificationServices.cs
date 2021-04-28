@@ -184,6 +184,110 @@ namespace EndToEndTest
 
         }
 
+        public Task<bool> updateNotificationsAsync(object notif)
+        {
+            if(notif is AmountConstraint)
+            {
+                AmountConstraint castedNotif = (AmountConstraint)notif;
+                var existingNotif = _context.AmountConstraint
+                    .Where(x => x.NotificationId == castedNotif.NotificationId)
+                    .FirstOrDefault();
+                if(existingNotif != null)
+                {
+                    existingNotif.Min = castedNotif.Min;
+                    existingNotif.Max = castedNotif.Max;
+                    _context.SaveChanges();
+                }
+                else return Task.FromResult(false);
+            }
+            else if(notif is TimeConstraint)
+            {
+                TimeConstraint castedNotif = (TimeConstraint)notif;
+                var existingNotif = _context.TimeConstraint
+                    .Where(x => x.NotificationId == castedNotif.NotificationId)
+                    .FirstOrDefault();
+                if (existingNotif != null)
+                {
+                    existingNotif.TimeIn = castedNotif.TimeIn;
+                    existingNotif.TimeOut = castedNotif.TimeOut;
+                    _context.SaveChanges();
+                }
+                else return Task.FromResult(false);
 
+            }
+            else if (notif is LocationConstraint)
+            {
+                LocationConstraint castedNotif = (LocationConstraint)notif;
+                var existingNotif = _context.LocationConstraint
+                    .Where(x => x.NotificationId == castedNotif.NotificationId)
+                    .FirstOrDefault();
+                if (existingNotif != null)
+                {
+                    existingNotif.Location = castedNotif.Location;
+                    _context.SaveChanges();
+                }
+                else return Task.FromResult(false);
+            }
+
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> DeleteNotificationAsync(object notif)
+        {
+            if (notif is AmountConstraint)
+            {
+                AmountConstraint castedNotif = (AmountConstraint)notif;
+                var existingNotif = _context.AmountConstraint
+                    .Where(x => x.NotificationId == castedNotif.NotificationId)
+                    .FirstOrDefault();
+                var existingJoin = _context.UserToNotifications
+                    .Where(y => y.NotificationId == castedNotif.NotificationId)
+                    .FirstOrDefault();
+                if (existingNotif != null)
+                {
+                    _context.AmountConstraint.Remove(existingNotif);
+                    _context.UserToNotifications.Remove(existingJoin);
+                    _context.SaveChanges();
+                }
+                else return Task.FromResult(false);
+            }
+            else if (notif is TimeConstraint)
+            {
+                TimeConstraint castedNotif = (TimeConstraint)notif;
+                var existingNotif = _context.TimeConstraint
+                    .Where(x => x.NotificationId == castedNotif.NotificationId)
+                    .FirstOrDefault();
+                var existingJoin = _context.UserToNotifications
+                    .Where(y => y.NotificationId == castedNotif.NotificationId)
+                    .FirstOrDefault();
+                if (existingNotif != null)
+                {
+                    _context.TimeConstraint.Remove(existingNotif);
+                    _context.UserToNotifications.Remove(existingJoin);
+                    _context.SaveChanges();
+                }
+                else return Task.FromResult(false);
+
+            }
+            else if (notif is LocationConstraint)
+            {
+                LocationConstraint castedNotif = (LocationConstraint)notif;
+                var existingNotif = _context.LocationConstraint
+                    .Where(x => x.NotificationId == castedNotif.NotificationId)
+                    .FirstOrDefault();
+                var existingJoin = _context.UserToNotifications
+                    .Where(y => y.NotificationId == castedNotif.NotificationId)
+                    .FirstOrDefault();
+                if (existingNotif != null)
+                {
+                    _context.LocationConstraint.Remove(existingNotif);
+                    _context.UserToNotifications.Remove(existingJoin);
+                    _context.SaveChanges();
+                }
+                else return Task.FromResult(false);
+            }
+
+            return Task.FromResult(true);
+        }
     }
 }
