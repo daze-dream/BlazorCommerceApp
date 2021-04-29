@@ -34,13 +34,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-using Microsoft.AspNetCore.Components.Forms;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 5 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
@@ -75,8 +68,57 @@ using EndToEndTest.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+using EndToEndTest.Data.CommerceDataModels;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+using Data;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+using EndToEndTest.Components;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+using System.Security.Claims;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+using Microsoft.AspNetCore.Http;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+using Microsoft.Data.SqlClient;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+using Microsoft.AspNetCore.Components.Forms;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Notifications")]
-    public partial class Notifications : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Notifications : OwningComponentBase<NotificationServices>
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -84,23 +126,249 @@ using EndToEndTest.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 136 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+#line 266 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
        
     bool showPopup = false;
+    Type selectedType = typeof(NotificationDesc);
+
+    public void onChange(ChangeEventArgs changeEventArgs)
+    {
+        selectedType = Type.GetType($"EndToEndTest.Components.{changeEventArgs.Value}");
+    }
 
     void AddNewNotification()
     {
         showPopup = true;
     }
 
-    void ClosePopup()
+    void ClosePopupOriginal()
     {
         showPopup = false;
+    }
+
+
+
+
+
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    List<AmountConstraint> ac;
+    List<TimeConstraint> tc;
+    List<LocationConstraint> lc;
+    List<UserToNotifications> notifList;
+
+    DateTime tempMin;
+    DateTime tempMax;
+
+    AmountConstraint tempAC = new AmountConstraint();
+    TimeConstraint tempTC = new TimeConstraint();
+    LocationConstraint tempLC = new LocationConstraint();
+
+    bool ShowACPopup = false;
+    bool ShowTCPopup = false;
+    bool ShowLCPopup = false;
+
+    /// <summary>
+    /// Initializes all the appropriate variables to be displayed as soon as the page is loaded
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+        notifList = await Service.GetNotifJoinTable(userId);
+        ac = await Service.GetAmountConstraints(notifList);
+        tc = await Service.GetTimeConstraints(notifList);
+        lc = await Service.GetLocationConstraints(notifList);
+    }
+
+    //var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+    //string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+    //Whew...here we go with the jank
+    // prepare yourself
+
+    /// <summary>
+    /// prepares new notification to be added, used in the HTML forms.
+    /// </summary>
+    void AddNewAmountNotif()
+    {
+        tempAC = new AmountConstraint();
+        tempAC.NotificationId = 0;
+        ShowACPopup = true;
+    }
+
+    /// <summary>
+    /// prepares new notification to be added, used in the HTML forms.
+    /// </summary>
+    void AddNewTimeNotif()
+    {
+        tempTC = new TimeConstraint();
+        tempMin = new DateTime();
+        tempMax = new DateTime();
+        tempTC.NotificationId = 0;
+        ShowTCPopup = true;
+    }
+
+    /// <summary>
+    /// prepares new notification to be added, used in the HTML forms.
+    /// </summary>
+    void AddNewLocationNotif()
+    {
+        tempLC = new LocationConstraint();
+        tempLC.NotificationId = 0;
+        ShowLCPopup = true;
+    }
+
+
+    /// <summary>
+    /// Prepares new notification to be added, used in the HTML forms. Checks incoming object type to determine what to add.
+    /// Each scenario first adds a new entry to the join table, then to the corresponding table.
+    /// </summary>
+    async Task SaveNotification(object x)
+    {
+        ShowACPopup = false;
+        ShowLCPopup = false;
+        ShowTCPopup = false;
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+        if (x is AmountConstraint)
+        {
+            if (tempAC.NotificationId == 0)
+            {
+                prepareNewUserToNotifJoinEntry(userId);
+                AmountConstraint newNotif = (AmountConstraint)x;
+                newNotif.Min = tempAC.Min;
+                newNotif.Max = tempAC.Max;
+                newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
+                var result = Service.AddAmountNotification(newNotif);
+            }
+            else
+            {
+                var result = Service.updateNotificationsAsync(tempAC);
+            }
+
+        }
+        else if (x is TimeConstraint)
+        {
+            if (tempTC.NotificationId == 0)
+            {
+                prepareNewUserToNotifJoinEntry(userId);
+                TimeConstraint newNotif = (TimeConstraint)x;
+                newNotif.TimeIn = tempMin.TimeOfDay;
+                newNotif.TimeOut = tempMax.TimeOfDay;
+                newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
+
+                var result = Service.AddTimeNotification(newNotif);
+            }
+            else
+            {
+                tempTC.TimeIn = tempMin.TimeOfDay;
+                tempTC.TimeOut = tempMax.TimeOfDay;
+                var result = Service.updateNotificationsAsync(tempTC);
+
+            }
+        }
+        else if (x is LocationConstraint)
+        {
+            if (tempLC.NotificationId == 0)
+            {
+                prepareNewUserToNotifJoinEntry(userId);
+                LocationConstraint newNotif = (LocationConstraint)x;
+                newNotif.Location = tempLC.Location;
+                newNotif.NotificationId = await Service.GetMostRecentNotifJoinTableRule(userId);
+
+                var result = Service.AddLocationNotification(newNotif);
+            }
+            else
+            {
+                var result = Service.updateNotificationsAsync(tempLC);
+
+            }
+
+        }
+
+        notifList = await Service.GetNotifJoinTable(userId);
+        ac = await Service.GetAmountConstraints(notifList);
+        tc = await Service.GetTimeConstraints(notifList);
+        lc = await Service.GetLocationConstraints(notifList);
+
+
+    }
+
+    // Deleting a notification based on the passed in parameter
+    // Should add another DeleteNotif with a parameter for a list of objects, that way we can loop multiple objects
+    //  for deletion.
+    async Task DeleteNotif(object notif)
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+        ShowACPopup = false;
+        ShowTCPopup = false;
+        ShowLCPopup = false;
+
+        var result = Service.DeleteNotificationAsync(notif);
+
+        notifList = await Service.GetNotifJoinTable(userId);
+        ac = await Service.GetAmountConstraints(notifList);
+        tc = await Service.GetTimeConstraints(notifList);
+        lc = await Service.GetLocationConstraints(notifList);
+    }
+
+    // Close any type nptification pop up.
+    void ClosePopup()
+    {
+        ShowACPopup = false;
+        ShowLCPopup = false;
+        ShowTCPopup = false;
+    }
+
+    void prepareNewUserToNotifJoinEntry(string userID)
+    {
+        UserToNotifications newEntry = new UserToNotifications();
+        newEntry.UserId = userID;
+        Service.AddNewUsersToNotifJoinTableEntry(newEntry);
+
+    }
+
+    string revertDateTime(TimeSpan theDateTime)
+    {
+        DateTime time = DateTime.Today.Add(theDateTime);
+        string convertedTime = time.ToString("h:mm tt");
+        //return temp2;
+        return convertedTime;
+    }
+
+    void EditNotif(object notif)
+    {
+        if (notif is AmountConstraint)
+        {
+            tempAC = (AmountConstraint)notif;
+            ShowACPopup = true;
+        }
+        else if (notif is TimeConstraint)
+        {
+            tempTC = (TimeConstraint)notif;
+            tempMin = Convert.ToDateTime(tempTC.TimeIn.ToString());
+            tempMax = Convert.ToDateTime(tempTC.TimeOut.ToString());
+
+            ShowTCPopup = true;
+        }
+        else if (notif is LocationConstraint)
+        {
+            tempLC = (LocationConstraint)notif;
+            ShowLCPopup = true;
+        }
     }
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IHttpContextAccessor HttpContextAccessor { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

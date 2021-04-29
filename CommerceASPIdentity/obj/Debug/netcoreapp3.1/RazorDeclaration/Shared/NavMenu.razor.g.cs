@@ -83,16 +83,16 @@ using EndToEndTest.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 17 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Shared\NavMenu.razor"
+#line 15 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Shared\NavMenu.razor"
        
-      private bool collapseNavMenu = true;
+    private bool collapseNavMenu = true;
 
-      private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-      private void ToggleNavMenu()
-      {
-          collapseNavMenu = !collapseNavMenu;
-      }
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
 
 #line default
 #line hidden

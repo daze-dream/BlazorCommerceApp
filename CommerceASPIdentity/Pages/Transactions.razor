@@ -1,9 +1,6 @@
 ﻿@page "/Transactions"
 @using EndToEndTest.Data.CommerceDataModels
-@using Data
-@using System.Security.Claims
 @using Microsoft.AspNetCore.Http;
-@using Microsoft.Data.SqlClient
 @using Microsoft.AspNetCore.Components.Forms
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
@@ -15,7 +12,7 @@
     connected for a long time.
     We access WeatherForecastService using @Service
 *@
-@inherits OwningComponentBase<TransactionServices> 
+@inherits OwningComponentBase<TransactionServices>
 
 <AuthorizeView>
     <Authorized Context="Auth">
@@ -26,7 +23,7 @@
 
         <div class="container mt-3">
             <div class="row">
-                @if (usersBankAccount == null) // IF THERE IS NO USER, THERE IS NO BALANCE
+                @if (usersBankAccount == null)
                 {
                     <div class="col-7 my-auto">
                         Available Balance: --
@@ -37,7 +34,7 @@
                         </button>
                     </div>
                 }
-                else // ELSE, DISPLAY BALANCE
+                else
                 {
                     <div class="col-7">
                         Avalible Balance: $@usersBankAccount[0].Balance
@@ -53,141 +50,137 @@
 
 
         <div class="container mt-5">
-        @if (transactionsList == null) // IF THERE ARE NO TRANSACTIONS, THEN LIST NO TRAN
-        {
-            <p><em>There are no transactions to display.</em></p>
-        }
-        else // ELSE, DISPLAY TRANSACTIONS
-        {
-            <table class="table shadow table-borderless table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Description</th>
-                        <th>Location</th>
-                        <th>Balance</th>
-                    </tr>
-                </thead>
-                <tbody>
-                     @foreach (var x in transactionsList)
-                     {
-                    <tr>
-                        <td> @x.TransactionId.ToString()</td>
-                        <td> @x.Transactiondate.ToString("MM/dd/yyyy hh:mm tt")</td>
-                        <td> $@x.Transactionamount</td>
-                        <td> @x.Description</td>
-                        <td> @x.LocationState</td>
-                        <td> @usersBankAccount[0].Balance</td>
-                        <!-- Need to fix Balance -- Is there a column in the database that has this information? -->
-                    </tr>
-                         }
-                </tbody>
-            </table>
-        }
-        </div>
-        
-
-            @if (showPopup)
+            @if (transactionsList == null)
             {
-                <div class="modal" tabindex="-1" style="display:block" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
+                <p><em>There are no transactions to display.</em></p>
+            }
+            else
+            {
+                <table class="table shadow table-borderless table-striped">
+                    <thead>
+                        <tr>
+                            <!--<th>ID</th>                                      Is the ID required in the web application? -->
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Location</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Balance</td>
+                            <td></td>
+                            <td>$@transactionsList[0].Openingbalance</td>
+                        </tr>
+                        @foreach (var x in transactionsList)
+                        {
+                            <tr>
+                                <!--<td> @x.TransactionId.ToString()</td>               Is the ID required in the web application? -->
+                                <td> @x.Transactiondate.ToString("MM/dd/yyyy") <span id="timeformat">@x.Transactiondate.ToString("h:mm tt")</span></td>
+                                <td> $@x.Transactionamount</td>
+                                <td> @x.Description</td>
+                                <td> @x.LocationState</td>
+                                <td>
+                                    $@getBalance(x.Openingbalance, @x.Transactionamount)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
 
-                                <div class="modal-header">
-                                    <h5 class="col-12 modal-title text-center">ADD TRANSACTION</h5>
+
+        @if (showPopup)
+        {
+            <div class="modal" tabindex="-1" style="display:block" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="col-12 modal-title text-center">ADD TRANSACTION</h5>
+                        </div>
+                        <EditForm Model="objTransactionsmaster" OnValidSubmit="SaveTransaction">
+                            <DataAnnotationsValidator />
+                            <div class="modal-body">
+                                <hr class="solid custom_hr_solid mb-3" />
+                                <div class="container-fluid">
+
+                                    <div class="row mt-2 align-items-center">
+                                        <div class="col-6">
+                                            Transaction Type
+                                        </div>
+                                        <div class="col-6">
+                                            <select @bind="objTransactionsmaster.Transactiontype">
+                                                <option hidden disabled selected></option>
+                                                <option value=@credit>Deposit</option>
+                                                <option value=@debit>Withdrawal</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2 align-items-center">
+                                        <div class="col-3">
+                                            Amount
+                                        </div>
+                                        <div class="col-9">
+                                            <table>
+                                                <tr>
+                                                    <td>$</td>
+                                                    <td>
+                                                        <input class="form-control" type="number" min="0.01" step="0.01" inputmode="decimal"
+                                                               placeholder="0.01" @bind="objTransactionsmaster.Transactionamount" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2 align-items-center">
+                                        <div class="col-4">
+                                            Description
+                                        </div>
+                                        <div class="col-8">
+                                            <input class="form-control" type="text"
+                                                   @bind="objTransactionsmaster.Description" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2 align-items-center">
+                                        <div class="col-3">
+                                            Location
+                                        </div>
+                                        <div class="col-9">
+                                            <select class="form-control" id="exampleFormControlSelect1" @bind="objTransactionsmaster.LocationState">
+                                                <option hidden disabled selected></option>
+                                                @foreach (var item in allStates)
+                                                {
+                                                    <option value="@item.Abbrev">@item.Abbrev</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <EditForm Model="objTransactionsmaster" OnValidSubmit="SaveTransaction">
-                                        <DataAnnotationsValidator />
-                                        <div class="modal-body">
-                                            <hr class="solid custom_hr_solid mb-3" />
-                                            <div class="container-fluid">
+                                <div class="row mt-4 align-items-center">
+                                    <ValidationSummary />
+                                </div>
+                            </div>
 
-                                                <div class="row mt-2 align-items-center">
-                                                    <div class="col-6">
-                                                        Transaction Type
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <select @bind="objTransactionsmaster.Transactiontype">
-                                                            <option hidden disabled selected value> -- select -- </option>
-                                                            <option value=@credit>Deposit</option>
-                                                            <option value=@debit>Withdrawal</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+                            <div class="modal-footer">
+                                <button class="primary_button" type="submit">
+                                    Add
+                                </button>
+                                <button class="primary_button ml-auto" @onclick="ClosePopup">
+                                    Cancel
+                                </button>
+                            </div>
 
-                                                <!-- NO NEED TO ADD DATE or TIME FIELD. THIS IS AUTO GENERATED.
-                <div class="row mt-2 align-items-center">
-                <div class="col-2">
-                    Date
-                </div>
-                <div class="col-10">
-                    <input type="date" @bind="theDate" @bind:format="yyyy-MM-dd" />
+                        </EditForm>
+                    </div>
                 </div>
             </div>
-                -->
-
-                                                <div class="row mt-2 align-items-center">
-                                                    <div class="col-3">
-                                                        Amount
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <table>
-                                                            <tr>
-                                                                <td>$</td>
-                                                                <td>
-                                                                    <input class="form-control" type="number" min="0.01" step="0.01" inputmode="decimal"
-                                                                           placeholder="0.01" @bind="objTransactionsmaster.Transactionamount" />
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2 align-items-center">
-                                                    <div class="col-4">
-                                                        Description
-                                                    </div>
-                                                    <div class="col-8">
-                                                        <input class="form-control" type="text"
-                                                               @bind="objTransactionsmaster.Description" />
-                                                       
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2 align-items-center">
-                                                    <div class="col-3">
-                                                        Location
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <select class="form-control" id="exampleFormControlSelect1" @bind="objTransactionsmaster.LocationState">
-                                                            <option hidden disabled selected value> -- select -- </option>
-                                                            @foreach (var item in allStates)
-                                                            {
-                                                    <option value="@item.Abbrev">@item.Abbrev</option>
-}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-4 align-items-center">
-                                            <ValidationSummary />
-                                                </div>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button class="primary_button" type="submit">
-                                                Add
-                                            </button>
-                                            <button class="primary_button ml-auto" @onclick="ClosePopup">
-                                                Cancel
-                                            </button>
-                                        </div>
-
-                                </EditForm>
-                            </div>
-                        </div>
-                </div>
-            }
+        }
     </Authorized>
     <NotAuthorized>
         <div class="container mt-5">
@@ -212,7 +205,7 @@
     public class States { public string Abbrev { get; set; } };
     // THINK ABOUT CREATING SEPERATE MODEL OF THIS LIST OF STATES - BUT MAYBE NOT, ONLY NEEDED IN THIS PAGE. DOES NOT NEED TO BE SHARED.
     List<States> allStates = new List<States>
-    {
+{
         new States() {Abbrev= "AL"}, new States() {Abbrev= "AK"}, new States() {Abbrev= "AZ"},
         new States() {Abbrev= "AR"}, new States() {Abbrev= "CA"}, new States() {Abbrev= "CO"},
         new States() {Abbrev= "CT"}, new States() {Abbrev= "DC"}, new States() {Abbrev= "DE"},
@@ -232,8 +225,13 @@
         new States() {Abbrev= "WV"}, new States() {Abbrev= "WI"}, new States() {Abbrev= "WY"}
     };
 
+    private decimal getBalance(decimal? thebal, decimal amount)
+    {
+        return ((Convert.ToDecimal(thebal)) + amount);
+    }
 
-    /// <summary>get the transactions when loading in the page </summary> 
+
+    /// <summary>get the transactions when loading in the page </summary>
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -242,7 +240,7 @@
         transactionsList = await Service.GetTransactions(userId);
         usersBankAccount = await Service.GetAccount(userId);
     }
-    /// <summary>bool to open and close the Transaction popup</summary> 
+    /// <summary>bool to open and close the Transaction popup</summary>
     void ClosePopup()
     {
         showPopup = false;
@@ -256,6 +254,7 @@
         objTransactionsmaster.TransactionId = 0;
         showPopup = true;
     }
+
     /// <summary>
     /// creates the final transaction and saves it to the server. Then, refreshes the view to update the account and transactions view
     /// </summary>

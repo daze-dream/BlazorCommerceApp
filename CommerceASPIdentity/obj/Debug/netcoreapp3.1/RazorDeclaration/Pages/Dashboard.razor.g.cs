@@ -75,6 +75,27 @@ using EndToEndTest.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 1 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+using C1.Chart;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+using C1.Blazor.Chart;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+using C1.Blazor.Chart.Interaction;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Dashboard")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Account")]
     public partial class Dashboard : Microsoft.AspNetCore.Components.ComponentBase
@@ -84,6 +105,75 @@ using EndToEndTest.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 148 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+       
+
+
+
+    private bool displayManage = false;
+    private bool displayNotification = false;
+    private bool displayDate = false;
+
+    private string manageDropDown => displayManage ? "d-block" : null;
+    private string notificationDropDown => displayNotification ? "d-block" : null;
+    private string dateDropDown => displayDate ? "d-block" : null;
+
+    private void ToggleManageDropDown()
+    {
+        displayManage = !displayManage;
+    }
+    private void ToggleNotificationDropDown()
+    {
+        displayNotification = !displayNotification;
+    }
+    private void ToggleDateDropDown()
+    {
+        displayDate = !displayDate;
+    }
+
+
+
+    LineMarkerInteraction[] actions = new LineMarkerInteraction[] { LineMarkerInteraction.None, LineMarkerInteraction.Move, LineMarkerInteraction.Drag };
+    LineMarkerInteraction? action = LineMarkerInteraction.Move;
+
+    string content = "<div style='padding:6px;border:1px solid darkgrey;background:#f0f0f0;'>{x:MMM-dd}<br># of Notifications: {y}</div>";
+    string redLine = "fill:rgba(227, 0, 0, 1);stroke:rgba(227, 0, 0, 1);stroke-width:3";
+    string blueLine = "fill:rgba(0, 122, 163, 1);stroke:rgba(0, 122, 163, 1);stroke-width:3";
+    string greenLine = "fill:rgba(79, 168, 0, 1);stroke:rgba(79, 168, 0, 1);stroke-width:3";
+
+    List<object>
+    notif1 = DataSource.getData();
+    List<object>
+        notif2 = DataSource.getData();
+    List<object>
+        notif3 = DataSource.getData();
+
+    // Dummy Data for Chart
+    public class DataSource
+    {
+        public static List<object>
+            getData()
+        {
+            var rng = new Random();
+            return new List<object>
+                ()
+                {
+
+                    new {date = new DateTime(2021, 1, 26), notificationcount = rng.Next(0, 15)},
+                    new {date = new DateTime(2021, 2, 1), notificationcount = rng.Next(0, 15)},
+                    new {date = new DateTime(2021, 3, 1), notificationcount = rng.Next(0, 15)},
+                    new {date = new DateTime(2021, 3, 20), notificationcount = rng.Next(0, 15)},
+                    new {date = new DateTime(2021, 4, 21), notificationcount = rng.Next(0, 15)},
+                    new {date = new DateTime(2021, 4, 26), notificationcount = rng.Next(0, 15)},
+                    new {date = new DateTime(2021, 4, 27), notificationcount = rng.Next(0, 15)}
+                    };
+        }
+    }
+
+#line default
+#line hidden
+#nullable disable
     }
 }
 #pragma warning restore 1591

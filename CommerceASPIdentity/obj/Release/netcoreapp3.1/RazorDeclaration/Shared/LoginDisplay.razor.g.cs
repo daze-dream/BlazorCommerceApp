@@ -34,13 +34,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-using Microsoft.AspNetCore.Components.Forms;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 5 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
@@ -83,20 +76,77 @@ using System.Security.Claims;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Shared\LoginDisplay.razor"
+#line 3 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Shared\LoginDisplay.razor"
+using EndToEndTest.Data.CommerceDataModels;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Shared\LoginDisplay.razor"
+using Data;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Shared\LoginDisplay.razor"
 using Microsoft.AspNetCore.Http;
 
 #line default
 #line hidden
 #nullable disable
-    public partial class LoginDisplay : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 6 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Shared\LoginDisplay.razor"
+using Microsoft.Data.SqlClient;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Shared\LoginDisplay.razor"
+using Microsoft.AspNetCore.Components.Forms;
+
+#line default
+#line hidden
+#nullable disable
+    public partial class LoginDisplay : OwningComponentBase<TransactionSummary>
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 72 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Shared\LoginDisplay.razor"
+       
+    public List<Transactionsmaster> transactionsList;
+    public Dictionary<String, decimal> transDesc;
+    private string displayBell = "d-none";
+
+    private void displayNotifBell()
+    {
+        if (displayBell == "d-block")
+        {
+            displayBell = "d-none";
+        }
+        else displayBell = "d-block";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userID = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+        transactionsList = await Service.GetRecentTransaction(userID);
+        transDesc = await Service.getTransactionDescription(userID);
+    }
+
+#line default
+#line hidden
+#nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IHttpContextAccessor HttpContextAccessor { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591
