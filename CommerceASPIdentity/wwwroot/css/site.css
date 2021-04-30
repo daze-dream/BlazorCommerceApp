@@ -148,6 +148,10 @@ app {
     text-align: left;
 }
 
+.amount-con {
+    width:40%;
+}
+
 /***************** NAV BAR CSS ********************/
 #Bank_Logo {
     max-width: 175px;
@@ -335,6 +339,10 @@ tbody{
 .modal-footer {
     border: 0;
     padding: 0rem 1rem 1rem 1rem;
+}
+
+.custom-modal {
+    margin-top: 15% !important;
 }
 
 

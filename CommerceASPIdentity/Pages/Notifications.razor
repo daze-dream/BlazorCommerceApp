@@ -29,7 +29,7 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-7 my-auto">
-                    <p>Total Notifications: </p>
+                    <p>Total Notifications: @returnCount() </p>
                 </div>
                 <div class="col-5">
                     <table class="float-right">
@@ -68,7 +68,7 @@
                                 <div class="col-2">
                                     <div class="row">
                                         <button class="btn float-right mr-5" @onclick="() => EditNotif(x)"><i class="oi oi-pencil "></i></button>
-                                        <button class="btn float-right mr-5" @onclick="() => DeleteNotif(tempAC)"><i class="oi oi-trash"></i></button>
+                                        <button class="btn float-right mr-5" @onclick="() => DeleteNotif(x)"><i class="oi oi-trash"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                                 <div class="col-2">
                                     <div class="row">
                                         <button class="btn float-right mr-5" @onclick="() => EditNotif(y)"><i class="oi oi-pencil "></i></button>
-                                        <button class="btn float-right mr-5" @onclick="() => DeleteNotif(tempTC)"><i class="oi oi-trash"></i></button>
+                                        <button class="btn float-right mr-5" @onclick="() => DeleteNotif(y)"><i class="oi oi-trash"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                                 <div class="col-2">
                                     <div class="row">
                                         <button class="btn float-right mr-5" @onclick="() => EditNotif(z)"><i class="oi oi-pencil "></i></button>
-                                        <button class="btn float-right mr-5" @onclick="() => DeleteNotif(tempLC)"><i class="oi oi-trash"></i></button>
+                                        <button class="btn float-right mr-5" @onclick="() => DeleteNotif(z)"><i class="oi oi-trash"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -129,81 +129,91 @@
         @if (ShowACPopup)
         {
             <div class="modal" tabindex="-1" style="display:block" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content custom-modal">
+
                         <div class="modal-header">
-                            <h3 class="modal-title">Add or editing Amount rule</h3>
-                            <button type="button" class="close" @onclick="ClosePopup"><span aria-hidden="true"></span> X </button>
+                            <h5 class="col-12 modal-title text-center">EDIT NOTIFICATION</h5>
                         </div>
+
                         <div class="modal-body">
-                            Min
-                            <input class="form-control" type="number" min="0.01" step="0.01" inputmode="decimal"
-                                   placeholder="0.01" @bind="tempAC.Min" />
-                            <br />
-                            Max
-                            <input class="form-control" type="number" min="0.01" step="0.01" inputmode="decimal"
-                                   placeholder="0.01" @bind="tempAC.Max" />
-                            <br />
-                            <!--lambda function to be able to pass parameters in -->
-                            <button class="btn btn-primary" @onclick="() => SaveNotification(tempAC)"> Save </button>
-                            @if (tempAC.NotificationId > 0)
-                            {
-                                <button class=" = 'btn btn-primary" @onclick="() => DeleteNotif(tempAC)">Delete</button>
-                            }
+                            <hr class="solid custom_hr_solid mb-3" />
+                                <span>Min: $</span>
+                                <input class="form-control" type="number" min="0.01" step="0.01" inputmode="decimal"
+                                       placeholder="0.01" @bind="tempAC.Min" />
+                                <span>Max: $</span>
+                                <input class="form-control" type="number" min="0.01" step="0.01" inputmode="decimal"
+                                       placeholder="0.01" @bind="tempAC.Max" />
+                            </div>
+                            <div class="modal-footer">
+                                <button class="primary_button" @onclick="() => SaveNotification(tempAC)">
+                                    Save
+                                </button>
+                                <button class="primary_button ml-auto" @onclick="ClosePopup">
+                                    Close
+                                </button>
+                            </div>
                         </div>
-                    </div>
                 </div>
             </div>
         }
         @if (ShowTCPopup)
         {
             <div class="modal" tabindex="-1" style="display:block" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content custom-modal">
+
                         <div class="modal-header">
-                            <h3 class="modal-title">Add or editing Time rule</h3>
-                            <button type="button" class="close" @onclick="ClosePopup"><span aria-hidden="true"></span> X </button>
+                            <h5 class="col-12 modal-title text-center">EDIT NOTIFICATION</h5>
                         </div>
+
                         <div class="modal-body">
-                            Start Time
-                            <input class="form-control" type="time"
-                                   placeholder="Time" @bind="tempMin" />
-                            <br />
-                            End Time
-                            <input class="form-control" type="time"
-                                   placeholder="Time" @bind="tempMax" />
-                            <br />
-                            <button class="btn btn-primary" @onclick="() => SaveNotification(tempTC)"> Save </button>
-                            @if (tempTC.NotificationId > 0)
-                            {
-                                <button class=" = 'btn btn-primary" @onclick="() => DeleteNotif(tempTC)">Delete</button>
-                            }
+                            <hr class="solid custom_hr_solid mb-3" />
+                                <span>Start Time: </span>
+                                <input class="form-control" type="time"
+                                       placeholder="Time" @bind="tempMin" />
+                                <span>End Time: </span>
+                                <input class="form-control" type="time"
+                                       placeholder="Time" @bind="tempMax" />
+                            </div>
+                        
+                            <div class="modal-footer">
+                                <button class="primary_button" @onclick="() => SaveNotification(tempTC)">
+                                    Save
+                                </button>
+                                <button class="primary_button ml-auto" @onclick="ClosePopup">
+                                    Close
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         }
         @if (ShowLCPopup)
         {
             <div class="modal" tabindex="-1" style="display:block" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content custom-modal">
+
                         <div class="modal-header">
-                            <h3 class="modal-title">Add or editing Description rule</h3>
-                            <button type="button" class="close" @onclick="ClosePopup"><span aria-hidden="true"></span> X </button>
+                            <h5 class="col-12 modal-title text-center">EDIT NOTIFICATION</h5>
                         </div>
+
                         <div class="modal-body">
-                            Description
-                            <input class="form-control" type="text"
-                                   placeholder="enter text here" @bind="tempLC.Location" />
-                            <br />
-                            <button class="btn btn-primary" @onclick="() => SaveNotification(tempLC)"> Save </button>
-                            @if (tempLC.NotificationId > 0)
-                            {
-                                <button class=" = 'btn btn-primary" @onclick="() => DeleteNotif(tempLC)">Delete</button>
-                            }
+                            <hr class="solid custom_hr_solid mb-3" />
+                                <span>Description: </span>
+                                <input class="form-control" type="text"
+                                       placeholder="enter text here" @bind="tempLC.Location" />
+                            </div>
+                            <div class="modal-footer">
+                                <button class="primary_button" @onclick="() => SaveNotification(tempLC)">
+                                    Save
+                                </button>
+                                <button class="primary_button ml-auto" @onclick="ClosePopup">
+                                    Close
+                                </button>
+                            </div>
                         </div>
-                    </div>
                 </div>
             </div>
         }
@@ -214,8 +224,8 @@
         @if (showPopup)
         {
             <div class="modal" tabindex="-1" style="display:block" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content custom-modal">
 
                         <div class="modal-header">
                             <h5 class="col-12 modal-title text-center">ADD NOTIFICATION</h5>
@@ -223,19 +233,87 @@
 
                         <div class="modal-body">
                             <hr class="solid custom_hr_solid mb-3" />
-                            <select @onchange="onChange">
-                                <option value="@nameof(NotificationAmount)">
-                                    @nameof(NotificationAmount)
-                                </option>
-                                <option value="@nameof(NotificationDesc)">
-                                    @nameof(NotificationDesc)
-                                </option>
-                                <option value="@nameof(NotificationTime)">
-                                    @nameof(NotificationTime)
-                                </option>
-                            </select>
-                            <br />
+                            <div class="text-center">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Amount" @onclick="@hideAmountCon">
+                                    <label class="form-check-label" for="inlineCheckbox1">Amount</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="Time" @onclick="@hideTimeCon">
+                                    <label class="form-check-label" for="inlineCheckbox2">Time</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Location" @onclick="@hideLocCon">
+                                    <label class="form-check-label" for="inlineCheckbox3">Location</label>
+                                </div>
+                            </div>
 
+
+                            <div class="@hideAmt container">
+                                <div class="row">
+                                    <div class="col-10 pl-3 mt-4">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span>Min: $</span><input class="form-control amount-con" type="number" min="0.01" step="0.01" inputmode="decimal"
+                                                                      placeholder="0.01" @bind="tempAC.Min" />
+                                            <span>Max: $</span><input class="form-control amount-con" type="number" min="0.01" step="0.01" inputmode="decimal"
+                                                                      placeholder="0.01" @bind="tempAC.Max" />
+                                        </div>
+                                    </div>
+                                    <div class="col-2 text-right align-items-center mt-4">
+                                        <!--lambda function to be able to pass parameters in -->
+                                        <button class="btn btn-primary" @onclick="() => SaveNotification(tempAC)"> <span class="oi oi-check"></span></button>
+
+
+
+                                        <!-- DONT NEED THIS. IF THEY WANT TO DELETE, THEY CAN. IF THEY WANT TO EDIT, THEY CAN
+
+                                    @if (tempAC.NotificationId > 0)
+                                    {
+                                        <button class=" = 'btn btn-primary" @onclick="() => DeleteNotif(tempAC)"><span class="oi oi-trash"></span></button>
+                                    }
+                                    -->
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="@hideTm container">
+                                <div class="row">
+                                    <div class="col-10 pl-3 mt-4">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span>Start: </span><input class="form-control" type="time" placeholder="Time" @bind="tempMin" />
+                                            <span>End: </span><input class="form-control" type="time" placeholder="Time" @bind="tempMax" />
+                                        </div>
+                                    </div>
+                                    <div class="col-2 text-right align-items-center mt-4">
+                                        <button class="btn btn-primary" @onclick="() => SaveNotification(tempTC)"> <span class="oi oi-check"></span></button>
+                                        <!--@if (tempTC.NotificationId > 0)
+                                    {
+                                        <button class=" = 'btn btn-primary" @onclick="() => DeleteNotif(tempTC)"><span class="oi oi-trash"></span></button>
+                                    }-->
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="@hideLoc container">
+                                <div class="row">
+                                    <div class="col-10 pl-3 mt-4">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span>Description: </span><input class="form-control" type="text" placeholder="enter text here" @bind="tempLC.Location" />
+                                        </div>
+                                    </div>
+                                    <div class="col-2 text-right align-items-center mt-4">
+                                        <button class="btn btn-primary" @onclick="() => SaveNotification(tempLC)"> <span class="oi oi-check"></span></button>
+
+                                        <!--@if (tempLC.NotificationId > 0)
+                                    {
+                                        <button class=" = 'btn btn-primary" @onclick="() => DeleteNotif(tempLC)"><span class="oi oi-trash"></span></button>
+                                    }-->
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="modal-footer">
@@ -243,7 +321,7 @@
                                 Add
                             </button>
                             <button class="primary_button ml-auto" @onclick="ClosePopupOriginal">
-                                Cancel
+                                Close
                             </button>
                         </div>
                     </div>
@@ -264,7 +342,16 @@
 
 
 @code {
-    bool showPopup = false;
+    string[] selections = new string[] { "Location", "Amount", "Time" };
+
+
+    private bool showPopup = false;
+    private bool hideDivAmt = true;
+    private bool hideDivLoc = true;
+    private bool hideDivTm = true;
+    private string hideAmt => hideDivAmt ? "d-none" : null;
+    private string hideLoc => hideDivLoc ? "d-none" : null;
+    private string hideTm => hideDivTm ? "d-none" : null;
     Type selectedType = typeof(NotificationDesc);
 
     public void onChange(ChangeEventArgs changeEventArgs)
@@ -281,6 +368,21 @@
     {
         showPopup = false;
     }
+
+    private void hideAmountCon()
+    {
+        hideDivAmt = !hideDivAmt;
+    }
+
+    private void hideLocCon()
+    {
+        hideDivLoc = !hideDivLoc;
+    }
+
+    private void hideTimeCon() {
+        hideDivTm = !hideDivTm;
+    }
+
 
 
 
@@ -474,8 +576,25 @@
     {
         DateTime time = DateTime.Today.Add(theDateTime);
         string convertedTime = time.ToString("h:mm tt");
-        //return temp2;
         return convertedTime;
+    }
+
+    int returnCount()
+    {
+        int counter = 0;
+        if (ac != null)
+        {
+            counter += ac.Count;
+        }
+        if (lc != null)
+        {
+            counter += lc.Count;
+        }
+        if (tc != null)
+        {
+            counter += tc.Count;
+        }
+        return counter;
     }
 
     void EditNotif(object notif)
@@ -490,7 +609,6 @@
             tempTC = (TimeConstraint)notif;
             tempMin = Convert.ToDateTime(tempTC.TimeIn.ToString());
             tempMax = Convert.ToDateTime(tempTC.TimeOut.ToString());
-
             ShowTCPopup = true;
         }
         else if (notif is LocationConstraint)

@@ -126,9 +126,18 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 266 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+#line 344 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
        
-    bool showPopup = false;
+    string[] selections = new string[] { "Location", "Amount", "Time" };
+
+
+    private bool showPopup = false;
+    private bool hideDivAmt = true;
+    private bool hideDivLoc = true;
+    private bool hideDivTm = true;
+    private string hideAmt => hideDivAmt ? "d-none" : null;
+    private string hideLoc => hideDivLoc ? "d-none" : null;
+    private string hideTm => hideDivTm ? "d-none" : null;
     Type selectedType = typeof(NotificationDesc);
 
     public void onChange(ChangeEventArgs changeEventArgs)
@@ -145,6 +154,21 @@ using Microsoft.AspNetCore.Components.Forms;
     {
         showPopup = false;
     }
+
+    private void hideAmountCon()
+    {
+        hideDivAmt = !hideDivAmt;
+    }
+
+    private void hideLocCon()
+    {
+        hideDivLoc = !hideDivLoc;
+    }
+
+    private void hideTimeCon() {
+        hideDivTm = !hideDivTm;
+    }
+
 
 
 
@@ -338,8 +362,25 @@ using Microsoft.AspNetCore.Components.Forms;
     {
         DateTime time = DateTime.Today.Add(theDateTime);
         string convertedTime = time.ToString("h:mm tt");
-        //return temp2;
         return convertedTime;
+    }
+
+    int returnCount()
+    {
+        int counter = 0;
+        if (ac != null)
+        {
+            counter += ac.Count;
+        }
+        if (lc != null)
+        {
+            counter += lc.Count;
+        }
+        if (tc != null)
+        {
+            counter += tc.Count;
+        }
+        return counter;
     }
 
     void EditNotif(object notif)
@@ -354,7 +395,6 @@ using Microsoft.AspNetCore.Components.Forms;
             tempTC = (TimeConstraint)notif;
             tempMin = Convert.ToDateTime(tempTC.TimeIn.ToString());
             tempMax = Convert.ToDateTime(tempTC.TimeOut.ToString());
-
             ShowTCPopup = true;
         }
         else if (notif is LocationConstraint)

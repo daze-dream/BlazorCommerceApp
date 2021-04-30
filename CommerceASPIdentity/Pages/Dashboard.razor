@@ -3,6 +3,25 @@
 @using C1.Blazor.Chart.Interaction;
 <!-- Using GrapeCity Chart -->
 
+@using EndToEndTest.Data.CommerceDataModels
+@using Data
+@using EndToEndTest.Components
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.Data.SqlClient
+@using Microsoft.AspNetCore.Components.Forms
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IHttpContextAccessor HttpContextAccessor
+@*
+    Using OwningComponentBase ensures that the service and related services
+    that share its scope are disposed with the component.
+    Otherwise DbContext in ForecastService will live for the life of the
+    connection, which may be problematic if clients stay
+    connected for a long time.
+    We access WeatherForecastService using @Service
+*@
+@inherits OwningComponentBase<NotificationServices>
+
 
 @page "/Dashboard"
 
@@ -50,18 +69,40 @@
                         <div class="col-2 d-flex align-items-center justify-content-center">
                             <div id="circle" class="text-center p-4">
                                 Total:
-                                <h2>3</h2>
+                                <h2>@returnCount()</h2>
                             </div>
                         </div>
                         <div class="col-10 dotted_border">
                             <p class="card-text">
-                                <n1>1.</n1> Balance updates (Mondays @@ 11am) <br />
-                                <n1>2.</n1> Monthly payment withdrawals (Over $200) <br />
-                                <n1>3.</n1> Low balance warnings (Under $100) <br />
+                                @if ((ac == null) && (tc == null) && (lc == null))
+                                {
+                                <p><em>There are no notifications rules to display.</em></p>
+                            }
+                            else
+                            {
+                        <ul>
+                            @foreach (var x in ac)
+                            {
+                                <li>Transactions between $@x.Min - $@x.Max.</li>
+                            }
+                            @foreach (var x in tc)
+                            {
+                                <li>Transactions between @revertDateTime(x.TimeIn) - @revertDateTime(x.TimeOut).</li>
+                            }
+                            @foreach (var x in lc)
+                            {
+                                <li>Transactions from @x.Location.</li>
+                            }
+                        </ul>
+                            }
+                                
+                                <!--<n1>1.</n1> Balance updates(Mondays @@ 11am) < br />
+                                < n1 > 2.</ n1 > Monthly payment withdrawals(Over $200) < br />
+                                < n1 > 3.</ n1 > Low balance warnings(Under $100) <br />
                                 <n1>4.</n1> Transfer alerts - other accounts <br />
-                                <n1>5.</n1> Mute alerts for gift items purchased on Amazon <br />
-                            </p>
-                        </div>
+                                <n1>5.</n1> Mute alerts for gift items purchased on Amazon <br />-->
+                                </p>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -109,24 +150,24 @@
                                     </div>
                                 </div>
 
-                                    <FlexChart Class="chart" ChartType="ChartType.Line"
-                                               LegendPosition="Position.Bottom" HeaderContent="All Notifications"
-                                               BindingX="date" ItemsSource="@notif1">
-                                        <SeriesCollection>
-                                            <Series Name="NR1" Binding="notificationcount" Style="@redLine" /> <!--Bind the Y axis-->
-                                            <Series Name="NR2" ItemsSource="@notif2" Binding="notificationcount" Style="@blueLine" /> <!--Bind the Y axis-->
-                                            <Series Name="NR3" ItemsSource="@notif3" Binding="notificationcount" Style="@greenLine" /> <!--Bind the Y axis-->
-                                        </SeriesCollection>
-                                        <MarkerCollection>
-                                            <LineMarker Lines="LineMarkerLines.Both" LineStyle="stroke:gray;stroke-width:0"
-                                                        Content=@content HorizontalPosition="0.5" VerticalPosition="0.5"
-                                                        Interaction="action ?? LineMarkerInteraction.None" />
-                                        </MarkerCollection>
-                                        <AxisCollection>
-                                            <Axis AxisType="AxisType.Y" Position="Position.Left" Title="Number of Notifications" AxisLine="true" MajorGrid="true" MajorTickMarks="TickMark.Outside" />
-                                            <Axis AxisType="AxisType.X" Position="Position.Bottom" AxisLine="false" Format="MMM-d" MajorGrid="true" MajorTickMarks="TickMark.None" />
-                                        </AxisCollection>
-                                    </FlexChart>
+                                <FlexChart Class="chart" ChartType="ChartType.Line"
+                                           LegendPosition="Position.Bottom" HeaderContent="All Notifications"
+                                           BindingX="date" ItemsSource="@notif1">
+                                    <SeriesCollection>
+                                        <Series Name="NR1" Binding="notificationcount" Style="@redLine" /> <!--Bind the Y axis-->
+                                        <Series Name="NR2" ItemsSource="@notif2" Binding="notificationcount" Style="@blueLine" /> <!--Bind the Y axis-->
+                                        <Series Name="NR3" ItemsSource="@notif3" Binding="notificationcount" Style="@greenLine" /> <!--Bind the Y axis-->
+                                    </SeriesCollection>
+                                    <MarkerCollection>
+                                        <LineMarker Lines="LineMarkerLines.Both" LineStyle="stroke:gray;stroke-width:0"
+                                                    Content=@content HorizontalPosition="0.5" VerticalPosition="0.5"
+                                                    Interaction="action ?? LineMarkerInteraction.None" />
+                                    </MarkerCollection>
+                                    <AxisCollection>
+                                        <Axis AxisType="AxisType.Y" Position="Position.Left" Title="Number of Notifications" AxisLine="true" MajorGrid="true" MajorTickMarks="TickMark.Outside" />
+                                        <Axis AxisType="AxisType.X" Position="Position.Bottom" AxisLine="false" Format="MMM-d" MajorGrid="true" MajorTickMarks="TickMark.None" />
+                                    </AxisCollection>
+                                </FlexChart>
 
                                 <div class="row">
                                     <button class="primary_button">Export </button> <!-- Align Export Button to the right corner.-->
@@ -147,6 +188,52 @@
 
 @code {
 
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    List<AmountConstraint> ac;
+    List<TimeConstraint> tc;
+    List<LocationConstraint> lc;
+    List<UserToNotifications> notifList;
+
+    AmountConstraint tempAC = new AmountConstraint();
+    TimeConstraint tempTC = new TimeConstraint();
+    LocationConstraint tempLC = new LocationConstraint();
+
+    int returnCount()
+    {
+        int counter = 0;
+        if (ac != null)
+        {
+            counter += ac.Count;
+        }
+        if (lc != null)
+        {
+            counter += lc.Count;
+        }
+        if (tc != null)
+        {
+            counter += tc.Count;
+        }
+        return counter;
+    }
+
+    string revertDateTime(TimeSpan theDateTime)
+    {
+        DateTime time = DateTime.Today.Add(theDateTime);
+        string convertedTime = time.ToString("h:mm tt");
+        return convertedTime;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+        notifList = await Service.GetNotifJoinTable(userId);
+        ac = await Service.GetAmountConstraints(notifList);
+        tc = await Service.GetTimeConstraints(notifList);
+        lc = await Service.GetLocationConstraints(notifList);
+    }
 
 
     private bool displayManage = false;
@@ -196,7 +283,7 @@
             var rng = new Random();
             return new List<object>
                 ()
-                {
+            {
 
                     new {date = new DateTime(2021, 1, 26), notificationcount = rng.Next(0, 15)},
                     new {date = new DateTime(2021, 2, 1), notificationcount = rng.Next(0, 15)},

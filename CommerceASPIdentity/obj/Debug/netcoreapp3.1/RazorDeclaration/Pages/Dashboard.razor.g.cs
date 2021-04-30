@@ -34,13 +34,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-using Microsoft.AspNetCore.Components.Forms;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 5 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
@@ -96,9 +89,58 @@ using C1.Blazor.Chart.Interaction;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 6 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+using EndToEndTest.Data.CommerceDataModels;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+using Data;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+using EndToEndTest.Components;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+using System.Security.Claims;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 10 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+using Microsoft.AspNetCore.Http;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+using Microsoft.Data.SqlClient;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 12 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+using Microsoft.AspNetCore.Components.Forms;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Dashboard")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Account")]
-    public partial class Dashboard : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Dashboard : OwningComponentBase<NotificationServices>
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -106,9 +148,55 @@ using C1.Blazor.Chart.Interaction;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 148 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 189 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
        
 
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    List<AmountConstraint> ac;
+    List<TimeConstraint> tc;
+    List<LocationConstraint> lc;
+    List<UserToNotifications> notifList;
+
+    AmountConstraint tempAC = new AmountConstraint();
+    TimeConstraint tempTC = new TimeConstraint();
+    LocationConstraint tempLC = new LocationConstraint();
+
+    int returnCount()
+    {
+        int counter = 0;
+        if (ac != null)
+        {
+            counter += ac.Count;
+        }
+        if (lc != null)
+        {
+            counter += lc.Count;
+        }
+        if (tc != null)
+        {
+            counter += tc.Count;
+        }
+        return counter;
+    }
+
+    string revertDateTime(TimeSpan theDateTime)
+    {
+        DateTime time = DateTime.Today.Add(theDateTime);
+        string convertedTime = time.ToString("h:mm tt");
+        return convertedTime;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+        notifList = await Service.GetNotifJoinTable(userId);
+        ac = await Service.GetAmountConstraints(notifList);
+        tc = await Service.GetTimeConstraints(notifList);
+        lc = await Service.GetLocationConstraints(notifList);
+    }
 
 
     private bool displayManage = false;
@@ -158,7 +246,7 @@ using C1.Blazor.Chart.Interaction;
             var rng = new Random();
             return new List<object>
                 ()
-                {
+            {
 
                     new {date = new DateTime(2021, 1, 26), notificationcount = rng.Next(0, 15)},
                     new {date = new DateTime(2021, 2, 1), notificationcount = rng.Next(0, 15)},
@@ -174,6 +262,8 @@ using C1.Blazor.Chart.Interaction;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IHttpContextAccessor HttpContextAccessor { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591
