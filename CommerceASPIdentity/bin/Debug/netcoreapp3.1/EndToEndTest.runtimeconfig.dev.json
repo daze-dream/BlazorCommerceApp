@@ -1,13 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-<<<<<<< HEAD
       "C:\\Users\\degag\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\degag\\.nuget\\packages"
-=======
-      "C:\\Users\\miste\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\miste\\.nuget\\packages"
->>>>>>> main
     ]
   }
 }
