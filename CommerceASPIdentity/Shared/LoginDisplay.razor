@@ -1,28 +1,91 @@
 ﻿@using System.Security.Claims
-@using Microsoft.AspNetCore.Http;
 
+@using EndToEndTest.Data.CommerceDataModels
+@using Data
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.Data.SqlClient
+@using Microsoft.AspNetCore.Components.Forms
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
+
 
 <AuthorizeView>
     <Authorized>
-        <!--
-    <a href="Identity/Account/Manage">
-        Hello, @context.User.Identity.Name and @HttpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        !
-    </a>
-    -->
-        <div class="row align-items-center ml-1"><a class="nav-link" href="Dashboard">Dashboard  </a></div>
-        <div class="row align-items-center ml-1"><a class="nav-link" href="Transactions">Transactions  </a></div>
-        <div class="row align-items-center ml-1"><span class="oi oi-bell ml-3 mr-1" href="Notifications"></span><a class="nav-link" href="Notifications">Notifications  </a></div>
-        <div class="row align-items-center ml-1"><a class="nav-link" href="notificationtest">NotificationsDEMO  </a></div>
+        <div class="row align-items-center ml-3"><a class="nav-link" href="/">About</a></div>
+        <div class="row align-items-center ml-3"><a class="nav-link" href="Dashboard">Dashboard</a></div>
+        <div class="row align-items-center ml-3"><a class="nav-link" href="Transactions">Transactions</a></div>
+        <div class="row align-items-center ml-3">
+            <!--
+                This part of the code is for dropdown menu for the 5 most recent transactions made in account
+                Key = transaction description
+                value = transaction amount
+            -->
+            <div class="dropdown">
+                <a class="@displayBell" @onclick="@displayNotifBell" href="Notifications"><i class="oi oi-bell ml-3"></i></a>
+
+                <!--
+                <div class="dropdown-content">
+                    @foreach (var x in transDesc) //for every transactions made
+                    {
+                <div class="row notifAlerts">
+                    <span class="alertMess">$@x.Value from @x.Key</span>
+                </div>
+                    }
+                </div>
+                    -->
+
+
+            </div>
+            <a class="nav-link" href="Notifications">Notifications</a>
+        </div>
         <div class="row align-items-center ml-1">
             <form method="post" action="Identity/Account/LogOut">
-                <button type="submit" class="btn nav_bar_button">Log out  </button>
+                <button type="submit" class="btn nav_bar_button">Log out</button>
             </form>
         </div>
+
+        <div>
+            <button class="btn-sm" @onclick="@displayNotifBell">Display</button>
+        </div>
+
     </Authorized>
     <NotAuthorized>
-        <div class="row align-items-center ml-1"><a href="Identity/Account/Register">Register</a></div>
-        <div class="row align-items-center ml-1"><a href="Identity/Account/Login">Log in</a></div>
-</NotAuthorized>
+        <div class="row align-items-center ml-3"><a class="nav-link" href="/">About</a></div>
+        <div class="row align-items-center ml-3"><a href="Identity/Account/Register">Register</a></div>
+        <div class="row align-items-center ml-3"><a href="Identity/Account/Login">Log in</a></div>
+    </NotAuthorized>
 </AuthorizeView>
+
+@code {
+    public List<Transactionsmaster> transactionsList;
+    public Dictionary<String, decimal> transDesc;
+    private string displayBell = "d-none";
+
+    private void displayNotifBell()
+    {
+        if (displayBell == "d-block")
+        {
+            displayBell = "d-none";
+        }
+        else displayBell = "d-block";
+    }
+
+    /*
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userID = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+        transactionsList = await Service.GetRecentTransaction(userID);
+        transDesc = await Service.getTransactionDescription(userID);
+    }
+
+
+
+    <!--@inherits OwningComponentBase<TransactionSummary> --> BELONGS AT THE TOP
+
+
+
+    */
+}
+}

@@ -52,6 +52,55 @@ n1 {
     color: var(--Blue);
 }
 
+#timeformat {
+    font-size: 1.1rem;
+}
+
+#circle {
+    width: 120px;
+    height: 120px;
+    background: var(--YellowOrange);
+    border-radius: 50%
+}
+
+.dotted_border {
+    border-left: dotted lightgray;
+}
+
+.dropdown-menu {
+    background-color: var(--DarkGreen);
+}
+
+.dropdown {
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 200px;
+    background-color: transparent;
+    padding:10px;
+    z-index:2000;
+}
+
+.dropdown:hover .dropdown-content {
+    display: table;
+}
+
+.notifAlerts {
+    background-color: rgba(255, 255, 255, 0.87);
+    border-left: 6px solid var(--Red);
+    margin-top: 4px;
+    border-radius: 0 5px 5px 0;
+    padding: 10px;
+    font-size: 1.1rem;
+}
+
+.alertMess {
+    font-weight:bold;
+}
+
+
 /* Table: Odd Numbered Rows - Stripe Color*/
 .table.table.table-striped tbody > tr:nth-child(odd) {
     background-color: rgba(0, 122, 163, 0.15);
@@ -99,6 +148,10 @@ app {
     text-align: left;
 }
 
+.amount-con {
+    width:40%;
+}
+
 /***************** NAV BAR CSS ********************/
 #Bank_Logo {
     max-width: 175px;
@@ -144,8 +197,8 @@ a {
     font-size: 22px;
 }
 
-span.oi.oi-bell.ml-3.mr-1  {
-    color: red;
+i.oi.oi-bell.ml-3 {
+    color: var(--Red);
 }
 
 /****************** LOG IN PAGE CSS ****************/
@@ -286,6 +339,31 @@ tbody{
 .modal-footer {
     border: 0;
     padding: 0rem 1rem 1rem 1rem;
+}
+
+.custom-modal {
+    margin-top: 15% !important;
+}
+
+
+/****         FOR DIFFERENT SIZED SCREENS               */
+@media (max-width: 575.98px) {
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767.98px) {
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
 }
 
 /*
