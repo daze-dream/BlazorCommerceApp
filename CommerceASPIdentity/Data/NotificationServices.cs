@@ -53,6 +53,11 @@ namespace EndToEndTest
             return toReturn;
         }
 
+        /// <summary>
+        /// Gets a list the UserToNotification join table based on userID.
+        /// </summary>
+        /// <param name="currUserID"></param>
+        /// <returns>List of UserToNotifcations</returns>
         public async Task<List<UserToNotifications>> GetNotifJoinTable (string currUserID)
         {
             return await _context.UserToNotifications
