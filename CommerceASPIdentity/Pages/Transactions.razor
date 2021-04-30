@@ -59,7 +59,6 @@
                 <table class="table shadow table-borderless table-striped">
                     <thead>
                         <tr>
-                            <!--<th>ID</th>                                      Is the ID required in the web application? -->
                             <th>Date</th>
                             <th>Amount</th>
                             <th>Description</th>
@@ -78,7 +77,6 @@
                         @foreach (var x in transactionsList)
                         {
                             <tr>
-                                <!--<td> @x.TransactionId.ToString()</td>               Is the ID required in the web application? -->
                                 <td> @x.Transactiondate.ToString("MM/dd/yyyy") <span id="timeformat">@x.Transactiondate.ToString("h:mm tt")</span></td>
                                 <td> $@x.Transactionamount</td>
                                 <td> @x.Description</td>
@@ -107,13 +105,11 @@
                             <DataAnnotationsValidator />
                             <div class="modal-body">
                                 <hr class="solid custom_hr_solid mb-3" />
-                                <div class="container-fluid">
 
-                                    <div class="row mt-2 align-items-center">
-                                        <div class="col-6">
-                                            Transaction Type
-                                        </div>
-                                        <div class="col-6">
+                                <div class="container">
+                                    <div class="form-group row mt-4">
+                                        <label class="col-sm-5 col-form-label">Transaction Type: </label>
+                                        <div class="col-sm-7">
                                             <select @bind="objTransactionsmaster.Transactiontype">
                                                 <option hidden disabled selected></option>
                                                 <option value=@credit>Deposit</option>
@@ -121,37 +117,28 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="row mt-2 align-items-center">
-                                        <div class="col-3">
-                                            Amount
-                                        </div>
-                                        <div class="col-9">
-                                            <table>
-                                                <tr>
-                                                    <td>$</td>
-                                                    <td>
-                                                        <input class="form-control" type="number" min="0.01" step="0.01" inputmode="decimal"
-                                                               placeholder="0.01" @bind="objTransactionsmaster.Transactionamount" />
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                    <div class="form-group row mt-4">
+                                        <label class="col-sm-5 col-form-label">Amount: </label>
+                                        <div class="input-group col-sm-7">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">$</div>
+                                            </div>
+                                            <input class="form-control" type="number" min="0.01" step="0.01" inputmode="decimal"
+                                                   placeholder="0.01" @bind="objTransactionsmaster.Transactionamount" />
                                         </div>
                                     </div>
-                                    <div class="row mt-2 align-items-center">
-                                        <div class="col-4">
-                                            Description
-                                        </div>
-                                        <div class="col-8">
+
+                                    <div class="form-group row mt-4">
+                                        <label class="col-sm-5 col-form-label">Description: </label>
+                                        <div class="col-sm-7">
                                             <input class="form-control" type="text"
                                                    @bind="objTransactionsmaster.Description" />
-
                                         </div>
                                     </div>
-                                    <div class="row mt-2 align-items-center">
-                                        <div class="col-3">
-                                            Location
-                                        </div>
-                                        <div class="col-9">
+
+                                    <div class="form-group row mt-4">
+                                        <label class="col-sm-5 col-form-label">State: </label>
+                                        <div class="col-sm-7">
                                             <select class="form-control" id="exampleFormControlSelect1" @bind="objTransactionsmaster.LocationState">
                                                 <option hidden disabled selected></option>
                                                 @foreach (var item in allStates)
@@ -161,9 +148,10 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mt-4 align-items-center">
-                                    <ValidationSummary />
+
+                                    <div class="row mt-4 align-items-center">
+                                        <ValidationSummary />
+                                    </div>
                                 </div>
                             </div>
 
@@ -175,7 +163,6 @@
                                     Cancel
                                 </button>
                             </div>
-
                         </EditForm>
                     </div>
                 </div>
