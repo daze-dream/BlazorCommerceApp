@@ -171,6 +171,7 @@ using Microsoft.AspNetCore.Components.Forms;
     {
         showPopup = false;
     }
+
     /// <summary>
     /// prepares the transaction to be added
     /// </summary>
