@@ -46,11 +46,6 @@ namespace EndToEndTest.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [StringLength(100)]
-            [Display(Name = "User ID")]
-            public string UserId { get; set; }
-
-            [Required]
             [EmailAddress]
             [StringLength(100)]
             [Display(Name = "Email")]
@@ -80,7 +75,7 @@ namespace EndToEndTest.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = InputASP.UserId, Email = InputASP.Email };
+                var user = new IdentityUser { UserName = InputASP.Email, Email = InputASP.Email };
                 var result = await _userManager.CreateAsync(user, InputASP.Password);
                 if (result.Succeeded)
                 {
