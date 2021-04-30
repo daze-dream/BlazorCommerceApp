@@ -1191,6 +1191,7 @@ C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\Comme
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Notifications.razor.g.cs
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\NotificationsTest.razor.g.cs
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\NotificationsTest.razor.g.cs
+<<<<<<< HEAD
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\NotificationsTest.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\NotificationsTest.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\C1.Blazor.Chart.dll
@@ -1212,3 +1213,7 @@ C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIde
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+=======
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\ForgotPassword.cshtml.g.cs
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
+>>>>>>> main

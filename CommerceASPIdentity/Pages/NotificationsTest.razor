@@ -31,7 +31,6 @@
         <p>
             <!-- Add a rule -->
             <button class="btn btn-primary" @onclick="AddNewAmountNotif">
-
                 Add new amount rule
             </button>
         </p>
@@ -222,13 +221,21 @@
     List<LocationConstraint> lc;
     List<UserToNotifications> notifList;
 
+    /// <summary>
+    /// Temporary variable to store the time for TimeConstraint due to the DateTime vs Timespan datatype conflict from the datepicker HTML 
+    /// </summary>
     DateTime tempMin;
+    /// <summary>
+    /// Temporary variable to store the time for TimeConstraint due to the DateTime vs Timespan datatype conflict from the datepicker HTML 
+    /// </summary>
     DateTime tempMax;
 
+    // temp variables for each notification field. Pass on to other functions
     AmountConstraint tempAC = new AmountConstraint();
     TimeConstraint tempTC = new TimeConstraint();
     LocationConstraint tempLC = new LocationConstraint();
 
+    // bools to show the popups
     bool ShowACPopup = false;
     bool ShowTCPopup = false;
     bool ShowLCPopup = false;
@@ -362,6 +369,11 @@
 
     }
 
+    /// <summary>
+    /// Passes the notification parameter to the async notification deletion function, then resets the Lists view
+    /// </summary>
+    /// <param name="notif"></param>
+    /// <returns>Nothing</returns>
     async Task DeleteNotif(object notif)
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -380,6 +392,9 @@
         lc = await Service.GetLocationConstraints(notifList);
     }
 
+    /// <summary>
+    /// Sets all 3 popup booleans to be closed
+    /// </summary>
     void ClosePopup()
     {
         ShowACPopup = false;
@@ -387,6 +402,11 @@
         ShowTCPopup = false;
     }
 
+
+    /// <summary>
+    /// Prepares a new entry in the UserToNotifications join table in anticipation of each notification.
+    /// </summary>
+    /// <param name="userID"></param>
     void prepareNewUserToNotifJoinEntry(string userID)
     {
         UserToNotifications newEntry = new UserToNotifications();
@@ -395,6 +415,11 @@
 
     }
 
+    /// <summary>
+    /// Prepares each notification object with an existing notification from the table,
+    ///     getting each field ready to edit or delete. Note the TimeConstraint subroutine.
+    /// </summary>
+    /// <param name="notif"></param>
     void EditNotif(object notif)
     {
         if(notif is AmountConstraint)
