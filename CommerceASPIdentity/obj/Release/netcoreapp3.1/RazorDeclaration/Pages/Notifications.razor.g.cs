@@ -126,9 +126,26 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 266 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+#line 435 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
        
-    bool showPopup = false;
+    private bool showPopup = false;
+    private bool hideDivAmt = true;
+    private bool hideDivLoc = true;
+    private bool hideDivTm = true;
+
+    private bool hideSmAmt = true;
+    private bool hideSmTime = true;
+    private bool hideSmLoc = true;
+
+
+    private string hideAmt => hideDivAmt ? "d-none" : null;
+    private string hideLoc => hideDivLoc ? "d-none" : null;
+    private string hideTm => hideDivTm ? "d-none" : null;
+
+    private string hideAmtSm => hideSmAmt ? "d-none" : null;
+    private string hideLocSm => hideSmTime ? "d-none" : null;
+    private string hideTmSm => hideSmLoc ? "d-none" : null;
+
     Type selectedType = typeof(NotificationDesc);
 
     public void onChange(ChangeEventArgs changeEventArgs)
@@ -146,9 +163,32 @@ using Microsoft.AspNetCore.Components.Forms;
         showPopup = false;
     }
 
+    private void hideAmountCon()
+    {
+        hideDivAmt = !hideDivAmt;
+    }
 
+    private void hideLocCon()
+    {
+        hideDivLoc = !hideDivLoc;
+    }
 
+    private void hideTimeCon() {
+        hideDivTm = !hideDivTm;
+    }
 
+    private void hideSmAmount()
+    {
+        hideSmAmt = !hideSmAmt;
+    }
+    private void hideSmTimes()
+    {
+        hideSmTime = !hideSmTime;
+    }
+    private void hideSmLocation()
+    {
+        hideSmLoc = !hideSmLoc;
+    }
 
 
     [CascadingParameter]
@@ -193,34 +233,34 @@ using Microsoft.AspNetCore.Components.Forms;
     /// <summary>
     /// prepares new notification to be added, used in the HTML forms.
     /// </summary>
-    void AddNewAmountNotif()
-    {
-        tempAC = new AmountConstraint();
-        tempAC.NotificationId = 0;
-        ShowACPopup = true;
-    }
+    //void AddNewAmountNotif()
+    //{
+    //    tempAC = new AmountConstraint();
+    //    tempAC.NotificationId = 0;
+    //    ShowACPopup = true;
+    //}
 
     /// <summary>
     /// prepares new notification to be added, used in the HTML forms.
     /// </summary>
-    void AddNewTimeNotif()
-    {
-        tempTC = new TimeConstraint();
-        tempMin = new DateTime();
-        tempMax = new DateTime();
-        tempTC.NotificationId = 0;
-        ShowTCPopup = true;
-    }
+    //void AddNewTimeNotif()
+    //{
+    //    tempTC = new TimeConstraint();
+    //    tempMin = new DateTime();
+    //    tempMax = new DateTime();
+    //    tempTC.NotificationId = 0;
+    //    ShowTCPopup = true;
+    //}
 
     /// <summary>
     /// prepares new notification to be added, used in the HTML forms.
     /// </summary>
-    void AddNewLocationNotif()
-    {
-        tempLC = new LocationConstraint();
-        tempLC.NotificationId = 0;
-        ShowLCPopup = true;
-    }
+    //void AddNewLocationNotif()
+    //{
+    //    tempLC = new LocationConstraint();
+    //    tempLC.NotificationId = 0;
+    //    ShowLCPopup = true;
+    //}
 
 
     /// <summary>
@@ -229,9 +269,10 @@ using Microsoft.AspNetCore.Components.Forms;
     /// </summary>
     async Task SaveNotification(object x)
     {
-        ShowACPopup = false;
-        ShowLCPopup = false;
-        ShowTCPopup = false;
+        //ShowACPopup = false;
+        //ShowLCPopup = false;
+        //ShowTCPopup = false;
+
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
         string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
         if (x is AmountConstraint)
@@ -294,8 +335,6 @@ using Microsoft.AspNetCore.Components.Forms;
         ac = await Service.GetAmountConstraints(notifList);
         tc = await Service.GetTimeConstraints(notifList);
         lc = await Service.GetLocationConstraints(notifList);
-
-
     }
 
     // Deleting a notification based on the passed in parameter
@@ -306,9 +345,9 @@ using Microsoft.AspNetCore.Components.Forms;
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
         string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
 
-        ShowACPopup = false;
-        ShowTCPopup = false;
-        ShowLCPopup = false;
+        //ShowACPopup = false;
+        //ShowTCPopup = false;
+        //ShowLCPopup = false;
 
         var result = Service.DeleteNotificationAsync(notif);
 
@@ -338,8 +377,25 @@ using Microsoft.AspNetCore.Components.Forms;
     {
         DateTime time = DateTime.Today.Add(theDateTime);
         string convertedTime = time.ToString("h:mm tt");
-        //return temp2;
         return convertedTime;
+    }
+
+    int returnCount()
+    {
+        int counter = 0;
+        if (ac != null)
+        {
+            counter += ac.Count;
+        }
+        if (lc != null)
+        {
+            counter += lc.Count;
+        }
+        if (tc != null)
+        {
+            counter += tc.Count;
+        }
+        return counter;
     }
 
     void EditNotif(object notif)
@@ -354,7 +410,6 @@ using Microsoft.AspNetCore.Components.Forms;
             tempTC = (TimeConstraint)notif;
             tempMin = Convert.ToDateTime(tempTC.TimeIn.ToString());
             tempMax = Convert.ToDateTime(tempTC.TimeOut.ToString());
-
             ShowTCPopup = true;
         }
         else if (notif is LocationConstraint)

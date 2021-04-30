@@ -72,7 +72,7 @@ namespace EndToEndTest.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("/Dashboard");
+            returnUrl = returnUrl ?? Url.Content("~/");
 
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace EndToEndTest.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return LocalRedirect("/Dashboard");
                 }
                 if (result.RequiresTwoFactor)
                 {

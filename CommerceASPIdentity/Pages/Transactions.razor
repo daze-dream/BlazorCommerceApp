@@ -248,9 +248,12 @@
     /// <summary>
     /// prepares the transaction to be added
     /// </summary>
-    void AddNewTransaction()
+    async Task AddNewTransaction()
     {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
         objTransactionsmaster = new Transactionsmaster();
+        objTransactionsmaster.UserId = userId;
         objTransactionsmaster.TransactionId = 0;
         showPopup = true;
     }

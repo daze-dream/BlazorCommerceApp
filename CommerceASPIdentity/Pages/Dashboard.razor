@@ -73,36 +73,28 @@
                             </div>
                         </div>
                         <div class="col-10 dotted_border">
-                            <p class="card-text">
-                                @if ((ac == null) && (tc == null) && (lc == null))
-                                {
+                            @if ((ac == null) && (tc == null) && (lc == null))
+                            {
                                 <p><em>There are no notifications rules to display.</em></p>
                             }
                             else
                             {
-                        <ul>
-                            @foreach (var x in ac)
-                            {
-                                <li>Transactions between $@x.Min - $@x.Max.</li>
+                                <ul>
+                                    @foreach (var x in ac)
+                                    {
+                                        <li>Transactions between $@x.Min - $@x.Max.</li>
+                                    }
+                                    @foreach (var x in tc)
+                                    {
+                                        <li>Transactions between @revertDateTime(x.TimeIn) - @revertDateTime(x.TimeOut).</li>
+                                    }
+                                    @foreach (var x in lc)
+                                    {
+                                        <li>Transactions from @x.Location.</li>
+                                    }
+                                </ul>
                             }
-                            @foreach (var x in tc)
-                            {
-                                <li>Transactions between @revertDateTime(x.TimeIn) - @revertDateTime(x.TimeOut).</li>
-                            }
-                            @foreach (var x in lc)
-                            {
-                                <li>Transactions from @x.Location.</li>
-                            }
-                        </ul>
-                            }
-                                
-                                <!--<n1>1.</n1> Balance updates(Mondays @@ 11am) < br />
-                                < n1 > 2.</ n1 > Monthly payment withdrawals(Over $200) < br />
-                                < n1 > 3.</ n1 > Low balance warnings(Under $100) <br />
-                                <n1>4.</n1> Transfer alerts - other accounts <br />
-                                <n1>5.</n1> Mute alerts for gift items purchased on Amazon <br />-->
-                                </p>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

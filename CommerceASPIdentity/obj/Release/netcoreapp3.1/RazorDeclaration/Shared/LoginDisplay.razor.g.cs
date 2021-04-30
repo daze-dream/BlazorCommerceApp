@@ -110,7 +110,7 @@ using Microsoft.AspNetCore.Components.Forms;
 #line default
 #line hidden
 #nullable disable
-    public partial class LoginDisplay : OwningComponentBase<TransactionSummary>
+    public partial class LoginDisplay : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -118,7 +118,7 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 72 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Shared\LoginDisplay.razor"
+#line 59 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Shared\LoginDisplay.razor"
        
     public List<Transactionsmaster> transactionsList;
     public Dictionary<String, decimal> transDesc;
@@ -133,6 +133,7 @@ using Microsoft.AspNetCore.Components.Forms;
         else displayBell = "d-block";
     }
 
+    /*
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -141,6 +142,14 @@ using Microsoft.AspNetCore.Components.Forms;
         transactionsList = await Service.GetRecentTransaction(userID);
         transDesc = await Service.getTransactionDescription(userID);
     }
+
+
+
+    <!--@inherits OwningComponentBase<TransactionSummary> --> BELONGS AT THE TOP
+
+
+
+    */
 
 #line default
 #line hidden

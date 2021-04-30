@@ -48,7 +48,7 @@ namespace EndToEndTest
             //services.AddSingleton<WeatherForecastService>();
             services.AddScoped<TransactionServices>();
             services.AddScoped<NotificationServices>();
-            services.AddScoped<TransactionSummary>();
+            //services.AddScoped<TransactionSummary>();
 
         }
 

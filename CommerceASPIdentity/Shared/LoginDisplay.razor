@@ -8,7 +8,6 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
 
-@inherits OwningComponentBase<TransactionSummary>
 
 <AuthorizeView>
     <Authorized>
@@ -17,12 +16,14 @@
         <div class="row align-items-center ml-3"><a class="nav-link" href="Transactions">Transactions</a></div>
         <div class="row align-items-center ml-3">
             <!--
-            This part of the code is for dropdown menu for the 5 most recent transactions made in account
-            Key = transaction description
-            value = transaction amount
-        -->
+                This part of the code is for dropdown menu for the 5 most recent transactions made in account
+                Key = transaction description
+                value = transaction amount
+            -->
             <div class="dropdown">
                 <a class="@displayBell" @onclick="@displayNotifBell" href="Notifications"><i class="oi oi-bell ml-3"></i></a>
+
+                <!--
                 <div class="dropdown-content">
                     @foreach (var x in transDesc) //for every transactions made
                     {
@@ -30,24 +31,10 @@
                     <span class="alertMess">$@x.Value from @x.Key</span>
                 </div>
                     }
-                    <!--<table class="table shadow table-borderless table-striped">
-                        <thead>
-                            <tr>
-                                <td>Transaction</td>
-                                <td>Amount</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var x in transDesc) //for every transactions made
-                            {
-                                <tr>
-                                    <td>@x.Key</td>
-                                    <td>@x.Value</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>-->
                 </div>
+                    -->
+
+
             </div>
             <a class="nav-link" href="Notifications">Notifications</a>
         </div>
@@ -57,9 +44,9 @@
             </form>
         </div>
 
-    <div>
-        <button class="btn-sm" @onclick="@displayNotifBell">Display</button>
-    </div>
+        <div>
+            <button class="btn-sm" @onclick="@displayNotifBell">Display</button>
+        </div>
 
     </Authorized>
     <NotAuthorized>
@@ -83,6 +70,7 @@
         else displayBell = "d-block";
     }
 
+    /*
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -91,4 +79,13 @@
         transactionsList = await Service.GetRecentTransaction(userID);
         transDesc = await Service.getTransactionDescription(userID);
     }
+
+
+
+    <!--@inherits OwningComponentBase<TransactionSummary> --> BELONGS AT THE TOP
+
+
+
+    */
+}
 }
