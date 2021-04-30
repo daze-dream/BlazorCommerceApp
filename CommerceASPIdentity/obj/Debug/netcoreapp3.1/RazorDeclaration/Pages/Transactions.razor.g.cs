@@ -14,98 +14,154 @@ namespace EndToEndTest.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
+<<<<<<< HEAD
 #line 1 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\_Imports.razor"
+=======
+#line 1 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
+>>>>>>> main
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 2 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\_Imports.razor"
+=======
+#line 2 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
+>>>>>>> main
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 3 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\_Imports.razor"
+=======
+#line 3 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
+>>>>>>> main
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 5 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\_Imports.razor"
+=======
+#line 5 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
+>>>>>>> main
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 6 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\_Imports.razor"
+=======
+#line 6 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
+>>>>>>> main
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 7 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\_Imports.razor"
+=======
+#line 7 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
+>>>>>>> main
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 8 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\_Imports.razor"
+=======
+#line 8 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
+>>>>>>> main
 using EndToEndTest;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 9 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\_Imports.razor"
+=======
+#line 9 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
+>>>>>>> main
 using EndToEndTest.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 2 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\Pages\Transactions.razor"
+=======
+#line 2 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+>>>>>>> main
 using EndToEndTest.Data.CommerceDataModels;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 3 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\Pages\Transactions.razor"
+=======
+#line 3 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+>>>>>>> main
 using Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 4 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\Pages\Transactions.razor"
+=======
+#line 4 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+>>>>>>> main
 using System.Security.Claims;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 5 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\Pages\Transactions.razor"
+=======
+#line 5 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+>>>>>>> main
 using Microsoft.AspNetCore.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 6 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\Pages\Transactions.razor"
+=======
+#line 6 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+>>>>>>> main
 using Microsoft.Data.SqlClient;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 7 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\Pages\Transactions.razor"
+=======
+#line 7 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+>>>>>>> main
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
@@ -120,7 +176,11 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< HEAD
 #line 199 "C:\Users\degag\source\repos\commerce\CommerceASPIdentity\Pages\Transactions.razor"
+=======
+#line 199 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+>>>>>>> main
        
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -175,9 +235,12 @@ using Microsoft.AspNetCore.Components.Forms;
     /// <summary>
     /// prepares the transaction to be added
     /// </summary>
-    void AddNewTransaction()
+    async Task AddNewTransaction()
     {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
         objTransactionsmaster = new Transactionsmaster();
+        objTransactionsmaster.UserId = userId;
         objTransactionsmaster.TransactionId = 0;
         showPopup = true;
     }

@@ -19,5 +19,12 @@ namespace EndToEndTest.Data.CommerceDataModels
         [Key]
         [Column("notificationID")]
         public int NotificationId { get; set; }
+
+        [InverseProperty("Notification")]
+        public virtual AmountConstraint AmountConstraint { get; set; }
+        [InverseProperty("Notification")]
+        public virtual LocationConstraint LocationConstraint { get; set; }
+        [InverseProperty("Notification")]
+        public virtual TimeConstraint TimeConstraint { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace EndToEndTest.Data.CommerceDataModels
         public virtual DbSet<LocationConstraint> LocationConstraint { get; set; }
         public virtual DbSet<TimeConstraint> TimeConstraint { get; set; }
         public virtual DbSet<Transactionsmaster> Transactionsmaster { get; set; }
+        public virtual DbSet<TriggeredNotif> TriggeredNotif { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
         public virtual DbSet<UserToNotifications> UserToNotifications { get; set; }
         public virtual DbSet<Userstoaccounts> Userstoaccounts { get; set; }
@@ -33,34 +34,40 @@ namespace EndToEndTest.Data.CommerceDataModels
 
             modelBuilder.Entity<Accounts>(entity =>
             {
-                entity.Property(e => e.AccountId).ValueGeneratedNever();
+                entity.Property(e => e.Balance).HasDefaultValueSql("((0.00))");
             });
 
             modelBuilder.Entity<AmountConstraint>(entity =>
             {
+                entity.Property(e => e.NotificationId).ValueGeneratedNever();
+
                 entity.HasOne(d => d.Notification)
-                    .WithMany()
-                    .HasForeignKey(d => d.NotificationId)
+                    .WithOne(p => p.AmountConstraint)
+                    .HasForeignKey<AmountConstraint>(d => d.NotificationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_amount_constraint_userToNotifications");
             });
 
             modelBuilder.Entity<LocationConstraint>(entity =>
             {
+                entity.Property(e => e.NotificationId).ValueGeneratedNever();
+
                 entity.Property(e => e.Location).IsUnicode(false);
 
                 entity.HasOne(d => d.Notification)
-                    .WithMany()
-                    .HasForeignKey(d => d.NotificationId)
+                    .WithOne(p => p.LocationConstraint)
+                    .HasForeignKey<LocationConstraint>(d => d.NotificationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_location_constraint_userToNotifications");
             });
 
             modelBuilder.Entity<TimeConstraint>(entity =>
             {
+                entity.Property(e => e.NotificationId).ValueGeneratedNever();
+
                 entity.HasOne(d => d.Notification)
-                    .WithMany()
-                    .HasForeignKey(d => d.NotificationId)
+                    .WithOne(p => p.TimeConstraint)
+                    .HasForeignKey<TimeConstraint>(d => d.NotificationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_time_constraint_userToNotifications");
             });
@@ -80,6 +87,13 @@ namespace EndToEndTest.Data.CommerceDataModels
                     .HasForeignKey(d => d.AccountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_transactionsmaster_accounts");
+            });
+
+            modelBuilder.Entity<TriggeredNotif>(entity =>
+            {
+                entity.Property(e => e.DateAdded).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.TrigNotifId).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<UserInfo>(entity =>
@@ -103,11 +117,6 @@ namespace EndToEndTest.Data.CommerceDataModels
                 entity.Property(e => e.Phonenumber).IsUnicode(false);
 
                 entity.Property(e => e.State).IsUnicode(false);
-            });
-
-            modelBuilder.Entity<UserToNotifications>(entity =>
-            {
-                entity.Property(e => e.NotificationId).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Userstoaccounts>(entity =>

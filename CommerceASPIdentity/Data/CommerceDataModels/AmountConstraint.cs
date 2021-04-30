@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EndToEndTest.Data.CommerceDataModels
 {
-    [Keyless]
     [Table("amount_constraint")]
     public partial class AmountConstraint
     {
+        [Key]
         [Column("notificationID")]
         public int NotificationId { get; set; }
         [Column("min", TypeName = "decimal(15, 2)")]
@@ -21,6 +21,7 @@ namespace EndToEndTest.Data.CommerceDataModels
         public decimal Max { get; set; }
 
         [ForeignKey(nameof(NotificationId))]
+        [InverseProperty(nameof(UserToNotifications.AmountConstraint))]
         public virtual UserToNotifications Notification { get; set; }
     }
 }

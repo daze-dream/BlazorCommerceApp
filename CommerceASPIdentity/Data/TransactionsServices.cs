@@ -51,8 +51,6 @@ namespace EndToEndTest
             return accountID;
         }
 
-        //TODO: add additonal services to fetch the required data for adding new transacitons
-
         /// <summary>
         ///  gets the opening balance of the user's account (currently only one account is supported)
         /// </summary>
