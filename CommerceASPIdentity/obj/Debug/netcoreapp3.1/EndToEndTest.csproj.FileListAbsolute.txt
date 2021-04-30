@@ -1198,6 +1198,12 @@ C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIde
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\EndToEndTest.dll
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\EndToEndTest.pdb
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\EndToEndTest.genruntimeconfig.cache
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Notifications.razor.g.cs
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Notifications.razor.g.cs
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\NotificationsTest.razor.g.cs
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\NotificationsTest.razor.g.cs
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\ForgotPassword.cshtml.g.cs
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\appsettings.json
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\efpt.config.json
@@ -1353,6 +1359,7 @@ D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-c
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\FetchData.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Index.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Notifications.razor.g.cs
+D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\NotificationsTest.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Transactions.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\LoginDisplay.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\MainLayout.razor.g.cs
@@ -1370,18 +1377,21 @@ D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-c
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\FetchData.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Index.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Notifications.razor.g.cs
+D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\NotificationsTest.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Transactions.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Shared\LoginDisplay.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Shared\MainLayout.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Shared\NavMenu.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Shared\SurveyPrompt.razor.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\_Imports.razor.g.cs
+D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\ForgotPassword.cshtml.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Login.cshtml.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\LogOut.cshtml.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Register.cshtml.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\RegisterAsp.cshtml.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Shared\_LoginPartial.cshtml.g.cs
+D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 D:\Users\Trevor\Google Drive\School\Spring 2021\CS456\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Error.cshtml.g.cs

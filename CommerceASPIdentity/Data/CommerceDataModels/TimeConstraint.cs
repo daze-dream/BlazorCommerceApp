@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EndToEndTest.Data.CommerceDataModels
 {
-    [Keyless]
     [Table("time_constraint")]
     public partial class TimeConstraint
     {
+        [Key]
         [Column("notificationID")]
         public int NotificationId { get; set; }
         [Column("time_in")]
@@ -21,6 +21,7 @@ namespace EndToEndTest.Data.CommerceDataModels
         public TimeSpan TimeOut { get; set; }
 
         [ForeignKey(nameof(NotificationId))]
+        [InverseProperty(nameof(UserToNotifications.TimeConstraint))]
         public virtual UserToNotifications Notification { get; set; }
     }
 }

@@ -12,53 +12,33 @@ namespace EndToEndTest.Data.CommerceDataModels
     [Table("transactionsmaster")]
     public partial class Transactionsmaster
     {
-        //[Required] Commented out because messed with the data annotation validator.. no new transactions will be created if req.
+        [Required]
         [Column("userID")]
         [StringLength(450)]
         public string UserId { get; set; }
-
-
         [Column("accountID")]
         public int AccountId { get; set; }
-
-
         [Column("transactiondate", TypeName = "datetime")]
         public DateTime Transactiondate { get; set; }
-
-
         [Key]
         [Column("transactionID")]
         public long TransactionId { get; set; }
-
-
         [Column("openingbalance", TypeName = "decimal(20, 2)")]
         public decimal Openingbalance { get; set; }
-        
-
-        [Required(ErrorMessage = "Select a valid transaction.")]
+        [Required]
         [Column("transactiontype")]
         [StringLength(2)]
         public string Transactiontype { get; set; }
-        
-
-        [Required(ErrorMessage = "Enter a valid amount.")]
         [Column("transactionamount", TypeName = "decimal(20, 2)")]
         public decimal Transactionamount { get; set; }
-        
-
-        [Required(ErrorMessage = "Enter a valid description.")]
+        [Required]
         [Column("description")]
         [StringLength(256)]
-        [MinLength(1), MaxLength(250)]
         public string Description { get; set; }
-        
-
-        [Required(ErrorMessage ="Select a valid state.")]
+        [Required]
         [Column("locationState")]
         [StringLength(200)]
         public string LocationState { get; set; }
-
-
         [Column("islastID")]
         public int IslastId { get; set; }
 
