@@ -128,7 +128,9 @@ using Microsoft.AspNetCore.Components.Forms;
 #nullable restore
 #line 435 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
        
+    private bool smallPopUp = false;
     private bool showPopup = false;
+
     private bool hideDivAmt = true;
     private bool hideDivLoc = true;
     private bool hideDivTm = true;
@@ -136,7 +138,6 @@ using Microsoft.AspNetCore.Components.Forms;
     private bool hideSmAmt = true;
     private bool hideSmTime = true;
     private bool hideSmLoc = true;
-
 
     private string hideAmt => hideDivAmt ? "d-none" : null;
     private string hideLoc => hideDivLoc ? "d-none" : null;
@@ -163,6 +164,11 @@ using Microsoft.AspNetCore.Components.Forms;
         showPopup = false;
     }
 
+    void CloseSmallPopup()
+    {
+        smallPopUp = false;
+    }
+
     private void hideAmountCon()
     {
         hideDivAmt = !hideDivAmt;
@@ -181,10 +187,12 @@ using Microsoft.AspNetCore.Components.Forms;
     {
         hideSmAmt = !hideSmAmt;
     }
+
     private void hideSmTimes()
     {
         hideSmTime = !hideSmTime;
     }
+
     private void hideSmLocation()
     {
         hideSmLoc = !hideSmLoc;
@@ -363,6 +371,7 @@ using Microsoft.AspNetCore.Components.Forms;
         ShowACPopup = false;
         ShowLCPopup = false;
         ShowTCPopup = false;
+        smallPopUp = false;
     }
 
     void prepareNewUserToNotifJoinEntry(string userID)
@@ -403,19 +412,22 @@ using Microsoft.AspNetCore.Components.Forms;
         if (notif is AmountConstraint)
         {
             tempAC = (AmountConstraint)notif;
-            ShowACPopup = true;
+            smallPopUp = true;
+            //ShowACPopup = true;
         }
         else if (notif is TimeConstraint)
         {
             tempTC = (TimeConstraint)notif;
             tempMin = Convert.ToDateTime(tempTC.TimeIn.ToString());
             tempMax = Convert.ToDateTime(tempTC.TimeOut.ToString());
-            ShowTCPopup = true;
+            smallPopUp = true;
+            //ShowTCPopup = true;
         }
         else if (notif is LocationConstraint)
         {
             tempLC = (LocationConstraint)notif;
-            ShowLCPopup = true;
+            smallPopUp = true;
+            //ShowLCPopup = true;
         }
     }
 

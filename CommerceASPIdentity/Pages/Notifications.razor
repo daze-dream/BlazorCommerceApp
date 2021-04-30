@@ -124,7 +124,7 @@
 
 
 
-        @if (ShowACPopup)
+        @if (smallPopUp)
         {
             <div class="modal" tabindex="-1" style="display:block" role="dialog">
                 <div class="modal-dialog modal-lg">
@@ -199,7 +199,7 @@
                             <button class="primary_button" @onclick="() => SaveNotification(tempAC)">
                                 Save
                             </button>
-                            <button class="primary_button ml-auto" @onclick="ClosePopup">
+                            <button class="primary_button ml-auto" @onclick="CloseSmallPopup">
                                 Close
                             </button>
                         </div>
@@ -433,7 +433,9 @@
 
 
 @code {
+    private bool smallPopUp = false;
     private bool showPopup = false;
+
     private bool hideDivAmt = true;
     private bool hideDivLoc = true;
     private bool hideDivTm = true;
@@ -441,7 +443,6 @@
     private bool hideSmAmt = true;
     private bool hideSmTime = true;
     private bool hideSmLoc = true;
-
 
     private string hideAmt => hideDivAmt ? "d-none" : null;
     private string hideLoc => hideDivLoc ? "d-none" : null;
@@ -468,6 +469,11 @@
         showPopup = false;
     }
 
+    void CloseSmallPopup()
+    {
+        smallPopUp = false;
+    }
+
     private void hideAmountCon()
     {
         hideDivAmt = !hideDivAmt;
@@ -486,10 +492,12 @@
     {
         hideSmAmt = !hideSmAmt;
     }
+
     private void hideSmTimes()
     {
         hideSmTime = !hideSmTime;
     }
+
     private void hideSmLocation()
     {
         hideSmLoc = !hideSmLoc;
@@ -663,12 +671,13 @@
     }
 
     // Close any type nptification pop up.
-    void ClosePopup()
-    {
-        ShowACPopup = false;
-        ShowLCPopup = false;
-        ShowTCPopup = false;
-    }
+    //void ClosePopup()
+    //{
+    //    ShowACPopup = false;
+    //    ShowLCPopup = false;
+    //    ShowTCPopup = false;
+    //    smallPopUp = false;
+    //}
 
     void prepareNewUserToNotifJoinEntry(string userID)
     {
@@ -708,19 +717,22 @@
         if (notif is AmountConstraint)
         {
             tempAC = (AmountConstraint)notif;
-            ShowACPopup = true;
+            smallPopUp = true;
+            //ShowACPopup = true;
         }
         else if (notif is TimeConstraint)
         {
             tempTC = (TimeConstraint)notif;
             tempMin = Convert.ToDateTime(tempTC.TimeIn.ToString());
             tempMax = Convert.ToDateTime(tempTC.TimeOut.ToString());
-            ShowTCPopup = true;
+            smallPopUp = true;
+            //ShowTCPopup = true;
         }
         else if (notif is LocationConstraint)
         {
             tempLC = (LocationConstraint)notif;
-            ShowLCPopup = true;
+            smallPopUp = true;
+            //ShowLCPopup = true;
         }
     }
 }
