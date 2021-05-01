@@ -49,6 +49,11 @@ namespace EndToEndTest
             services.AddScoped<TransactionServices>();
             services.AddScoped<TransactionSummary>();
             services.AddScoped<NotificationServices>();
+<<<<<<< HEAD
+=======
+            //services.AddScoped<TransactionSummary>();
+
+>>>>>>> main
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
