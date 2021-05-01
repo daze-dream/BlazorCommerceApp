@@ -77,34 +77,13 @@ using EndToEndTest.Data.CommerceDataModels;
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
-using Data;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
-using System.Security.Claims;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 5 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
 using Microsoft.AspNetCore.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
-using Microsoft.Data.SqlClient;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 7 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+#line 4 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
@@ -119,7 +98,7 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 199 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+#line 179 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
        
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -136,7 +115,7 @@ using Microsoft.AspNetCore.Components.Forms;
     public class States { public string Abbrev { get; set; } };
     // THINK ABOUT CREATING SEPERATE MODEL OF THIS LIST OF STATES - BUT MAYBE NOT, ONLY NEEDED IN THIS PAGE. DOES NOT NEED TO BE SHARED.
     List<States> allStates = new List<States>
-    {
+{
         new States() {Abbrev= "AL"}, new States() {Abbrev= "AK"}, new States() {Abbrev= "AZ"},
         new States() {Abbrev= "AR"}, new States() {Abbrev= "CA"}, new States() {Abbrev= "CO"},
         new States() {Abbrev= "CT"}, new States() {Abbrev= "DC"}, new States() {Abbrev= "DE"},
@@ -156,8 +135,13 @@ using Microsoft.AspNetCore.Components.Forms;
         new States() {Abbrev= "WV"}, new States() {Abbrev= "WI"}, new States() {Abbrev= "WY"}
     };
 
+    private decimal getBalance(decimal? thebal, decimal amount)
+    {
+        return ((Convert.ToDecimal(thebal)) + amount);
+    }
 
-    /// <summary>get the transactions when loading in the page </summary> 
+
+    /// <summary>get the transactions when loading in the page </summary>
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -166,7 +150,7 @@ using Microsoft.AspNetCore.Components.Forms;
         transactionsList = await Service.GetTransactions(userId);
         usersBankAccount = await Service.GetAccount(userId);
     }
-    /// <summary>bool to open and close the Transaction popup</summary> 
+    /// <summary>bool to open and close the Transaction popup</summary>
     void ClosePopup()
     {
         showPopup = false;
@@ -184,6 +168,7 @@ using Microsoft.AspNetCore.Components.Forms;
         objTransactionsmaster.TransactionId = 0;
         showPopup = true;
     }
+
     /// <summary>
     /// creates the final transaction and saves it to the server. Then, refreshes the view to update the account and transactions view
     /// </summary>
