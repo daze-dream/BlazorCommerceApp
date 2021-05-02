@@ -49,12 +49,9 @@ namespace EndToEndTest
             //services.AddSingleton<WeatherForecastService>();
             services.AddScoped<TransactionServices>();
             services.AddScoped<NotificationServices>();
-<<<<<<< HEAD
-            services.AddScoped<TransactionSummary>();
-=======
-            //services.AddScoped<TransactionSummary>();
 
->>>>>>> main
+            services.AddScoped<TransactionSummary>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

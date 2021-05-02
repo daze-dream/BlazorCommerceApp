@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="bunit" Version="1.1.5" />
+    <PackageReference Include="bunit.web" Version="1.1.5" />
     <PackageReference Include="C1.Blazor.Chart" Version="3.1.20211.65" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="3.1.14" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.9" />

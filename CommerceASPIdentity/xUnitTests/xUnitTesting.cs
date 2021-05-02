@@ -13,8 +13,8 @@ using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
-
-
+using Bunit;
+using EndToEndTest.Pages;
 
 namespace EndToEndTest.xUnitTests
 {
@@ -25,11 +25,12 @@ namespace EndToEndTest.xUnitTests
         private TransactionServices _ts;
         public xUnitTesting()
         {
-            _sut = new TransactionSummary();
+
             var optionsBuilder = new DbContextOptionsBuilder<CommerceappContext>()
                 .UseSqlServer("Server=tcp:cs451group5.database.windows.net,1433;Initial Catalog=commerceapp;Persist Security Info=False;User ID=cs451x;Password=Supermongodb2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30; ");
             _context = new CommerceappContext(optionsBuilder.Options);
             _ts = new TransactionServices(_context);
+            _sut = new TransactionSummary(_context);
         }
         [Fact]
         public async Task CountRecentTransactionsReturned()
@@ -42,6 +43,13 @@ namespace EndToEndTest.xUnitTests
         public async Task SubmitTransaction()
         {
 
+        }
+
+        [Fact]
+        public void bUnitTest()
+        {
+            using var testContext = new TestContext();
+            var transactionsPage = testContext.RenderComponent<Pages.Counter>();
         }
     }
 }

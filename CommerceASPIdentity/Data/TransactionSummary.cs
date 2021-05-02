@@ -9,11 +9,7 @@ using System.Security.Claims;
 
 namespace EndToEndTest.Data
 {
-<<<<<<< HEAD
-=======
-    /*
-    
->>>>>>> main
+
     public class TransactionSummary
     {
         private readonly CommerceappContext _context;
@@ -24,11 +20,6 @@ namespace EndToEndTest.Data
             _context = context;
         }
 
-<<<<<<< HEAD
-        public TransactionSummary() { }
-
-=======
->>>>>>> main
         // this method only returns 5 most recent transactions from account
         public async Task<List<Transactionsmaster>> GetRecentTransaction(string userID)
         {
@@ -56,11 +47,5 @@ namespace EndToEndTest.Data
         }
     }
 
-<<<<<<< HEAD
-}
 
-
-=======
-    */
 }
->>>>>>> main

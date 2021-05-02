@@ -82,6 +82,14 @@
               "target": "Package",
               "version": "[3.1.5, )"
             },
+            "bunit": {
+              "target": "Package",
+              "version": "[1.1.5, )"
+            },
+            "bunit.web": {
+              "target": "Package",
+              "version": "[1.1.5, )"
+            },
             "xunit": {
               "target": "Package",
               "version": "[2.4.1, )"
