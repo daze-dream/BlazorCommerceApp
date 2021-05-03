@@ -9,12 +9,12 @@ using System.Security.Claims;
 
 namespace EndToEndTest.Data
 {
-
     public class TransactionSummary
     {
         private readonly CommerceappContext _context;
         private readonly IHttpContextAccessor _httpCA;
         private List<Transactionsmaster> transactions;
+
         public TransactionSummary(CommerceappContext context)
         {
             _context = context;
@@ -35,17 +35,16 @@ namespace EndToEndTest.Data
 
         //returns a dictionary that holds the description of a transaction as the key and the transaction
         //amount as the value
-        public async Task<Dictionary<String, decimal>> getTransactionDescription(string userID)
+        public async Task<List<Tuple<String, decimal>>> getTransactionDescription(string userID)
         {
-            Dictionary<String, decimal> transactionDescription = new Dictionary<String, decimal>();
+            List<Tuple<String, decimal>> transactionDescription = new List<Tuple<String, decimal>>();
             foreach (Transactionsmaster trans in transactions)
             {
-                transactionDescription.Add(trans.Description, trans.Transactionamount);
+                var temp = Tuple.Create(trans.Description.ToString(), trans.Transactionamount);
+                transactionDescription.Add(temp);
             }
 
             return transactionDescription;
         }
     }
-
-
 }
