@@ -9,8 +9,7 @@ using System.Security.Claims;
 
 namespace EndToEndTest.Data
 {
-    /*
-    
+
     public class TransactionSummary
     {
         private readonly CommerceappContext _context;
@@ -48,5 +47,5 @@ namespace EndToEndTest.Data
         }
     }
 
-    */
+
 }
