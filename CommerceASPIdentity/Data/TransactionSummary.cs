@@ -9,10 +9,6 @@ using System.Security.Claims;
 
 namespace EndToEndTest.Data
 {
-<<<<<<< HEAD
-=======
-
->>>>>>> main
     public class TransactionSummary
     {
         private readonly CommerceappContext _context;
@@ -52,10 +48,3 @@ namespace EndToEndTest.Data
         }
     }
 }
-
-
-<<<<<<< HEAD
-=======
-
-}
->>>>>>> main
