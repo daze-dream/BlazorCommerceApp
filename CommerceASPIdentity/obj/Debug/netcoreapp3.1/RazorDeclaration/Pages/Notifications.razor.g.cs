@@ -69,6 +69,13 @@ using EndToEndTest.Shared;
 #line hidden
 #nullable disable
 #nullable restore
+#line 10 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
+using Utils;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 3 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Notifications.razor"
 using EndToEndTest.Data.CommerceDataModels;
 

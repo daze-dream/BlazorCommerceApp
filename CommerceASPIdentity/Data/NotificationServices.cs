@@ -7,6 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using CsvHelper;
+using System.IO;
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop;
 
 namespace EndToEndTest
 {
@@ -364,6 +369,38 @@ namespace EndToEndTest
             return await procedures.joinAllNotifsAsync(userId);
         }
 
+        //public async Task<FileContentResult> exportToCSVService(string id)
+        //{
+        //    using var memorystream = new MemoryStream();
+        //    using var writer = new StreamWriter(memorystream);
+        //    using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+        //    var allJoinedNotifs = await getAllNotifsJoinedWithDates(id);
+        //    {
+        //        csv.WriteRecords(allJoinedNotifs);
+        //        writer.Flush();
+        //    }
+        //    FileContentResult result = new FileContentResult(memorystream.GetBuffer(), "text/csv")
+        //    {
+        //        FileDownloadName = "notifications.csv"
+        //    };
+        //    return result;
+        //}
+
+        /// <summary>
+        /// invokes the javascript file located at wwwroot with the following parameters. It tries to download a file from the byte array as csv
+        /// 
+        /// </summary>
+        /// <param name="js"></param>
+        /// <param name="filename"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public async  Task SaveAs(IJSRuntime js, string filename, byte[] data)
+        {
+            await js.InvokeAsync<object>(
+                "FileSaveAs",
+                filename,
+                Convert.ToBase64String(data));
+        }
 
     }
 }

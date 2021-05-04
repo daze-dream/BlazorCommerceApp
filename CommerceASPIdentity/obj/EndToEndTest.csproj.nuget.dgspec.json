@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[3.1.20211.65, )"
             },
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[27.0.2, )"
+            },
             "Microsoft.AspNetCore.Components.Forms": {
               "target": "Package",
               "version": "[3.1.14, )"
@@ -81,6 +85,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.5, )"
+            },
+            "Syncfusion.XlsIO.Net.Core": {
+              "target": "Package",
+              "version": "[19.1.0.59, )"
             },
             "bunit": {
               "target": "Package",

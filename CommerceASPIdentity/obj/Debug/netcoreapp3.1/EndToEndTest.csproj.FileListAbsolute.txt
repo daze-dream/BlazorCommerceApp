@@ -622,3 +622,7 @@ C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\Comme
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\EndToEndTest.genruntimeconfig.cache
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\TriggeredNotifDEMO.razor.g.cs
 C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\TriggeredNotifDEMO.razor.g.cs
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\bin\Debug\netcoreapp3.1\CsvHelper.dll
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Syncfusion.Compression.Portable.dll
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Syncfusion.Licensing.dll
+C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Syncfusion.XlsIO.Portable.dll

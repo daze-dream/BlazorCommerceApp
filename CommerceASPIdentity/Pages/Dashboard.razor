@@ -1,7 +1,12 @@
 ﻿@using C1.Chart;
 @using C1.Blazor.Chart;
 @using C1.Blazor.Chart.Interaction;
+
 <!-- Using GrapeCity Chart -->
+@using CsvHelper;
+@using System.IO;
+@using System.Globalization;
+
 
 @using EndToEndTest.Data.CommerceDataModels
 @using Data
@@ -10,10 +15,19 @@
 @using System.Web;
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.Data.SqlClient
-@using Microsoft.AspNetCore.Components.Forms 
-@using System.Text.RegularExpressions; 
+@using Microsoft.AspNetCore.Components; 
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Text.RegularExpressions;
+@using Microsoft.AspNetCore.Mvc;
+@using System.Runtime.Serialization.Formatters.Binary  
+@using Utils; 
+
+
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
+@inject NavigationManager navManager 
+@inject IJSRuntime js
+
 @*
     Using OwningComponentBase ensures that the service and related services
     that share its scope are disposed with the component.
@@ -26,6 +40,7 @@
 
 
 @page "/Dashboard"
+
 
 <AuthorizeView>
     <Authorized>
@@ -180,6 +195,9 @@
 
             <div class="container mt-3">
                 <h3>Testing stored procedure to load notifications, parameters, and their monthly triggers </h3>
+                <button name="AddTransButton" class="primary_button float-right" type="submit" @onclick="DownloadFile">
+                    Export
+                </button>
                 @if (allJoinedNotifs == null)
                 {
                     <p><em> Loading... </em></p>
@@ -194,7 +212,9 @@
                                     if (property.Name == "userID")
                                     { continue; }
                                     else
-                                    {<th>@property.Name</th>}
+                                    {
+                                        <th>@property.Name</th>
+                                    }
                                 }
                             </tr>
                         </thead>
@@ -207,7 +227,9 @@
                                         if (property.Name == "userID")
                                         { continue; }
                                         else
-                                        {<td>@property.GetValue(x)</td>}
+                                        {
+                                            <td>@property.GetValue(x)</td>
+                                        }
                                     }
                                 </tr>
                             }
@@ -344,9 +366,13 @@
                                 <td>@x.DateAdded</td>
                                 <td>@getHTMLMarkup(x.EmailBody)</td>
                                 @if (x.EmailBody.Length < 212)
-                                { <td>@getHTMLMarkup(x.EmailBody)</td> }
+                                {
+                                    <td>@getHTMLMarkup(x.EmailBody)</td>
+                                }
                                 else
-                                {<td>@x.EmailBody.Substring(131).Substring(0, getIndexOfSubstring(x.EmailBody.Substring(131),"If"))</td>}
+                                {
+                                    <td>@x.EmailBody.Substring(131).Substring(0, getIndexOfSubstring(x.EmailBody.Substring(131), "If"))</td>
+                                }
                             </tr>
                         }
                     </tbody>
@@ -478,7 +504,7 @@
             var rng = new Random();
             return new List<object>
                 ()
-            {
+{
 
                     new {date = new DateTime(2021, 1, 26), notificationcount = rng.Next(0, 15)},
                     new {date = new DateTime(2021, 2, 1), notificationcount = rng.Next(0, 15)},
@@ -529,7 +555,7 @@
     }
 
     /// <summary>
-    /// Async gets all the user's notifications joined with months. 
+    /// Async gets all the user's notifications joined with months.
     /// </summary>
     /// <returns></returns>
     async Task getAllNotifsJoinedWithMonthsAsync()
@@ -540,4 +566,38 @@
     }
 
 
+    private async Task downloadRedirect()
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+        navManager.NavigateTo("api/DownloadController/{userId}", true) ;
+    }
 }
+
+@functions{
+
+    async Task DownloadFile()
+    {
+        using var memorystream = new MemoryStream();
+        using var writer = new StreamWriter(memorystream);
+        //using var writer = new StreamWriter("../export.csv");
+        using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+        {
+
+            csv.WriteRecords(allJoinedNotifs);
+            writer.Flush();
+
+        }
+        //var bytes = System.Text.Encoding.UTF8.GetBytes(text);
+        //await FileUtils.SaveAs(js, "export.csv", memorystream.ToArray());
+        //var result = writer.ToString();
+        //Console.WriteLine(result);
+        await Service.SaveAs(js, "export.csv", memorystream.ToArray());
+
+
+
+    }
+
+}
+
+
