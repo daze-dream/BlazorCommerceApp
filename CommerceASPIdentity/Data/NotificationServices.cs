@@ -20,7 +20,10 @@ namespace EndToEndTest
         private readonly CommerceappContext _context;
         private readonly IHttpContextAccessor _httpCA;
 
-
+        /// <summary>
+        /// Constructs the service based on the context passed in
+        /// </summary>
+        /// <param name="context"></param>
         public NotificationServices(CommerceappContext context)
         {
             _context = context;
@@ -111,7 +114,11 @@ namespace EndToEndTest
             return amountConstraints;
         }
 
-
+        /// <summary>
+        /// Returns a list of the user's TimeConstraint notifcation rules
+        /// </summary>
+        /// <param name="notifID"></param>
+        /// <returns> List of AmountConstraint</returns>
         public async Task<List<TimeConstraint>> GetTimeConstraints(List<UserToNotifications> notifArray)
         {
 
@@ -132,6 +139,11 @@ namespace EndToEndTest
             return timeConstraints;
         }
 
+        /// <summary>
+        /// Returns a list of the user's LocationConstraint notifcation rules
+        /// </summary>
+        /// <param name="notifID"></param>
+        /// <returns> List of AmountConstraint</returns>
         public async Task<List<LocationConstraint>> GetLocationConstraints(List<UserToNotifications> notifArray)
         {
             List<LocationConstraint> locationConstraints = new List<LocationConstraint>();
@@ -190,7 +202,12 @@ namespace EndToEndTest
         }
 
 
-
+        /// <summary>
+        /// USE ONLY IN CONJUNCTION WITH OTHER ADD NOTIFICATION FUNCTIONS, ELSE IT'S JUST AN EMPTY FUNCTION
+        /// This helper function adds a new entry to the UserToNotif join table, prepping for a notification rule to be added
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public Task<bool> AddNewUsersToNotifJoinTableEntry(UserToNotifications x)
         {
             _context.UserToNotifications.Add(x);
@@ -206,7 +223,11 @@ namespace EndToEndTest
             
 
         }
-
+        /// <summary>
+        /// Updates a notification based on the notification type passed in, accessing different tables
+        /// </summary>
+        /// <param name="notif"></param>
+        /// <returns>Task of bool </returns>
         public Task<bool> updateNotificationsAsync(object notif)
         {
             if(notif is AmountConstraint)
@@ -255,6 +276,12 @@ namespace EndToEndTest
             return Task.FromResult(true);
         }
 
+        /// <summary>
+        /// Deletes a notification, based on the notification passed in, depending on the type match.
+        /// Pay attention to the sequence it deletes: first from the usertonotif join, then from the corresponding table.
+        /// </summary>
+        /// <param name="notif"></param>
+        /// <returns>Task of bool</returns>
         public Task<bool> DeleteNotificationAsync(object notif)
         {
             if (notif is AmountConstraint)
@@ -369,26 +396,9 @@ namespace EndToEndTest
             return await procedures.joinAllNotifsAsync(userId);
         }
 
-        //public async Task<FileContentResult> exportToCSVService(string id)
-        //{
-        //    using var memorystream = new MemoryStream();
-        //    using var writer = new StreamWriter(memorystream);
-        //    using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-        //    var allJoinedNotifs = await getAllNotifsJoinedWithDates(id);
-        //    {
-        //        csv.WriteRecords(allJoinedNotifs);
-        //        writer.Flush();
-        //    }
-        //    FileContentResult result = new FileContentResult(memorystream.GetBuffer(), "text/csv")
-        //    {
-        //        FileDownloadName = "notifications.csv"
-        //    };
-        //    return result;
-        //}
-
         /// <summary>
-        /// invokes the javascript file located at wwwroot with the following parameters. It tries to download a file from the byte array as csv
-        /// 
+        /// Takes the byte array, the JS Interop runtime, and creates as CSV to download from the bytearray.
+        /// Invokes the javascript file "savefile.js" located at wwwroot with the following parameters. 
         /// </summary>
         /// <param name="js"></param>
         /// <param name="filename"></param>
