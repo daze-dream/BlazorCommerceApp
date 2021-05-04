@@ -334,5 +334,36 @@ namespace EndToEndTest
                 .ToListAsync();
 
         }
+
+        /// <summary>
+        /// Gets most recent 5 TriggeredNotif of the user's email, dubbed "name" by ASP Identity.
+        /// </summary>
+        /// <param name="notifArray"></param>
+        /// <returns>Task with list of TriggeredNotif</returns>
+        public async Task<List<TriggeredNotif>> GetTriggeredNotifSummary(/*List<UserToNotifications> notifArray,*/ string userEmail)
+        {
+
+            return await _context.TriggeredNotif
+                .Where(x => x.EmailSentTo == userEmail)
+                .Take(5)
+                .OrderBy(x => x.DateAdded)
+                .AsNoTracking()
+                .ToListAsync();
+
+        }
+
+        /// <summary>
+        /// Gets all the user's notifications, joined as one table, including the monthly counts, with a stored procedure.
+        /// For context, joins userToNotifications, time/amount/location_constraint, coalesces and changes column names
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Task of List 'joinAllNotifsResult' </returns>
+        public async Task<List<joinAllNotifsResult>> getAllNotifsJoinedWithDates(string userId)
+        {
+            var procedures = new CommerceappContextProcedures(_context);
+            return await procedures.joinAllNotifsAsync(userId);
+        }
+
+
     }
 }

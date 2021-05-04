@@ -162,7 +162,7 @@ using System.Text.RegularExpressions;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 330 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 369 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
        
 
     [CascadingParameter]
@@ -172,6 +172,7 @@ using System.Text.RegularExpressions;
     List<LocationConstraint> lc;
     List<UserToNotifications> notifList;
     List<TriggeredNotif> triggeredList;
+    List<joinAllNotifsResult> allJoinedNotifs;
     UserToNotifications tempUTN;
     //Match match = Regex.Match("")
 
@@ -183,6 +184,7 @@ using System.Text.RegularExpressions;
     /// IMPORTANT: gets the current month and the first 3 letters as an abbreviation. This is used to get the proper monthly count in functions
     /// </summary>
     string currMonth = DateTime.Now.ToString("MMMM").Substring(0, 3);
+
 
     private bool displayManage = false;
     private bool displayNotification = false;
@@ -202,6 +204,7 @@ using System.Text.RegularExpressions;
         ac = await Service.GetAmountConstraints(notifList);
         tc = await Service.GetTimeConstraints(notifList);
         lc = await Service.GetLocationConstraints(notifList);
+        await getAllNotifsJoinedWithMonthsAsync();
     }
 
 
@@ -320,6 +323,17 @@ using System.Text.RegularExpressions;
     public int getIndexOfSubstring(string text, string toMatch)
     {
         return text.IndexOf(toMatch);
+    }
+
+    /// <summary>
+    /// Async gets all the user's notifications joined with months. 
+    /// </summary>
+    /// <returns></returns>
+    async Task getAllNotifsJoinedWithMonthsAsync()
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+        allJoinedNotifs = await Service.getAllNotifsJoinedWithDates(userId);
     }
 
 

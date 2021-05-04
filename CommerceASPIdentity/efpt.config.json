@@ -8,7 +8,7 @@
    "ModelNamespace": null,
    "OutputContextPath": null,
    "OutputPath": "Data\\CommerceDataModels",
-   "ProceduresReturnList": false,
+   "ProceduresReturnList": true,
    "ProjectRootNamespace": "EndToEndTest",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
@@ -53,6 +53,10 @@
       {
          "Name": "[dbo].[userToNotifications]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[joinAllNotifs]",
+         "ObjectType": 1
       }
    ],
    "UiHint": "cs451group5.commerceapp",

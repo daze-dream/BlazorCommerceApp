@@ -38,7 +38,7 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-7 my-auto">
-                    <p>Welcome @context.User.Identity.Name ! </p>
+                    <p>Welcome @context.User.Identity.Name! </p>
                 </div>
                 <div class="col-5">
                     <table class="float-right">
@@ -84,7 +84,7 @@
                                 <ul>
                                     @foreach (var x in ac)
                                     {
-                                        <li>@x.NotificationId : Transactions between $@x.Min - $@x.Max.</li>
+                                        <li>ID @x.NotificationId: Transactions between $@x.Min - $@x.Max.</li>
                                         <ul>
                                             @foreach (var y in notifList)
                                             {
@@ -99,7 +99,7 @@
                                     }
                                     @foreach (var x in tc)
                                     {
-                                        <li>@x.NotificationId : Transactions between @revertDateTime(x.TimeIn) - @revertDateTime(x.TimeOut).</li>
+                                        <li>ID @x.NotificationId: Transactions between @revertDateTime(x.TimeIn) - @revertDateTime(x.TimeOut).</li>
                                         <ul>
                                             @foreach (var y in notifList)
                                             {
@@ -115,7 +115,7 @@
                                     }
                                     @foreach (var x in lc)
                                     {
-                                        <li>@x.NotificationId : Transactions from @x.Location.</li>
+                                        <li>ID @x.NotificationId: Transactions from @x.Location.</li>
                                         <ul>
                                             @foreach (var y in notifList)
                                             {
@@ -136,6 +136,7 @@
             </div>
 
             <div class="container mt-3">
+                <h3>Testing loading user's notifications with monthly triggers </h3>
                 @if (notifList == null)
                 {
                     <p><em>Loading...</em></p>
@@ -174,6 +175,44 @@
                         </tbody>
                     </table>
 
+                }
+            </div>
+
+            <div class="container mt-3">
+                <h3>Testing stored procedure to load notifications, parameters, and their monthly triggers </h3>
+                @if (allJoinedNotifs == null)
+                {
+                    <p><em> Loading... </em></p>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                @foreach (var property in typeof(joinAllNotifsResult).GetProperties())
+                                {
+                                    if (property.Name == "userID")
+                                    { continue; }
+                                    else
+                                    {<th>@property.Name</th>}
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var x in allJoinedNotifs)
+                            {
+                                <tr>
+                                    @foreach (var property in typeof(joinAllNotifsResult).GetProperties())
+                                    {
+                                        if (property.Name == "userID")
+                                        { continue; }
+                                        else
+                                        {<td>@property.GetValue(x)</td>}
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 }
             </div>
 
@@ -281,7 +320,7 @@
         </div>
         <!--Testing triggered notifications display-->
         <div class="container mt-3">
-            JANK
+            <h3>Testing loading triggered notification table and concantenating the HTML to use as a string to display</h3>
             @if (triggeredList == null)
             {
                 <p><em>Loading...</em></p>
@@ -336,6 +375,7 @@
     List<LocationConstraint> lc;
     List<UserToNotifications> notifList;
     List<TriggeredNotif> triggeredList;
+    List<joinAllNotifsResult> allJoinedNotifs;
     UserToNotifications tempUTN;
     //Match match = Regex.Match("")
 
@@ -347,6 +387,7 @@
     /// IMPORTANT: gets the current month and the first 3 letters as an abbreviation. This is used to get the proper monthly count in functions
     /// </summary>
     string currMonth = DateTime.Now.ToString("MMMM").Substring(0, 3);
+
 
     private bool displayManage = false;
     private bool displayNotification = false;
@@ -366,6 +407,7 @@
         ac = await Service.GetAmountConstraints(notifList);
         tc = await Service.GetTimeConstraints(notifList);
         lc = await Service.GetLocationConstraints(notifList);
+        await getAllNotifsJoinedWithMonthsAsync();
     }
 
 
@@ -484,6 +526,17 @@
     public int getIndexOfSubstring(string text, string toMatch)
     {
         return text.IndexOf(toMatch);
+    }
+
+    /// <summary>
+    /// Async gets all the user's notifications joined with months. 
+    /// </summary>
+    /// <returns></returns>
+    async Task getAllNotifsJoinedWithMonthsAsync()
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+        allJoinedNotifs = await Service.getAllNotifsJoinedWithDates(userId);
     }
 
 

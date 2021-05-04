@@ -49,7 +49,7 @@ namespace EndToEndTest.xUnitTests
         public void bUnitTest()
         {
             using var testContext = new TestContext();
-            var transactionsPage = testContext.RenderComponent<Pages.Counter>();
+            //var transactionsPage = testContext.RenderComponent<Pages.Counter>();
         }
     }
 }

@@ -83,8 +83,9 @@ using EndToEndTest.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 15 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Shared\NavMenu.razor"
+#line 24 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Shared\NavMenu.razor"
        
+
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -93,6 +94,7 @@ using EndToEndTest.Shared;
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
 
 #line default
 #line hidden

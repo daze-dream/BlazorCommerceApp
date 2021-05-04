@@ -110,7 +110,7 @@ using Microsoft.AspNetCore.Components.Forms;
 #line default
 #line hidden
 #nullable disable
-    public partial class LoginDisplay : OwningComponentBase<TransactionSummary>
+    public partial class LoginDisplay : OwningComponentBase<NotificationServices>
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -118,37 +118,50 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 60 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Shared\LoginDisplay.razor"
+#line 78 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Shared\LoginDisplay.razor"
        
-    public List<Transactionsmaster> transactionsList;
+    public List<TriggeredNotif> notifSummaries;
+
     public List<Tuple<String, decimal>> transDesc;
     private string userID;
 
     private string displayBell = "d-none";
-
-    private async Task displayNotifBell()
-    {
-        if (displayBell == "d-block")
-        {
-            displayBell = "d-none";
-            transDesc.Clear();
-            transactionsList.Clear();
-        }
-        else
-        {
-            transactionsList = await Service.GetRecentTransaction(userID);
-            transDesc = await Service.getTransactionDescription(userID);
-            displayBell = "d-block";
-        }
-    }
 
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
         userID = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
 
-        transactionsList = await Service.GetRecentTransaction(userID);
-        transDesc = await Service.getTransactionDescription(userID);
+        notifSummaries = await Service.GetTriggeredNotifSummary(user.Identity.Name);
+        notifSummaries.Count();
+        notifSummaries.Count();
+        notifSummaries.Count();
+        notifSummaries.Count();
+
+
+
+    }
+
+    private async Task displayNotifBell()
+    {
+        if (displayBell == "d-block")
+        {
+            displayBell = "d-none";
+            //notifSummaries.Clear();
+        }
+        else
+        {
+            notifSummaries = await Service.GetTriggeredNotifSummary(userID);
+            displayBell = "d-block";
+        }
+    }
+
+
+
+
+    public int getIndexOfSubstring(string text, string toMatch)
+    {
+        return text.IndexOf(toMatch);
     }
 
 #line default
