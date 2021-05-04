@@ -67,6 +67,19 @@ namespace EndToEndTest
         }
 
         /// <summary>
+        /// Returns the notification that matches the passed ID
+        /// </summary>
+        /// <param name="notifID"></param>
+        /// <returns></returns>
+        public async Task<UserToNotifications> getSingleNotif(int notifID)
+        {
+            return await _context.UserToNotifications
+                .Where(x => x.NotificationId == notifID)
+                .AsNoTracking()
+                .SingleOrDefaultAsync();
+        }
+
+        /// <summary>
         /// Returns a list of the user's AmountConstraint notifcation rules
         /// </summary>
         /// <param name="notifID"></param>
@@ -293,6 +306,33 @@ namespace EndToEndTest
             }
 
             return Task.FromResult(true);
+        }
+
+        /// <summary>
+        /// Returns a single entry from the TriggeredNotif table based on notifID
+        /// </summary>
+        /// <param name="notifID"></param>
+        /// <returns></returns>
+        public async Task<TriggeredNotif> GetSingleTriggeredNotifEntry(int notifID)
+        {
+            return await _context.TriggeredNotif
+                .Where(x => x.TrigNotifId == notifID)
+                .SingleAsync();                
+        }
+        /// <summary>
+        /// Gets all the TriggeredNotif of the user's email, dubbed "name" by ASP Identity.
+        /// </summary>
+        /// <param name="notifArray"></param>
+        /// <returns>Task with list of TriggeredNotif</returns>
+        public async Task<List<TriggeredNotif>> GetAllTriggeredNotifEntries(/*List<UserToNotifications> notifArray,*/ string userEmail)
+        {
+
+            return await _context.TriggeredNotif
+                .Where(x => x.EmailSentTo == userEmail)
+                .OrderBy(x => x.DateAdded)
+                .AsNoTracking()
+                .ToListAsync();
+
         }
     }
 }

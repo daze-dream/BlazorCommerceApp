@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\degag\\source\\repos\\commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {}
+    "C:\\Users\\miste\\Desktop\\School Stuff\\CS 451 Capstone\\CommerceApp\\davidhoang\\CommerceASPIdentity\\EndToEndTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\degag\\source\\repos\\commerce\\CommerceASPIdentity\\EndToEndTest.csproj": {
+    "C:\\Users\\miste\\Desktop\\School Stuff\\CS 451 Capstone\\CommerceApp\\davidhoang\\CommerceASPIdentity\\EndToEndTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\degag\\source\\repos\\commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
+        "projectUniqueName": "C:\\Users\\miste\\Desktop\\School Stuff\\CS 451 Capstone\\CommerceApp\\davidhoang\\CommerceASPIdentity\\EndToEndTest.csproj",
         "projectName": "EndToEndTest",
-        "projectPath": "C:\\Users\\degag\\source\\repos\\commerce\\CommerceASPIdentity\\EndToEndTest.csproj",
-        "packagesPath": "C:\\Users\\degag\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\degag\\source\\repos\\commerce\\CommerceASPIdentity\\obj\\",
+        "projectPath": "C:\\Users\\miste\\Desktop\\School Stuff\\CS 451 Capstone\\CommerceApp\\davidhoang\\CommerceASPIdentity\\EndToEndTest.csproj",
+        "packagesPath": "C:\\Users\\miste\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\miste\\Desktop\\School Stuff\\CS 451 Capstone\\CommerceApp\\davidhoang\\CommerceASPIdentity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\degag\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\miste\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +26,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -37,6 +38,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "C1.Blazor.Chart": {
               "target": "Package",
@@ -117,7 +119,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

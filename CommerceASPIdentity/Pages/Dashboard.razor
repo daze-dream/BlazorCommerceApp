@@ -7,9 +7,11 @@
 @using Data
 @using EndToEndTest.Components
 @using System.Security.Claims
+@using System.Web;
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.Data.SqlClient
-@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Forms 
+@using System.Text.RegularExpressions; 
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
 @*
@@ -36,7 +38,7 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-7 my-auto">
-                    <p>Welcome ___________ ! </p>
+                    <p>Welcome @context.User.Identity.Name ! </p>
                 </div>
                 <div class="col-5">
                     <table class="float-right">
@@ -73,7 +75,7 @@
                             </div>
                         </div>
                         <div class="col-10 dotted_border">
-                            @if ((ac == null) && (tc == null) && (lc == null))
+                            @if ((ac == null) && (tc == null) && (lc == null) && (notifList == null))
                             {
                                 <p><em>There are no notifications rules to display.</em></p>
                             }
@@ -82,15 +84,49 @@
                                 <ul>
                                     @foreach (var x in ac)
                                     {
-                                        <li>Transactions between $@x.Min - $@x.Max.</li>
+                                        <li>@x.NotificationId : Transactions between $@x.Min - $@x.Max.</li>
+                                        <ul>
+                                            @foreach (var y in notifList)
+                                            {
+                                                if (x.NotificationId == y.NotificationId)
+                                                {
+                                                    <li>@getYearlySumOfNotif(y) This year</li>
+                                                    <li>@y.GetType().GetProperty(currMonth).GetValue(y) this month</li>
+                                                }
+                                            }
+
+                                        </ul>
                                     }
                                     @foreach (var x in tc)
                                     {
-                                        <li>Transactions between @revertDateTime(x.TimeIn) - @revertDateTime(x.TimeOut).</li>
+                                        <li>@x.NotificationId : Transactions between @revertDateTime(x.TimeIn) - @revertDateTime(x.TimeOut).</li>
+                                        <ul>
+                                            @foreach (var y in notifList)
+                                            {
+                                                if (x.NotificationId == y.NotificationId)
+                                                {
+                                                    <li>@getYearlySumOfNotif(y) This year</li>
+                                                    <li>@y.GetType().GetProperty(currMonth).GetValue(y) this month</li>
+                                                }
+                                            }
+
+                                        </ul>
+
                                     }
                                     @foreach (var x in lc)
                                     {
-                                        <li>Transactions from @x.Location.</li>
+                                        <li>@x.NotificationId : Transactions from @x.Location.</li>
+                                        <ul>
+                                            @foreach (var y in notifList)
+                                            {
+                                                if (x.NotificationId == y.NotificationId)
+                                                {
+                                                    <li>@getYearlySumOfNotif(y) This year</li>
+                                                    <li>@y.GetType().GetProperty(currMonth).GetValue(y) this month</li>
+                                                }
+                                            }
+
+                                        </ul>
                                     }
                                 </ul>
                             }
@@ -98,6 +134,49 @@
                     </div>
                 </div>
             </div>
+
+            <div class="container mt-3">
+                @if (notifList == null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                @foreach (var property in typeof(UserToNotifications).GetProperties())
+                                {
+                                    if (property.Name == "UserId" || property.Name == "AmountConstraint" || property.Name == "LocationConstraint" || property.Name == "TimeConstraint")
+                                        continue;
+                                    else
+                                    {
+                                        <th>@property.Name</th>
+                                    }
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var x in notifList)
+                            {
+                                <tr>
+                                    @foreach (var property in typeof(UserToNotifications).GetProperties())
+                                    {
+                                        if (property.Name == "UserId" || property.Name == "AmountConstraint" || property.Name == "LocationConstraint" || property.Name == "TimeConstraint")
+                                            continue;
+                                        else
+                                        {
+                                            <td>@property.GetValue(x)</td>
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                }
+            </div>
+
             <div class="container mt-5">
                 <div class="card text-left">
                     <div class="card-header">
@@ -109,7 +188,10 @@
                                 <div>
                                     <div id="circle" class="text-center pt-4 pb-4">
                                         Triggered:
-                                        <h2>18</h2>
+                                        @if (triggeredList == null)
+                                        {<h2>0</h2>}
+                                        else
+                                        {<h2>@triggeredList.Count()</h2>}
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +242,34 @@
                                         <Axis AxisType="AxisType.X" Position="Position.Bottom" AxisLine="false" Format="MMM-d" MajorGrid="true" MajorTickMarks="TickMark.None" />
                                     </AxisCollection>
                                 </FlexChart>
-
+                                <br />
+                                <!-- This is where I mess around-->
+                                @if (triggeredList == null)
+                                {
+                                    <p><em>Standby...</em></p>
+                                }
+                                else
+                                {
+                                    <FlexChart Class="chart" ChartType="ChartType.Line"
+                                               LegendPosition="Position.Bottom" HeaderContent="All Notifications"
+                                               BindingX="date" ItemsSource="@notif1">
+                                        <SeriesCollection>
+                                            <Series Name="NR1" Binding="notificationcount" Style="@redLine" /> <!--Bind the Y axis-->
+                                            <Series Name="NR2" ItemsSource="@notif2" Binding="notificationcount" Style="@blueLine" /> <!--Bind the Y axis-->
+                                            <Series Name="NR3" ItemsSource="@notif3" Binding="notificationcount" Style="@greenLine" /> <!--Bind the Y axis-->
+                                            @*@foreach(var )*@
+                                        </SeriesCollection>
+                                        <MarkerCollection>
+                                            <LineMarker Lines="LineMarkerLines.Both" LineStyle="stroke:gray;stroke-width:0"
+                                                        Content=@content HorizontalPosition="0.5" VerticalPosition="0.5"
+                                                        Interaction="action ?? LineMarkerInteraction.None" />
+                                        </MarkerCollection>
+                                        <AxisCollection>
+                                            <Axis AxisType="AxisType.Y" Position="Position.Left" Title="Number of Notifications" AxisLine="true" MajorGrid="true" MajorTickMarks="TickMark.Outside" />
+                                            <Axis AxisType="AxisType.X" Position="Position.Bottom" AxisLine="false" Format="MMM-d" MajorGrid="true" MajorTickMarks="TickMark.None" />
+                                        </AxisCollection>
+                                    </FlexChart>
+                                }
                                 <div class="row">
                                     <button class="primary_button">Export </button> <!-- Align Export Button to the right corner.-->
                                 </div>
@@ -170,6 +279,46 @@
                 </div>
             </div>
         </div>
+        <!--Testing triggered notifications display-->
+        <div class="container mt-3">
+            JANK
+            @if (triggeredList == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Body</th>
+                            <th>Mod Body</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in triggeredList)
+                        {
+                            <tr>
+                                <td>@x.TrigNotifId</td>
+                                <td>@x.DateAdded</td>
+                                <td>@getHTMLMarkup(x.EmailBody)</td>
+                                @if (x.EmailBody.Length < 212)
+                                { <td>@getHTMLMarkup(x.EmailBody)</td> }
+                                else
+                                {<td>@x.EmailBody.Substring(131).Substring(0, getIndexOfSubstring(x.EmailBody.Substring(131),"If"))</td>}
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+
+            }
+        </div>
+
+
+
     </Authorized>
     <NotAuthorized>
         <div class="container">
@@ -186,10 +335,39 @@
     List<TimeConstraint> tc;
     List<LocationConstraint> lc;
     List<UserToNotifications> notifList;
+    List<TriggeredNotif> triggeredList;
+    UserToNotifications tempUTN;
+    //Match match = Regex.Match("")
 
     AmountConstraint tempAC = new AmountConstraint();
     TimeConstraint tempTC = new TimeConstraint();
     LocationConstraint tempLC = new LocationConstraint();
+
+    /// <summary>
+    /// IMPORTANT: gets the current month and the first 3 letters as an abbreviation. This is used to get the proper monthly count in functions
+    /// </summary>
+    string currMonth = DateTime.Now.ToString("MMMM").Substring(0, 3);
+
+    private bool displayManage = false;
+    private bool displayNotification = false;
+    private bool displayDate = false;
+
+    private string manageDropDown => displayManage ? "d-block" : null;
+    private string notificationDropDown => displayNotification ? "d-block" : null;
+    private string dateDropDown => displayDate ? "d-block" : null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+
+        notifList = await Service.GetNotifJoinTable(userId);
+        triggeredList = await Service.GetAllTriggeredNotifEntries(user.Identity.Name);
+        ac = await Service.GetAmountConstraints(notifList);
+        tc = await Service.GetTimeConstraints(notifList);
+        lc = await Service.GetLocationConstraints(notifList);
+    }
+
 
     int returnCount()
     {
@@ -216,25 +394,8 @@
         return convertedTime;
     }
 
-    protected override async Task OnInitializedAsync()
-    {
-        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
-        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
-
-        notifList = await Service.GetNotifJoinTable(userId);
-        ac = await Service.GetAmountConstraints(notifList);
-        tc = await Service.GetTimeConstraints(notifList);
-        lc = await Service.GetLocationConstraints(notifList);
-    }
 
 
-    private bool displayManage = false;
-    private bool displayNotification = false;
-    private bool displayDate = false;
-
-    private string manageDropDown => displayManage ? "d-block" : null;
-    private string notificationDropDown => displayNotification ? "d-block" : null;
-    private string dateDropDown => displayDate ? "d-block" : null;
 
     private void ToggleManageDropDown()
     {
@@ -287,4 +448,43 @@
                     };
         }
     }
+
+    /// <summary>
+    /// Returns the string as pure HTML from the database to render in page
+    /// </summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    public MarkupString getHTMLMarkup(string text)
+    {
+        return (MarkupString)text;
+    }
+
+
+    /// <summary>
+    /// Gets the yearly sum of the notification passed in.
+    /// </summary>
+    /// <param name="notif"></param>
+    /// <returns></returns>
+    public int getYearlySumOfNotif(UserToNotifications notif)
+    {
+        return notif.Jan
+            + notif.Feb
+            + notif.Mar
+            + notif.Apr
+            + notif.May
+            + notif.Jun
+            + notif.Jul
+            + notif.Aug
+            + notif.Sep
+            + notif.Oct
+            + notif.Nov
+            + notif.Dec;
+    }
+
+    public int getIndexOfSubstring(string text, string toMatch)
+    {
+        return text.IndexOf(toMatch);
+    }
+
+
 }
