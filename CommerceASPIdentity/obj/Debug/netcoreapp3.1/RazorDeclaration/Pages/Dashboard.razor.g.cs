@@ -12,245 +12,161 @@ namespace EndToEndTest.Pages
     using System.Linq;
     using System.Threading.Tasks;
 #nullable restore
-<<<<<<< HEAD
 #line 1 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-=======
-#line 1 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
->>>>>>> origin/davidhoang2
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
 #line 2 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-=======
-#line 2 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
->>>>>>> origin/davidhoang2
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
 #line 3 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-=======
-#line 3 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
->>>>>>> origin/davidhoang2
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
 #line 5 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-=======
-#line 5 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
->>>>>>> origin/davidhoang2
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
 #line 6 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-=======
-#line 6 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
->>>>>>> origin/davidhoang2
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
 #line 7 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-=======
-#line 7 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
->>>>>>> origin/davidhoang2
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
 #line 8 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-=======
-#line 8 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
->>>>>>> origin/davidhoang2
 using EndToEndTest;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
 #line 9 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\_Imports.razor"
-=======
-#line 9 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\_Imports.razor"
->>>>>>> origin/davidhoang2
 using EndToEndTest.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
 #line 1 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
-=======
-#line 1 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
-using C1.Chart;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 2 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
-using C1.Blazor.Chart;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
-using C1.Blazor.Chart.Interaction;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 6 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
 using CsvHelper;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 2 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using System.IO;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 3 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using System.Globalization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
->>>>>>> origin/davidhoang2
+#line 6 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using EndToEndTest.Data.CommerceDataModels;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
-#line 2 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
-=======
-#line 12 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
->>>>>>> origin/davidhoang2
+#line 7 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
-#line 3 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
-=======
-#line 13 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
-using EndToEndTest.Components;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 14 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
->>>>>>> origin/davidhoang2
+#line 8 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using System.Security.Claims;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
-#line 4 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
-=======
-#line 15 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 9 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using System.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 16 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
->>>>>>> origin/davidhoang2
+#line 10 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using Microsoft.AspNetCore.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
-#line 5 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
-=======
-#line 17 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
->>>>>>> origin/davidhoang2
+#line 11 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using Microsoft.Data.SqlClient;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
-#line 6 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
-=======
-#line 18 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 12 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using Microsoft.AspNetCore.Components;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 19 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
->>>>>>> origin/davidhoang2
+#line 13 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 20 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 14 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using System.Text.RegularExpressions;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 21 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 15 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using Microsoft.AspNetCore.Mvc;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 22 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 16 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using System.Runtime.Serialization.Formatters.Binary;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 23 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 17 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
 using Utils;
 
 #line default
@@ -266,11 +182,7 @@ using Utils;
         }
         #pragma warning restore 1998
 #nullable restore
-<<<<<<< HEAD
-#line 197 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
-=======
-#line 395 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
->>>>>>> origin/davidhoang2
+#line 416 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
        
 
     [CascadingParameter]
@@ -316,15 +228,6 @@ using Utils;
     /// </summary>
     string currMonth = DateTime.Now.ToString("MMMM").Substring(0, 3);
 
-
-    private bool displayManage = false;
-    private bool displayNotification = false;
-    private bool displayDate = false;
-
-    private string manageDropDown => displayManage ? "d-block" : null;
-    private string notificationDropDown => displayNotification ? "d-block" : null;
-    private string dateDropDown => displayDate ? "d-block" : null;
-
     /// <summary>
     /// Prepares the page and its variables on load. Since it is async, things will be null for a bit
     /// </summary>
@@ -369,15 +272,7 @@ using Utils;
     }
 
 
-<<<<<<< HEAD
-        notifList = await Service.GetNotifJoinTable(userId);
-        ac = await Service.GetAmountConstraints(notifList);
-        tc = await Service.GetTimeConstraints(notifList);
-        lc = await Service.GetLocationConstraints(notifList);
-    }
-=======
 
->>>>>>> origin/davidhoang2
 
     private void ToggleManageDropDown()
     {
@@ -390,47 +285,6 @@ using Utils;
     private void ToggleDateDropDown()
     {
         displayDate = !displayDate;
-    }
-
-
-<<<<<<< HEAD
-=======
-
-    LineMarkerInteraction[] actions = new LineMarkerInteraction[] { LineMarkerInteraction.None, LineMarkerInteraction.Move, LineMarkerInteraction.Drag };
-    LineMarkerInteraction? action = LineMarkerInteraction.Move;
-
-    string content = "<div style='padding:6px;border:1px solid darkgrey;background:#f0f0f0;'>{x:MMM-dd}<br># of Notifications: {y}</div>";
-    string redLine = "fill:rgba(227, 0, 0, 1);stroke:rgba(227, 0, 0, 1);stroke-width:3";
-    string blueLine = "fill:rgba(0, 122, 163, 1);stroke:rgba(0, 122, 163, 1);stroke-width:3";
-    string greenLine = "fill:rgba(79, 168, 0, 1);stroke:rgba(79, 168, 0, 1);stroke-width:3";
-
-    List<object>
-    notif1 = DataSource.getData();
-    List<object>
-        notif2 = DataSource.getData();
-    List<object>
-        notif3 = DataSource.getData();
-
-    // Dummy Data for Chart
-    public class DataSource
-    {
-        public static List<object>
-            getData()
-        {
-            var rng = new Random();
-            return new List<object>
-                ()
-                    {
-
-                    new {date = new DateTime(2021, 1, 26), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 2, 1), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 3, 1), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 3, 20), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 4, 21), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 4, 26), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 4, 27), notificationcount = rng.Next(0, 15)}
-                    };
-        }
     }
 
     /// <summary>
@@ -487,7 +341,7 @@ using Utils;
 #line hidden
 #nullable disable
 #nullable restore
-#line 575 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 571 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
            
 
     async Task DownloadFile()
@@ -514,7 +368,6 @@ using Utils;
     }
 
 
->>>>>>> origin/davidhoang2
 #line default
 #line hidden
 #nullable disable
