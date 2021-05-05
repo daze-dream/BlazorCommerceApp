@@ -1,11 +1,5 @@
-﻿@using C1.Chart;
-@using C1.Blazor.Chart;
-@using C1.Blazor.Chart.Interaction;
-<!-- Using GrapeCity Chart -->
-
-@using EndToEndTest.Data.CommerceDataModels
+﻿@using EndToEndTest.Data.CommerceDataModels
 @using Data
-@using EndToEndTest.Components
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.Data.SqlClient
@@ -26,7 +20,7 @@
 @page "/Dashboard"
 
 <AuthorizeView>
-    <Authorized>
+    <Authorized Context="Auth">
         @page "/Account"
         <div class="container mt-5">
             <h2>My Dashboard</h2>
@@ -49,7 +43,7 @@
                                     <div class="@manageDropDown dropdown-menu ml-1" aria-labelledby="dropdownMenuButton" @onclick="@ToggleManageDropDown">
                                         <a class="dropdown-item" href="Transactions">Transactions</a>
                                         <a class="dropdown-item" href="Notifications">Notifications</a>
-                                        <a class="dropdown-item" href="/Identity/Account/Manage">Account</a>
+                                        <!--<a class="dropdown-item" href="/Identity/Account/Manage">Account</a>-->
                                     </div>
                                 </div>
                             </td>
@@ -67,12 +61,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2 d-flex align-items-center justify-content-center">
-                            <div id="circle" class="text-center p-4">
+                            <div id="circle" class="text-center pt-5">
                                 Total:
                                 <h2>@returnCount()</h2>
                             </div>
                         </div>
-                        <div class="col-10 dotted_border">
+                        <div class="col-10 dotted_border my-auto">
                             @if ((ac == null) && (tc == null) && (lc == null))
                             {
                                 <p><em>There are no notifications rules to display.</em></p>
@@ -98,76 +92,98 @@
                     </div>
                 </div>
             </div>
-            <div class="container mt-5">
-                <div class="card text-left">
-                    <div class="card-header">
-                        <h3>Notification Summary</h3>
+        </div>
+
+        <div class="container mt-5">
+            <div class="card text-left">
+                <div class="card-header">
+                    <h3>Notification Summary</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                    <div class="col-2 d-flex align-items-center justify-content-center">
+                        <div id="circle" class="text-center pt-5">
+                            Triggered:
+                            <h2>0</h2>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-3 d-flex flex-wrap justify-content-center align-content-center">
-                                <div>
-                                    <div id="circle" class="text-center pt-4 pb-4">
-                                        Triggered:
-                                        <h2>18</h2>
-                                    </div>
-                                </div>
+                    <div class="col-10 dotted_border my-auto">
+                            <p>Month Year</p>
+                            <p>For: Notification or All Notifications</p>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row justify-content-between">
+                            <div class="col-6 text-left">
+                                <button class="primary_button" @onclick="openFilter">Filter</button>
                             </div>
-
-                            <div class="col-9 dotted_border">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="dropdown">
-                                            <!-- Align the Select Notifications to the Upper Left Corner -->
-                                            <button class="primary_button dropdown-toggle" type="button" id="dropdownMenuButton" @onclick="@ToggleNotificationDropDown">
-                                                All Notifications
-                                            </button>
-                                            <div class="@notificationDropDown dropdown-menu ml-1" aria-labelledby="dropdownMenuButton" @onclick="@ToggleNotificationDropDown">
-                                                <a class="dropdown-item">Notification 1</a>
-                                                <a class="dropdown-item">Notification 2</a>
-                                                <a class="dropdown-item">Notification 3</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <!-- Align the Search Date to the Upper Right Corner -->
-                                        <div class="dropdown">
-                                            <button class="primary_button dropdown-toggle ml-1" type="button" id="dropdownMenuButton" @onclick="@ToggleDateDropDown">
-                                                Month
-                                            </button>
-                                            <div class="@dateDropDown dropdown-menu" aria-labelledby="dropdownMenuButton" @onclick="@ToggleDateDropDown">
-                                                <a class="dropdown-item" href="#">Year</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <FlexChart Class="chart" ChartType="ChartType.Line"
-                                           LegendPosition="Position.Bottom" HeaderContent="All Notifications"
-                                           BindingX="date" ItemsSource="@notif1">
-                                    <SeriesCollection>
-                                        <Series Name="NR1" Binding="notificationcount" Style="@redLine" /> <!--Bind the Y axis-->
-                                        <Series Name="NR2" ItemsSource="@notif2" Binding="notificationcount" Style="@blueLine" /> <!--Bind the Y axis-->
-                                        <Series Name="NR3" ItemsSource="@notif3" Binding="notificationcount" Style="@greenLine" /> <!--Bind the Y axis-->
-                                    </SeriesCollection>
-                                    <MarkerCollection>
-                                        <LineMarker Lines="LineMarkerLines.Both" LineStyle="stroke:gray;stroke-width:0"
-                                                    Content=@content HorizontalPosition="0.5" VerticalPosition="0.5"
-                                                    Interaction="action ?? LineMarkerInteraction.None" />
-                                    </MarkerCollection>
-                                    <AxisCollection>
-                                        <Axis AxisType="AxisType.Y" Position="Position.Left" Title="Number of Notifications" AxisLine="true" MajorGrid="true" MajorTickMarks="TickMark.Outside" />
-                                        <Axis AxisType="AxisType.X" Position="Position.Bottom" AxisLine="false" Format="MMM-d" MajorGrid="true" MajorTickMarks="TickMark.None" />
-                                    </AxisCollection>
-                                </FlexChart>
-
-                                <div class="row">
-                                    <button class="primary_button">Export </button> <!-- Align Export Button to the right corner.-->
-                                </div>
+                            <div class="col-6 text-right">
+                                <button class="primary_button">Export</button>
                             </div>
                         </div>
                     </div>
                 </div>
+        </div>
+
+        @if (showFilter) 
+        { 
+            <div class="modal" tabindex="-1" style="display:block" role="dialog" id="larger-modal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content custom-modal">
+
+                        <div class="modal-header">
+                            <h5 class="col-12 modal-title text-center">FILTER NOTIFICATION SUMMARY</h5>
+                        </div>
+                            <div class="modal-body">
+                                <hr class="solid custom_hr_solid mb-3" />
+                                <div class="container">
+                                    <div class="form-group row mt-4">
+                                        <label class="col-sm-5 col-form-label">Date: </label>
+                                        <div class="col-sm-7">
+                                            <select>
+                                                <option hidden disabled selected></option>
+                                                <!-- THIS IS WHERE WE FOR LOOP ALL THE MONTHS -->
+                                                <option>January</option>
+                                                <option>February</option>
+                                                <option>March</option>
+                                                <option>April</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-4">
+                                        <label class="col-sm-5 col-form-label">Type of Notification: </label>
+                                        <div class="col-sm-7">
+                                            <select>
+                                                <option hidden disabled selected></option>
+                                                <!-- THIS IS WHERE WE FOR LOOP ALL THE NOTIFICATIONS-->
+                                                <option>Notification - 5pm - 10pm</option>
+                                                <option>Notification - From Target</option>
+                                                <option>Notification - $10.01 - $12.01</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4 align-items-center">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="primary_button" @onclick="FilterSearch">
+                                    Filter
+                                </button>
+                                <button class="primary_button ml-auto" @onclick="closeFilter">
+                                    Cancel
+                                </button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        <div class="container mt-5">
+            <div class="row">
             </div>
         </div>
     </Authorized>
@@ -190,6 +206,29 @@
     AmountConstraint tempAC = new AmountConstraint();
     TimeConstraint tempTC = new TimeConstraint();
     LocationConstraint tempLC = new LocationConstraint();
+    private bool displayManage = false;
+    private bool displayNotification = false;
+    private bool displayDate = false;
+
+    bool showFilter = false;
+
+    private string manageDropDown => displayManage ? "d-block" : null;
+    private string notificationDropDown => displayNotification ? "d-block" : null;
+    private string dateDropDown => displayDate ? "d-block" : null;
+
+    async Task FilterSearch()
+    {
+        showFilter = false;
+    }
+
+    void openFilter()
+    {
+        showFilter = true;
+    }
+    void closeFilter()
+    {
+        showFilter = false;
+    }
 
     int returnCount()
     {
@@ -227,15 +266,6 @@
         lc = await Service.GetLocationConstraints(notifList);
     }
 
-
-    private bool displayManage = false;
-    private bool displayNotification = false;
-    private bool displayDate = false;
-
-    private string manageDropDown => displayManage ? "d-block" : null;
-    private string notificationDropDown => displayNotification ? "d-block" : null;
-    private string dateDropDown => displayDate ? "d-block" : null;
-
     private void ToggleManageDropDown()
     {
         displayManage = !displayManage;
@@ -249,42 +279,4 @@
         displayDate = !displayDate;
     }
 
-
-
-    LineMarkerInteraction[] actions = new LineMarkerInteraction[] { LineMarkerInteraction.None, LineMarkerInteraction.Move, LineMarkerInteraction.Drag };
-    LineMarkerInteraction? action = LineMarkerInteraction.Move;
-
-    string content = "<div style='padding:6px;border:1px solid darkgrey;background:#f0f0f0;'>{x:MMM-dd}<br># of Notifications: {y}</div>";
-    string redLine = "fill:rgba(227, 0, 0, 1);stroke:rgba(227, 0, 0, 1);stroke-width:3";
-    string blueLine = "fill:rgba(0, 122, 163, 1);stroke:rgba(0, 122, 163, 1);stroke-width:3";
-    string greenLine = "fill:rgba(79, 168, 0, 1);stroke:rgba(79, 168, 0, 1);stroke-width:3";
-
-    List<object>
-    notif1 = DataSource.getData();
-    List<object>
-        notif2 = DataSource.getData();
-    List<object>
-        notif3 = DataSource.getData();
-
-    // Dummy Data for Chart
-    public class DataSource
-    {
-        public static List<object>
-            getData()
-        {
-            var rng = new Random();
-            return new List<object>
-                ()
-            {
-
-                    new {date = new DateTime(2021, 1, 26), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 2, 1), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 3, 1), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 3, 20), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 4, 21), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 4, 26), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 4, 27), notificationcount = rng.Next(0, 15)}
-                    };
-        }
-    }
 }
