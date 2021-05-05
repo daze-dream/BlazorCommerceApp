@@ -242,6 +242,10 @@ using Utils;
     private string notificationDropDown => displayNotification ? "d-block" : null;
     private string dateDropDown => displayDate ? "d-block" : null;
 
+    /// <summary>
+    /// Prepares the page and its variables on load. Since it is async, things will be null for a bit
+    /// </summary>
+    /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -323,7 +327,7 @@ using Utils;
             var rng = new Random();
             return new List<object>
                 ()
-{
+                    {
 
                     new {date = new DateTime(2021, 1, 26), notificationcount = rng.Next(0, 15)},
                     new {date = new DateTime(2021, 2, 1), notificationcount = rng.Next(0, 15)},
@@ -385,18 +389,12 @@ using Utils;
     }
 
 
-    private async Task downloadRedirect()
-    {
-        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
-        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
-        navManager.NavigateTo("api/DownloadController/{userId}", true) ;
-    }
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 577 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 575 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Dashboard.razor"
            
 
     async Task DownloadFile()
@@ -411,11 +409,12 @@ using Utils;
             writer.Flush();
 
         }
+        string filename = "monthly_notif_trigger_export_" + DateTime.Now.ToString("yyyy") + ".csv";
         //var bytes = System.Text.Encoding.UTF8.GetBytes(text);
         //await FileUtils.SaveAs(js, "export.csv", memorystream.ToArray());
         //var result = writer.ToString();
         //Console.WriteLine(result);
-        await Service.SaveAs(js, "export.csv", memorystream.ToArray());
+        await Service.SaveAs(js, filename, memorystream.ToArray());
 
 
 

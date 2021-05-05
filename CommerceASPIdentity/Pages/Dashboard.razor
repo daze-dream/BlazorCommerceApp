@@ -332,7 +332,7 @@
                                     </FlexChart>
                                 }
                                 <div class="row">
-                                    <button class="primary_button">Export </button> <!-- Align Export Button to the right corner.-->
+                                    <button class="primary_button" @onclick="DownloadFile">Export </button> <!-- Align Export Button to the right corner.-->
                                 </div>
                             </div>
                         </div>
@@ -423,6 +423,10 @@
     private string notificationDropDown => displayNotification ? "d-block" : null;
     private string dateDropDown => displayDate ? "d-block" : null;
 
+    /// <summary>
+    /// Prepares the page and its variables on load. Since it is async, things will be null for a bit
+    /// </summary>
+    /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -504,7 +508,7 @@
             var rng = new Random();
             return new List<object>
                 ()
-{
+                    {
 
                     new {date = new DateTime(2021, 1, 26), notificationcount = rng.Next(0, 15)},
                     new {date = new DateTime(2021, 2, 1), notificationcount = rng.Next(0, 15)},
@@ -566,12 +570,6 @@
     }
 
 
-    private async Task downloadRedirect()
-    {
-        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
-        string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
-        navManager.NavigateTo("api/DownloadController/{userId}", true) ;
-    }
 }
 
 @functions{
@@ -588,11 +586,12 @@
             writer.Flush();
 
         }
+        string filename = "monthly_notif_trigger_export_" + DateTime.Now.ToString("yyyy") + ".csv";
         //var bytes = System.Text.Encoding.UTF8.GetBytes(text);
         //await FileUtils.SaveAs(js, "export.csv", memorystream.ToArray());
         //var result = writer.ToString();
         //Console.WriteLine(result);
-        await Service.SaveAs(js, "export.csv", memorystream.ToArray());
+        await Service.SaveAs(js, filename, memorystream.ToArray());
 
 
 

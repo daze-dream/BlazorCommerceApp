@@ -7,7 +7,6 @@ namespace EndToEndTest.Data.CommerceDataModels
 {
     public partial class joinAllNotifsResult
     {
-        public string userID { get; set; }
         public int ID { get; set; }
         public string Parameter1 { get; set; }
         public string Parameter2 { get; set; }
