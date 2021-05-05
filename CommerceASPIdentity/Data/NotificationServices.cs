@@ -7,6 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using CsvHelper;
+using System.IO;
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop;
 
 namespace EndToEndTest
 {
@@ -15,7 +20,10 @@ namespace EndToEndTest
         private readonly CommerceappContext _context;
         private readonly IHttpContextAccessor _httpCA;
 
-
+        /// <summary>
+        /// Constructs the service based on the context passed in
+        /// </summary>
+        /// <param name="context"></param>
         public NotificationServices(CommerceappContext context)
         {
             _context = context;
@@ -67,6 +75,19 @@ namespace EndToEndTest
         }
 
         /// <summary>
+        /// Returns the notification that matches the passed ID
+        /// </summary>
+        /// <param name="notifID"></param>
+        /// <returns></returns>
+        public async Task<UserToNotifications> getSingleNotif(int notifID)
+        {
+            return await _context.UserToNotifications
+                .Where(x => x.NotificationId == notifID)
+                .AsNoTracking()
+                .SingleOrDefaultAsync();
+        }
+
+        /// <summary>
         /// Returns a list of the user's AmountConstraint notifcation rules
         /// </summary>
         /// <param name="notifID"></param>
@@ -93,7 +114,11 @@ namespace EndToEndTest
             return amountConstraints;
         }
 
-
+        /// <summary>
+        /// Returns a list of the user's TimeConstraint notifcation rules
+        /// </summary>
+        /// <param name="notifID"></param>
+        /// <returns> List of AmountConstraint</returns>
         public async Task<List<TimeConstraint>> GetTimeConstraints(List<UserToNotifications> notifArray)
         {
 
@@ -114,6 +139,11 @@ namespace EndToEndTest
             return timeConstraints;
         }
 
+        /// <summary>
+        /// Returns a list of the user's LocationConstraint notifcation rules
+        /// </summary>
+        /// <param name="notifID"></param>
+        /// <returns> List of AmountConstraint</returns>
         public async Task<List<LocationConstraint>> GetLocationConstraints(List<UserToNotifications> notifArray)
         {
             List<LocationConstraint> locationConstraints = new List<LocationConstraint>();
@@ -172,7 +202,12 @@ namespace EndToEndTest
         }
 
 
-
+        /// <summary>
+        /// USE ONLY IN CONJUNCTION WITH OTHER ADD NOTIFICATION FUNCTIONS, ELSE IT'S JUST AN EMPTY FUNCTION
+        /// This helper function adds a new entry to the UserToNotif join table, prepping for a notification rule to be added
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public Task<bool> AddNewUsersToNotifJoinTableEntry(UserToNotifications x)
         {
             _context.UserToNotifications.Add(x);
@@ -188,7 +223,11 @@ namespace EndToEndTest
             
 
         }
-
+        /// <summary>
+        /// Updates a notification based on the notification type passed in, accessing different tables
+        /// </summary>
+        /// <param name="notif"></param>
+        /// <returns>Task of bool </returns>
         public Task<bool> updateNotificationsAsync(object notif)
         {
             if(notif is AmountConstraint)
@@ -237,6 +276,12 @@ namespace EndToEndTest
             return Task.FromResult(true);
         }
 
+        /// <summary>
+        /// Deletes a notification, based on the notification passed in, depending on the type match.
+        /// Pay attention to the sequence it deletes: first from the usertonotif join, then from the corresponding table.
+        /// </summary>
+        /// <param name="notif"></param>
+        /// <returns>Task of bool</returns>
         public Task<bool> DeleteNotificationAsync(object notif)
         {
             if (notif is AmountConstraint)
@@ -294,5 +339,78 @@ namespace EndToEndTest
 
             return Task.FromResult(true);
         }
+
+        /// <summary>
+        /// Returns a single entry from the TriggeredNotif table based on notifID
+        /// </summary>
+        /// <param name="notifID"></param>
+        /// <returns></returns>
+        public async Task<TriggeredNotif> GetSingleTriggeredNotifEntry(int notifID)
+        {
+            return await _context.TriggeredNotif
+                .Where(x => x.TrigNotifId == notifID)
+                .SingleAsync();                
+        }
+        /// <summary>
+        /// Gets all the TriggeredNotif of the user's email, dubbed "name" by ASP Identity.
+        /// </summary>
+        /// <param name="notifArray"></param>
+        /// <returns>Task with list of TriggeredNotif</returns>
+        public async Task<List<TriggeredNotif>> GetAllTriggeredNotifEntries(/*List<UserToNotifications> notifArray,*/ string userEmail)
+        {
+
+            return await _context.TriggeredNotif
+                .Where(x => x.EmailSentTo == userEmail)
+                .OrderBy(x => x.DateAdded)
+                .AsNoTracking()
+                .ToListAsync();
+
+        }
+
+        /// <summary>
+        /// Gets most recent 5 TriggeredNotif of the user's email, dubbed "name" by ASP Identity.
+        /// </summary>
+        /// <param name="notifArray"></param>
+        /// <returns>Task with list of TriggeredNotif</returns>
+        public async Task<List<TriggeredNotif>> GetTriggeredNotifSummary(/*List<UserToNotifications> notifArray,*/ string userEmail)
+        {
+
+            return await _context.TriggeredNotif
+                .Where(x => x.EmailSentTo == userEmail)
+                .Take(5)
+                .OrderBy(x => x.DateAdded)
+                .AsNoTracking()
+                .ToListAsync();
+
+        }
+
+        /// <summary>
+        /// Gets all the user's notifications, joined as one table, including the monthly counts, with a stored procedure.
+        /// For context, joins userToNotifications, time/amount/location_constraint, coalesces and changes column names
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Task of List 'joinAllNotifsResult' </returns>
+        public async Task<List<joinAllNotifsResult>> getAllNotifsJoinedWithDates(string userId)
+        {
+            var procedures = new CommerceappContextProcedures(_context);
+            return await procedures.joinAllNotifsAsync(userId);
+        }
+
+        /// <summary>
+        /// Takes the byte array, the JS Interop runtime, and creates as CSV to download from the bytearray.
+        /// Invokes the javascript file "savefile.js" located at wwwroot with the following parameters. 
+        /// </summary>
+        /// <param name="js"></param>
+        /// <param name="filename"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public async  Task SaveAs(IJSRuntime js, string filename, byte[] data)
+        {
+            await js.InvokeAsync<object>(
+                "FileSaveAs",
+                filename,
+                Convert.ToBase64String(data));
+        }
+
     }
 }

@@ -9,6 +9,7 @@
     <PackageReference Include="bunit" Version="1.1.5" />
     <PackageReference Include="bunit.web" Version="1.1.5" />
     <PackageReference Include="C1.Blazor.Chart" Version="3.1.20211.65" />
+    <PackageReference Include="CsvHelper" Version="27.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="3.1.14" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
@@ -21,11 +22,17 @@
     </PackageReference>
     <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="16.9.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="19.1.0.59" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\downloads\" />
   </ItemGroup>
 
 </Project>
