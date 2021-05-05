@@ -105,7 +105,7 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 180 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
+#line 185 "C:\Users\miste\Desktop\School Stuff\CS 451 Capstone\CommerceApp\davidhoang\CommerceASPIdentity\Pages\Transactions.razor"
        
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }

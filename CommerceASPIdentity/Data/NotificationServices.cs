@@ -385,7 +385,7 @@ namespace EndToEndTest
         }
 
         /// <summary>
-        /// Gets all the user's notifications, joined as one table, including the monthly counts, with a stored procedure.
+        /// <para>Gets all the user's notifications, joined as one table, including the monthly counts, with a stored procedure.</para>
         /// For context, joins userToNotifications, time/amount/location_constraint, coalesces and changes column names
         /// </summary>
         /// <param name="userId"></param>
@@ -397,8 +397,8 @@ namespace EndToEndTest
         }
 
         /// <summary>
-        /// Takes the byte array, the JS Interop runtime, and creates as CSV to download from the bytearray.
-        /// Invokes the javascript file "savefile.js" located at wwwroot with the following parameters. 
+        /// Takes the byte array of the original CSV, the JS Interop runtime, and creates as CSV to download from the bytearray by <br />
+        /// invoking the javascript file "savefile.js" located at wwwroot with the following parameters. 
         /// </summary>
         /// <param name="js"></param>
         /// <param name="filename"></param>
