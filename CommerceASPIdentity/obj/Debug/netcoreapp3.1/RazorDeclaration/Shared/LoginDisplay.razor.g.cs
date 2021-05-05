@@ -158,6 +158,9 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         else
         {
+            var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+            userID = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+            notifSummaries = await Service.GetTriggeredNotifSummary(user.Identity.Name);
             notifSummaries = await Service.GetTriggeredNotifSummary(userID);
             displayBell = "d-block";
         }
