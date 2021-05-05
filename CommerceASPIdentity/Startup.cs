@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using EndToEndTest.Areas.Identity;
 using EndToEndTest.Data;
+using EndToEndTest.xUnitTests;
 
 
 namespace EndToEndTest
@@ -48,7 +49,7 @@ namespace EndToEndTest
             //services.AddSingleton<WeatherForecastService>();
             services.AddScoped<TransactionServices>();
             services.AddScoped<NotificationServices>();
-
+            services.AddScoped<TransactionSummary>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

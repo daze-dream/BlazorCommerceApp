@@ -12,7 +12,7 @@ namespace EndToEndTest.Data.CommerceDataModels
     [Table("transactionsmaster")]
     public partial class Transactionsmaster
     {
-        [Required]
+        [Required] 
         [Column("userID")]
         [StringLength(450)]
         public string UserId { get; set; }

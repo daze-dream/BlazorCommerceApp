@@ -1,3 +1,4 @@
 ﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/Identity" Path="C:\Users\Trevor\.nuget\packages\microsoft.aspnetcore.identity.ui\3.1.13\staticwebassets\V4\" />
+  <ContentRoot BasePath="/Identity" Path="C:\Users\degag\.nuget\packages\microsoft.aspnetcore.identity.ui\3.1.13\staticwebassets\V4" />
+  <ContentRoot BasePath="_content/C1.Blazor.Chart" Path="C:\Users\degag\.nuget\packages\c1.blazor.chart\3.1.20211.65\build\..\staticwebassets\" />
 </StaticWebAssets>
