@@ -21,6 +21,7 @@ namespace EndToEndTest.Data.CommerceDataModels
         public virtual DbSet<Accounts> Accounts { get; set; }
         public virtual DbSet<AmountConstraint> AmountConstraint { get; set; }
         public virtual DbSet<LocationConstraint> LocationConstraint { get; set; }
+        public virtual DbSet<NotifTriggerCountArchive> NotifTriggerCountArchive { get; set; }
         public virtual DbSet<TimeConstraint> TimeConstraint { get; set; }
         public virtual DbSet<Transactionsmaster> Transactionsmaster { get; set; }
         public virtual DbSet<TriggeredNotif> TriggeredNotif { get; set; }
@@ -59,6 +60,11 @@ namespace EndToEndTest.Data.CommerceDataModels
                     .HasForeignKey<LocationConstraint>(d => d.NotificationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_location_constraint_userToNotifications");
+            });
+
+            modelBuilder.Entity<NotifTriggerCountArchive>(entity =>
+            {
+                entity.Property(e => e.ArchiveId).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<TimeConstraint>(entity =>

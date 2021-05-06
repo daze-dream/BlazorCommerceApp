@@ -75,7 +75,12 @@
                             <td></td>
                             <td>Balance</td>
                             <td></td>
-                            <td>$@transactionsList[0].Openingbalance</td>
+                            @if (transactionsList.Count == 0 || transactionsList == null)
+                            {
+                                <td>There is no initial balance to display</td>
+                            }
+                            else
+                            {<td>$@transactionsList.Last().Openingbalance</td>}
                         </tr>
                         @foreach (var x in transactionsList)
                         {
