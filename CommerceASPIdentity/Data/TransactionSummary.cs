@@ -39,7 +39,7 @@ namespace EndToEndTest.Data
             notifications = _context.TriggeredNotif
                 .Where(x => x.EmailSentTo == userEmail)
                 .OrderByDescending(x => x.DateAdded)
-                .Take(5)
+                .Take(3)
                 .AsNoTracking()
                 .ToList();
 
