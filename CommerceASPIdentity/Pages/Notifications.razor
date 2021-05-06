@@ -2,7 +2,6 @@
 
 @using EndToEndTest.Data.CommerceDataModels
 @using Data
-@using EndToEndTest.Components
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.Data.SqlClient
@@ -25,7 +24,6 @@
             <h2>My Notifications</h2>
             <hr class="solid mt-5 custom_hr_solid" />
         </div>
-
         <div class="container mt-3">
             <div class="row">
                 <div class="col-7 my-auto">
@@ -44,8 +42,6 @@
                 </div>
             </div>
         </div>
-
-
         <div class="container mt-5">
             @if ((ac == null) && (tc == null) && (lc == null))
             {
@@ -57,18 +53,14 @@
                 {
                     <div class="jumbotron jumbotron-fluid shadow">
                         <div class="container">
-                            <h5 class="display-5">$@x.Min - $@x.Max </h5>
-                            <div class="row">
-                                <div class="col-10">
-                                    <p class="lead">Notifications will be sent on any transactions made:</p>
-                                    <ul>
-                                        <li>Between the amounts $@x.Min and $@x.Max.</li>
-                                    </ul>
+                            <div class="row align-items-center">
+                               <div class="col-10">
+                                   <h3 class="ml-3">Transactions made between $@x.Min - $@x.Max.</h3>
                                 </div>
-                                <div class="col-2">
-                                    <div class="row">
-                                        <button class="btn float-right mr-5" @onclick="() => EditNotif(x)"><i class="oi oi-pencil "></i></button>
-                                        <button class="btn float-right mr-5" @onclick="() => DeleteNotif(x)"><i class="oi oi-trash"></i></button>
+                                <div class="col-2 text-right">
+                                    <div class="row float-right mr-3">
+                                        <button class="btn" @onclick="() => EditNotif(x)"><span class="material-icons">edit</span></button>
+                                        <button class="btn" @onclick="() => DeleteNotif(x)"><span class="material-icons">delete</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -79,18 +71,14 @@
                 {
                     <div class="jumbotron jumbotron-fluid shadow">
                         <div class="container">
-                            <h5 class="display-5">@revertDateTime(@y.TimeIn) - @revertDateTime(@y.TimeOut) </h5>
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-10">
-                                    <p class="lead">Notifications will be sent on any transactions made:</p>
-                                    <ul>
-                                        <li>Between @revertDateTime(@y.TimeIn) and @revertDateTime(@y.TimeOut).</li>
-                                    </ul>
+                                    <h3 class="ml-3">Transactions made between @revertDateTime(@y.TimeIn) - @revertDateTime(@y.TimeOut).</h3>
                                 </div>
-                                <div class="col-2">
-                                    <div class="row">
-                                        <button class="btn float-right mr-5" @onclick="() => EditNotif(y)"><i class="oi oi-pencil "></i></button>
-                                        <button class="btn float-right mr-5" @onclick="() => DeleteNotif(y)"><i class="oi oi-trash"></i></button>
+                                <div class="col-2 text-right">
+                                    <div class="row float-right mr-3">
+                                        <button class="btn" @onclick="() => EditNotif(y)"><span class="material-icons">edit</span></button>
+                                        <button class="btn" @onclick="() => DeleteNotif(y)"><span class="material-icons">delete</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -101,18 +89,14 @@
                 {
                     <div class="jumbotron jumbotron-fluid shadow">
                         <div class="container">
-                            <h5 class="display-5">@z.Location </h5>
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-10">
-                                    <p class="lead">Notifications will be sent on any transactions made:</p>
-                                    <ul>
-                                        <li>From @z.Location.</li>
-                                    </ul>
+                                    <h3 class="ml-3">Transactions made from @z.Location.</h3>
                                 </div>
-                                <div class="col-2">
-                                    <div class="row">
-                                        <button class="btn float-right mr-5" @onclick="() => EditNotif(z)"><i class="oi oi-pencil "></i></button>
-                                        <button class="btn float-right mr-5" @onclick="() => DeleteNotif(z)"><i class="oi oi-trash"></i></button>
+                                <div class="col-2 text-right">
+                                    <div class="row float-right mr-3">
+                                        <button class="btn" @onclick="() => EditNotif(z)"><span class="material-icons">edit</span></button>
+                                        <button class="btn" @onclick="() => DeleteNotif(z)"><span class="material-icons">delete</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +105,6 @@
                 }
             }
         </div>
-
         @if (showPopup)
         {
             <div class="modal" tabindex="-1" style="display:block" role="dialog">
@@ -131,28 +114,26 @@
                         <div class="modal-header">
                             <h5 class="col-12 modal-title text-center">ADD NOTIFICATION</h5>
                         </div>
-
+                        
                         <div class="modal-body">
                             <hr class="solid custom_hr_solid mb-3" />
                             <div class="text-center">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Amount" @onclick="@hideAmountCon">
-                                    <label class="form-check-label" for="inlineCheckbox1">Amount</label>
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" @onclick="@(() => { hideAmountCon(); selectType("amount"); } )">
+                                    <label class="form-check-label" for="inlineRadio1">Amount</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="Time" @onclick="@hideTimeCon">
-                                    <label class="form-check-label" for="inlineCheckbox2">Time</label>
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" @onclick="@(() => { hideTimeCon(); selectType("time"); } )">
+                                    <label class="form-check-label" for="inlineRadio2">Time</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Location" @onclick="@hideLocCon">
-                                    <label class="form-check-label" for="inlineCheckbox3">Location</label>
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" @onclick="@(() => { hideLocCon(); selectType("location"); } )">
+                                    <label class="form-check-label" for="inlineRadio2">Location</label>
                                 </div>
                             </div>
-
-
                             <div class="@hideAmt container">
                                 <div class="row align-items-center">
-                                    <div class="col-10 pl-3 mt-4">
+                                    <div class="col-12 pl-3 mt-4">
                                         <div class="form-group row mt-4">
                                             <label class="col-sm-3 col-form-label">Min:</label>
                                             <div class="input-group col-sm-9">
@@ -164,7 +145,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row mt-4">
-                                            <label class="col-sm-3 col-form-label">Max: $</label>
+                                            <label class="col-sm-3 col-form-label">Max: </label>
                                             <div class="input-group col-sm-9">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">$</div>
@@ -174,15 +155,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-2 text-right mt-4">
-                                        <button class="btn btn-primary" @onclick="() => SaveNotification(tempAC)"> <span class="oi oi-check"></span></button>
-                                    </div>
                                 </div>
                             </div>
-
                             <div class="@hideTm container">
                                 <div class="row align-items-center">
-                                    <div class="col-10 pl-3 mt-4">
+                                    <div class="col-12 pl-3 mt-4">
                                         <div class="form-group row mt-4">
                                             <label class="col-sm-3 col-form-label">Start Time: </label>
                                             <div class="col-sm-9">
@@ -198,63 +175,69 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-2 text-right align-items-center mt-4">
-                                        <button class="btn btn-primary" @onclick="() => SaveNotification(tempTC)"> <span class="oi oi-check"></span></button>
-                                    </div>
                                 </div>
                             </div>
-
-                            <div class="@hideLoc container">
-                                <div class="row align-items-center">
-                                    <div class="col-10 pl-3 mt-4">
-                                        <div class="form-group row mt-4">
-                                            <label class="col-sm-3 col-form-label">Description: </label>
-                                            <div class="col-sm-9">
-                                                <input class="form-control" type="text" @bind="tempLC.Location" />
+                            <form class="row g-3">
+                                <div class="@hideLoc container">
+                                    <div class="row align-items-center">
+                                        <div class="col-12 pl-3 mt-4">
+                                            <div class="form-group row mt-4">
+                                                <label class="col-sm-3 col-form-label">Description: </label>
+                                                <div class="col-sm-9">
+                                                    <input class="form-control" type="text" @bind="tempLC.Location" required />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-2 text-right align-items-center mt-4">
-                                        <button class="btn btn-primary" @onclick="() => SaveNotification(tempLC)"> <span class="oi oi-check"></span></button>
-                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-
-                        <div class="modal-footer">
-                            <button class="primary_button">
-                                Add
-                            </button>
-                            <button class="primary_button ml-auto" @onclick="ClosePopupOriginal">
-                                Close
-                            </button>
+                        <div class="modal-footer justify-content-between">
+                            <div class="col-6 text-left mt-4">
+                                @if (ty == "amount")
+                                {
+                                    <button class="primary_button" @onclick="() => SaveNotification(tempAC)" type="submit"> Save</button>
+                                }
+                                else if (ty == "time")
+                                {
+                                    <button class="primary_button" @onclick="() => SaveNotification(tempTC)" type="submit"> Save</button>
+                                }
+                                else if (ty == "location")
+                                {
+                                    <button class="primary_button" @onclick="() => SaveNotification(tempLC)" type="submit"> Save</button>
+                                }
+                                else
+                                {
+                                    <button class="primary_button">Save</button>
+                                }
+                            </div>
+                            <div class="col-6 text-right mt-4">
+                                <button class="primary_button ml-auto" @onclick="ClosePopupOriginal">
+                                    Close
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         }
-
         @if (smallPopUp)
         {
             <div class="modal" tabindex="-1" style="display:block" role="dialog">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content custom-modal">
-
                         <div class="modal-header">
                             <h5 class="col-12 modal-title text-center">EDIT NOTIFICATION</h5>
                         </div>
-
                         <div class="modal-body">
                             <hr class="solid custom_hr_solid mb-3" />
-
                             <div class="container text-center">
                                 <n1>@message</n1>
                             </div>
                             <form>
-
                                 <div class="@hideAmtSm">
                                     <div class="form-group row mt-4">
-                                        <label for="minimumValue" class="col-sm-2 col-form-label">Min: $</label>
+                                        <label for="minimumValue" class="col-sm-2 col-form-label">Min: </label>
                                         <div class="input-group col-sm-10">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">$</div>
@@ -264,7 +247,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mt-4">
-                                        <label for="maxValue" class="col-sm-2 col-form-label">Max: $</label>
+                                        <label for="maxValue" class="col-sm-2 col-form-label">Max: </label>
                                         <div class="input-group col-sm-10">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">$</div>
@@ -274,7 +257,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="@hideTmSm">
                                     <div class="form-group row mt-4">
                                         <label class="col-sm-2 col-form-label">Start Time: </label>
@@ -291,20 +273,18 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="@hideLocSm">
                                     <div class="form-group row mt-4">
                                         <label class="col-sm-2 col-form-label">Description: </label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" type="text" @bind="tempLC.Location" />
+                                            <input class="form-control" type="text" @bind="tempLC.Location"/>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                         <div class="modal-footer">
-                            <button class="primary_button" @onclick="() => SaveNotification(tempAC)">
+                            <button class="primary_button" @onclick="() => SaveNotification(tempTC)">
                                 Save
                             </button>
                             <button class="primary_button ml-auto" @onclick="CloseSmallPopup">
@@ -316,19 +296,18 @@
             </div>
         }
     </Authorized>
-
     <NotAuthorized>
         <div class="container mt-5">
             <h6>Please sign in to access your account information.</h6>
         </div>
     </NotAuthorized>
-
 </AuthorizeView>
 
 
 
 
 @code {
+
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     List<AmountConstraint> ac;
@@ -358,24 +337,28 @@
     private string hideLocSm => hideSmLoc ? "d-none" : null;
     private string hideTmSm => hideSmTime ? "d-none" : null;
     private string message = "";
+    private string ty = "";
 
-    Type selectedType = typeof(NotificationDesc);
-
-    public void onChange(ChangeEventArgs changeEventArgs)
+    /// <summary>
+    /// Requires a string parameter. Assigns a value to the string "ty". Helps to determine which type of button should be displayed.
+    /// </summary>
+    /// <param name="e"></param>
+    private void selectType(string e)
     {
-        selectedType = Type.GetType($"EndToEndTest.Components.{changeEventArgs.Value}");
+        ty = e;
     }
 
+    /// <summary>
+    /// Functions that aid in Modal popups and hiding Div containers.
+    /// </summary>
     void AddNewNotification()
     {
         showPopup = true;
     }
-
     void ClosePopupOriginal()
     {
         showPopup = false;
     }
-
     void CloseSmallPopup()
     {
         smallPopUp = false;
@@ -383,38 +366,38 @@
         hideSmTime = true;
         hideSmLoc = true;
     }
-
     private void hideAmountCon()
     {
-        hideDivAmt = !hideDivAmt;
+        hideDivAmt = false;
+        hideDivLoc = true;
+        hideDivTm = true;
     }
-
     private void hideLocCon()
     {
-        hideDivLoc = !hideDivLoc;
+        hideDivAmt = true;
+        hideDivLoc = false;
+        hideDivTm = true;
     }
-
     private void hideTimeCon() {
-        hideDivTm = !hideDivTm;
+        hideDivAmt = true;
+        hideDivLoc = true;
+        hideDivTm = false;
     }
-
     private void hideSmAmount()
     {
         hideSmAmt = !hideSmAmt;
     }
-
     private void hideSmTimes()
     {
         hideSmTime = !hideSmTime;
     }
-
     private void hideSmLocation()
     {
         hideSmLoc = !hideSmLoc;
     }
 
     /// <summary>
-    /// Initializes all the appropriate variables to be displayed as soon as the page is loaded
+    /// Initializes all the appropriate variables to be displayed as soon as the page is loaded.
     /// </summary>
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
@@ -451,7 +434,6 @@
             {
                 var result = Service.updateNotificationsAsync(tempAC);
             }
-
         }
         else if (x is TimeConstraint)
         {
@@ -490,16 +472,18 @@
 
             }
         }
-
+        showPopup = false;
         notifList = await Service.GetNotifJoinTable(userId);
         ac = await Service.GetAmountConstraints(notifList);
         tc = await Service.GetTimeConstraints(notifList);
         lc = await Service.GetLocationConstraints(notifList);
     }
 
-    // Deleting a notification based on the passed in parameter
-    // Should add another DeleteNotif with a parameter for a list of objects, that way we can loop multiple objects
-    //  for deletion.
+    /// <summary>
+    /// Requires an object parameter. Deletes entries from the database given the parameter.
+    /// </summary>
+    /// <param name="notif"></param>
+    /// <returns></returns>
     async Task DeleteNotif(object notif)
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -521,6 +505,11 @@
 
     }
 
+    /// <summary>
+    /// Requires a TimeSpan parameter. Converts the Timespan and outputs a string.
+    /// </summary>
+    /// <param name="theDateTime"></param>
+    /// <returns></returns>
     string revertDateTime(TimeSpan theDateTime)
     {
         DateTime time = DateTime.Today.Add(theDateTime);
@@ -528,6 +517,10 @@
         return convertedTime;
     }
 
+    /// <summary>
+    /// Sets the value of "counter" to display the total number of active notification rules.
+    /// </summary>
+    /// <returns></returns>
     int returnCount()
     {
         int counter = 0;
@@ -546,6 +539,10 @@
         return counter;
     }
 
+    /// <summary>
+    /// Requires an object parameter. Sets the visibility of div containers, values, and existing database values for editing.
+    /// </summary>
+    /// <param name="notif"></param>
     void EditNotif(object notif)
     {
         if (notif is AmountConstraint)

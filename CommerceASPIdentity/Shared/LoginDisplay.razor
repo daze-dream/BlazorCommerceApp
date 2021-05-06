@@ -24,6 +24,7 @@
                 value = transaction amount
             -->
             <div class="dropdown">
+<<<<<<< HEAD
                 <i class="oi oi-bell ml-3" @onclick="@displayNotifBell">
                     <a class="@displayBell" href="Notifications">
                         <div class="dropdown-content">
@@ -33,6 +34,19 @@
                                     <span class="alertMess">@x.EmailBody.Substring(131).Substring(0, getIndexOfSubstring(x.EmailBody.Substring(131), "If"))</span>
                                 </div>
                             }
+=======
+                <a class="@displayBell" @onclick="@displayNotifBell" href="Notifications"><i class="oi oi-bell"></i></a>
+
+
+                <div class="dropdown-content">
+                    <div class="row notifAlerts">
+                        <span class="alertMess">CATS...</span>
+                    </div>
+                    @if (notifSummaries == null)
+                    {
+                        <div class="row notifAlerts">
+                            <span class="alertMess">Loading...</span>
+>>>>>>> main
                         </div>
                     </a>
                 </i>
@@ -44,11 +58,19 @@
                 <button type="submit" class="btn nav_bar_button">Log out</button>
             </form>
         </div>
+<<<<<<< HEAD
         <!--
         <div>
             <button class="btn-sm" @onclick="@displayNotifBell">Display</button>
         </div>
         -->
+=======
+
+        <!--<div>
+            <button class="btn-sm" @onclick="@displayNotifBell">Display</button>
+        </div>-->
+
+>>>>>>> main
     </Authorized>
     <NotAuthorized>
         <div class="row align-items-center ml-3"><a class="nav-link" href="/">About</a></div>
