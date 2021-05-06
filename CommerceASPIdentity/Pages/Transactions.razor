@@ -1,4 +1,4 @@
-﻿@page "/Transactions"
+@page "/Transactions"
 @using EndToEndTest.Data.CommerceDataModels
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.AspNetCore.Components.Forms
@@ -65,6 +65,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Balance</td>
+                            <td></td>
+                            @if (transactionsList.Count == 0 || transactionsList == null)
+                            {
+                                <td>There is no initial balance to display</td>
+                            }
+                            else
+                            {<td>$@transactionsList.Last().Openingbalance</td>}
+                            <!--this is the old code-->
+                            @*<td>$@transactionsList.Last().Openingbalance</td>*@
+                        </tr>
                         @foreach (var x in transactionsList)
                         {
                             <tr>
