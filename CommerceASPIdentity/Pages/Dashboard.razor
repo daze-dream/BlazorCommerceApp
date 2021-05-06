@@ -1,33 +1,26 @@
-﻿@using C1.Chart;
-@using C1.Blazor.Chart;
-@using C1.Blazor.Chart.Interaction;
-
-<!-- Using GrapeCity Chart -->
-@using CsvHelper;
+﻿@using CsvHelper;
 @using System.IO;
 @using System.Globalization;
 
 
 @using EndToEndTest.Data.CommerceDataModels
 @using Data
-@using EndToEndTest.Components
 @using System.Security.Claims
 @using System.Web;
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.Data.SqlClient
-@using Microsoft.AspNetCore.Components; 
+@using Microsoft.AspNetCore.Components;
 @using Microsoft.AspNetCore.Components.Forms
 @using System.Text.RegularExpressions;
 @using Microsoft.AspNetCore.Mvc;
-@using System.Runtime.Serialization.Formatters.Binary  
-@using Utils; 
+@using System.Runtime.Serialization.Formatters.Binary
+@using Utils;
 
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
-@inject NavigationManager navManager 
+@inject NavigationManager navManager
 @inject IJSRuntime js
-
 @*
     Using OwningComponentBase ensures that the service and related services
     that share its scope are disposed with the component.
@@ -43,7 +36,7 @@
 
 
 <AuthorizeView>
-    <Authorized>
+    <Authorized Context="Auth2">
         @page "/Account"
         <div class="container mt-5">
             <h2>My Dashboard</h2>
@@ -53,7 +46,8 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-7 my-auto">
-                    <p>Welcome @context.User.Identity.Name! </p>
+                    <p>Welcome @Auth2.User.Identity.Name! </p>
+                    <p>Today is @DateTime.Now.DayOfWeek.ToString(), @DateTime.Now.ToString("MMMMM") @DateTime.Now.Day.ToString() @DateTime.Now.ToString("yyyy").</p>
                 </div>
                 <div class="col-5">
                     <table class="float-right">
@@ -66,7 +60,7 @@
                                     <div class="@manageDropDown dropdown-menu ml-1" aria-labelledby="dropdownMenuButton" @onclick="@ToggleManageDropDown">
                                         <a class="dropdown-item" href="Transactions">Transactions</a>
                                         <a class="dropdown-item" href="Notifications">Notifications</a>
-                                        <a class="dropdown-item" href="/Identity/Account/Manage">Account</a>
+                                        <!--<a class="dropdown-item" href="/Identity/Account/Manage">Account</a>-->
                                     </div>
                                 </div>
                             </td>
@@ -84,7 +78,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2 d-flex align-items-center justify-content-center">
-                            <div id="circle" class="text-center p-4">
+                            <div id="circle" class="text-center pt-5">
                                 Total:
                                 <h2>@returnCount()</h2>
                             </div>
@@ -100,7 +94,7 @@
                                     @foreach (var x in ac)
                                     {
                                         <li>ID @x.NotificationId: Transactions between $@x.Min - $@x.Max.</li>
-                                        <ul>
+                                        <!--<ul>
                                             @foreach (var y in notifList)
                                             {
                                                 if (x.NotificationId == y.NotificationId)
@@ -109,8 +103,7 @@
                                                     <li>@y.GetType().GetProperty(currMonth).GetValue(y) this month</li>
                                                 }
                                             }
-
-                                        </ul>
+                                        </ul>-->
                                     }
                                     @foreach (var x in tc)
                                     {
@@ -126,7 +119,6 @@
                                             }
 
                                         </ul>
-
                                     }
                                     @foreach (var x in lc)
                                     {
@@ -140,7 +132,6 @@
                                                     <li>@y.GetType().GetProperty(currMonth).GetValue(y) this month</li>
                                                 }
                                             }
-
                                         </ul>
                                     }
                                 </ul>
@@ -149,17 +140,74 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="container mt-3">
-                <h3>Testing loading user's notifications with monthly triggers </h3>
-                @if (notifList == null)
-                {
-                    <p><em>Loading...</em></p>
-                }
-                else
-                {
-                    <table class="table">
-                        <thead>
+        <div class="container mt-5">
+            <div class="card text-left">
+                <div class="card-header">
+                    <h3>Notification Summary</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2 d-flex align-items-center justify-content-center">
+                            <div id="circle" class="text-center pt-5">
+                                Triggered:
+                                @if (triggeredList == null)
+                                {
+                                    <h2>0</h2>
+                                }
+                                else
+                                {
+                                    <h2>@triggerCt</h2>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-10 dotted_border my-auto">
+                            <p>@month @DateTime.Now.ToString("yyyy")</p>
+                            <p>@notiff</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row justify-content-between">
+                        <div class="col-6 text-left">
+                            <button class="primary_button" @onclick="openFilter">Filter</button>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button class="primary_button" @onclick="DownloadFile">Export </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--
+        <div class="container mt-5">
+            <h3>Testing loading user's notifications with monthly triggers </h3>
+            @if (notifList == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @foreach (var property in typeof(UserToNotifications).GetProperties())
+                            {
+                                if (property.Name == "UserId" || property.Name == "AmountConstraint" || property.Name == "LocationConstraint" || property.Name == "TimeConstraint")
+                                    continue;
+                                else
+                                {
+                                    <th>@property.Name</th>
+                                }
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in notifList)
+                        {
                             <tr>
                                 @foreach (var property in typeof(UserToNotifications).GetProperties())
                                 {
@@ -167,45 +215,45 @@
                                         continue;
                                     else
                                     {
-                                        <th>@property.Name</th>
+                                        <td>@property.GetValue(x)</td>
                                     }
                                 }
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var x in notifList)
+                        }
+                    </tbody>
+                </table>
+
+            }
+        </div>
+
+        <div class="container mt-3">
+            <h3>Testing stored procedure to load notifications, parameters, and their monthly triggers </h3>
+            <button name="AddTransButton" class="primary_button float-right" type="submit" @onclick="DownloadFile">
+                Export
+            </button>
+            @if (allJoinedNotifs == null)
+            {
+                <p><em> Loading... </em></p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @foreach (var property in typeof(joinAllNotifsResult).GetProperties())
                             {
-                                <tr>
-                                    @foreach (var property in typeof(UserToNotifications).GetProperties())
-                                    {
-                                        if (property.Name == "UserId" || property.Name == "AmountConstraint" || property.Name == "LocationConstraint" || property.Name == "TimeConstraint")
-                                            continue;
-                                        else
-                                        {
-                                            <td>@property.GetValue(x)</td>
-                                        }
-                                    }
-                                </tr>
+                                if (property.Name == "userID")
+                                { continue; }
+                                else
+                                {
+                                    <th>@property.Name</th>
+                                }
                             }
-                        </tbody>
-                    </table>
-
-                }
-            </div>
-
-            <div class="container mt-3">
-                <h3>Testing stored procedure to load notifications, parameters, and their monthly triggers </h3>
-                <button name="AddTransButton" class="primary_button float-right" type="submit" @onclick="DownloadFile">
-                    Export
-                </button>
-                @if (allJoinedNotifs == null)
-                {
-                    <p><em> Loading... </em></p>
-                }
-                else
-                {
-                    <table class="table">
-                        <thead>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in allJoinedNotifs)
+                        {
                             <tr>
                                 @foreach (var property in typeof(joinAllNotifsResult).GetProperties())
                                 {
@@ -213,134 +261,98 @@
                                     { continue; }
                                     else
                                     {
-                                        <th>@property.Name</th>
+                                        <td>@property.GetValue(x)</td>
                                     }
                                 }
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var x in allJoinedNotifs)
-                            {
-                                <tr>
-                                    @foreach (var property in typeof(joinAllNotifsResult).GetProperties())
-                                    {
-                                        if (property.Name == "userID")
-                                        { continue; }
-                                        else
-                                        {
-                                            <td>@property.GetValue(x)</td>
-                                        }
-                                    }
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                }
-            </div>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+            -->
 
-            <div class="container mt-5">
-                <div class="card text-left">
-                    <div class="card-header">
-                        <h3>Notification Summary</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-3 d-flex flex-wrap justify-content-center align-content-center">
-                                <div>
-                                    <div id="circle" class="text-center pt-4 pb-4">
-                                        Triggered:
-                                        @if (triggeredList == null)
-                                        {<h2>0</h2>}
-                                        else
-                                        {<h2>@triggeredList.Count()</h2>}
+        @if (showFilter)
+        {
+            <div class="modal" tabindex="-1" style="display:block" role="dialog" id="larger-modal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content custom-modal">
+
+                        <div class="modal-header">
+                            <h5 class="col-12 modal-title text-center">FILTER NOTIFICATION SUMMARY</h5>
+                        </div>
+                        <div class="modal-body">
+                            <hr class="solid custom_hr_solid mb-3" />
+                            <div class="container">
+                                <div class="form-group row mt-4">
+                                    <label class="col-sm-5 col-form-label">Date: </label>
+                                    <div class="col-sm-7">
+                                        <select class="form-control" @bind="@month">
+                                            <option hidden disabled selected></option>
+                                            <option value="Year: ">@DateTime.Now.ToString("yyyy")</option>
+                                            @foreach (var property in typeof(UserToNotifications).GetProperties())
+                                            {
+                                                if (property.Name == "UserId" || property.Name == "AmountConstraint" || property.Name == "LocationConstraint" || property.Name == "TimeConstraint" || property.Name == "NotificationId")
+                                                    continue;
+                                                else
+                                                {
+                                                    <option value="@property.Name">@property.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-4">
+                                    <label class="col-sm-5 col-form-label">Type of Notification: </label>
+                                    <div class="col-sm-7">
+                                        <select class="form-control" @onchange="FilterSearch">
+                                            <option hidden disabled selected></option>
+                                            <option value="all">All notifications</option>
+                                            @if ((ac == null) && (tc == null) && (lc == null) && (notifList == null))
+                                            {
+                                                <option>None...</option>
+                                            }
+                                            else
+                                            {
+                                                @foreach (var x in ac)
+                                                {
+                                                    <option value="@x.NotificationId">Between $@x.Min - $@x.Max.</option>
+                                                }
+                                                @foreach (var x in tc)
+                                                {
+                                                    <option value="@x.NotificationId">Between @revertDateTime(x.TimeIn) - @revertDateTime(x.TimeOut).</option>
+                                                }
+                                                @foreach (var x in lc)
+                                                {
+                                                    <option value="@x.NotificationId">From @x.Location.</option>
+                                                }
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-9 dotted_border">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="dropdown">
-                                            <!-- Align the Select Notifications to the Upper Left Corner -->
-                                            <button class="primary_button dropdown-toggle" type="button" id="dropdownMenuButton" @onclick="@ToggleNotificationDropDown">
-                                                All Notifications
-                                            </button>
-                                            <div class="@notificationDropDown dropdown-menu ml-1" aria-labelledby="dropdownMenuButton" @onclick="@ToggleNotificationDropDown">
-                                                <a class="dropdown-item">Notification 1</a>
-                                                <a class="dropdown-item">Notification 2</a>
-                                                <a class="dropdown-item">Notification 3</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <!-- Align the Search Date to the Upper Right Corner -->
-                                        <div class="dropdown">
-                                            <button class="primary_button dropdown-toggle ml-1" type="button" id="dropdownMenuButton" @onclick="@ToggleDateDropDown">
-                                                Month
-                                            </button>
-                                            <div class="@dateDropDown dropdown-menu" aria-labelledby="dropdownMenuButton" @onclick="@ToggleDateDropDown">
-                                                <a class="dropdown-item" href="#">Year</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <FlexChart Class="chart" ChartType="ChartType.Line"
-                                           LegendPosition="Position.Bottom" HeaderContent="All Notifications"
-                                           BindingX="date" ItemsSource="@notif1">
-                                    <SeriesCollection>
-                                        <Series Name="NR1" Binding="notificationcount" Style="@redLine" /> <!--Bind the Y axis-->
-                                        <Series Name="NR2" ItemsSource="@notif2" Binding="notificationcount" Style="@blueLine" /> <!--Bind the Y axis-->
-                                        <Series Name="NR3" ItemsSource="@notif3" Binding="notificationcount" Style="@greenLine" /> <!--Bind the Y axis-->
-                                    </SeriesCollection>
-                                    <MarkerCollection>
-                                        <LineMarker Lines="LineMarkerLines.Both" LineStyle="stroke:gray;stroke-width:0"
-                                                    Content=@content HorizontalPosition="0.5" VerticalPosition="0.5"
-                                                    Interaction="action ?? LineMarkerInteraction.None" />
-                                    </MarkerCollection>
-                                    <AxisCollection>
-                                        <Axis AxisType="AxisType.Y" Position="Position.Left" Title="Number of Notifications" AxisLine="true" MajorGrid="true" MajorTickMarks="TickMark.Outside" />
-                                        <Axis AxisType="AxisType.X" Position="Position.Bottom" AxisLine="false" Format="MMM-d" MajorGrid="true" MajorTickMarks="TickMark.None" />
-                                    </AxisCollection>
-                                </FlexChart>
-                                <br />
-                                <!-- This is where I mess around-->
-                                @if (triggeredList == null)
-                                {
-                                    <p><em>Standby...</em></p>
-                                }
-                                else
-                                {
-                                    <FlexChart Class="chart" ChartType="ChartType.Line"
-                                               LegendPosition="Position.Bottom" HeaderContent="All Notifications"
-                                               BindingX="date" ItemsSource="@notif1">
-                                        <SeriesCollection>
-                                            <Series Name="NR1" Binding="notificationcount" Style="@redLine" /> <!--Bind the Y axis-->
-                                            <Series Name="NR2" ItemsSource="@notif2" Binding="notificationcount" Style="@blueLine" /> <!--Bind the Y axis-->
-                                            <Series Name="NR3" ItemsSource="@notif3" Binding="notificationcount" Style="@greenLine" /> <!--Bind the Y axis-->
-                                            @*@foreach(var )*@
-                                        </SeriesCollection>
-                                        <MarkerCollection>
-                                            <LineMarker Lines="LineMarkerLines.Both" LineStyle="stroke:gray;stroke-width:0"
-                                                        Content=@content HorizontalPosition="0.5" VerticalPosition="0.5"
-                                                        Interaction="action ?? LineMarkerInteraction.None" />
-                                        </MarkerCollection>
-                                        <AxisCollection>
-                                            <Axis AxisType="AxisType.Y" Position="Position.Left" Title="Number of Notifications" AxisLine="true" MajorGrid="true" MajorTickMarks="TickMark.Outside" />
-                                            <Axis AxisType="AxisType.X" Position="Position.Bottom" AxisLine="false" Format="MMM-d" MajorGrid="true" MajorTickMarks="TickMark.None" />
-                                        </AxisCollection>
-                                    </FlexChart>
-                                }
-                                <div class="row">
-                                    <button class="primary_button" @onclick="DownloadFile">Export </button> <!-- Align Export Button to the right corner.-->
-                                </div>
-                            </div>
+                        <div class="modal-footer">
+                            <button class="primary_button ml-auto" @onclick="closeFilter">
+                                Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+
+        }
+
+        <div class="container mt-5">
+            <div class="row">
+            </div>
         </div>
-        <!--Testing triggered notifications display-->
+
+
+
+
+        <!--Testing triggered notifications display
         <div class="container mt-3">
             <h3>Testing loading triggered notification table and concantenating the HTML to use as a string to display</h3>
             @if (triggeredList == null)
@@ -380,9 +392,7 @@
                 <br />
 
             }
-        </div>
-
-
+        </div>-->
 
     </Authorized>
     <NotAuthorized>
@@ -403,25 +413,96 @@
     List<TriggeredNotif> triggeredList;
     List<joinAllNotifsResult> allJoinedNotifs;
     UserToNotifications tempUTN;
-    //Match match = Regex.Match("")
+        //Match match = Regex.Match("")
 
     AmountConstraint tempAC = new AmountConstraint();
     TimeConstraint tempTC = new TimeConstraint();
     LocationConstraint tempLC = new LocationConstraint();
+    private bool displayManage = false;
+    private bool displayNotification = false;
+    private bool displayDate = false;
 
     /// <summary>
     /// IMPORTANT: gets the current month and the first 3 letters as an abbreviation. This is used to get the proper monthly count in functions
     /// </summary>
     string currMonth = DateTime.Now.ToString("MMMM").Substring(0, 3);
 
-
-    private bool displayManage = false;
-    private bool displayNotification = false;
-    private bool displayDate = false;
+    bool showFilter = false;
+    private int triggerCt = 0;
+    private string month = DateTime.Now.ToString("MMMM").Substring(0, 3);
+    private string notiff = "";
 
     private string manageDropDown => displayManage ? "d-block" : null;
     private string notificationDropDown => displayNotification ? "d-block" : null;
     private string dateDropDown => displayDate ? "d-block" : null;
+
+    private void setTrigger(int val)
+    {
+        triggerCt = val;
+    }
+
+    private void FilterSearch(ChangeEventArgs changeEventArgs)
+    {
+        showFilter = false;
+        string notifID = changeEventArgs.Value.ToString();
+        if (notifID == "all")
+        {
+            notiff = "All notifications";
+            if (triggeredList != null)
+            {
+                setTrigger(triggeredList.Count());
+            }
+        }
+        else
+        {
+            int convID = Int32.Parse(notifID);
+            foreach (var y in notifList)
+            {
+                if (convID == y.NotificationId)
+                {
+                    if (month == "Year: ")
+                    {
+                        setTrigger(Int32.Parse(@getYearlySumOfNotif(y).ToString()));
+                    }
+                    else
+                    {
+                        setTrigger(Int32.Parse(@y.GetType().GetProperty(month).GetValue(y).ToString()));
+                    }
+                }
+            }
+            foreach (var x in ac)
+            {
+                if (convID == x.NotificationId)
+                {
+                    notiff = "Transactions between " + x.Min + " - " + x.Max + ".";
+                }
+            }
+            foreach (var x in lc)
+            {
+                if (convID == x.NotificationId)
+                {
+                    notiff = "Transactions from " + x.Location + ".";
+                }
+            }
+            foreach (var x in tc)
+            {
+                if (convID == x.NotificationId)
+                {
+                    notiff = "Transactions between " + revertDateTime(x.TimeIn) + " - " + revertDateTime(x.TimeOut) + ".";
+                }
+            }
+        }
+    }
+
+    void openFilter()
+    {
+        showFilter = true;
+    }
+    void closeFilter()
+    {
+        showFilter = false;
+    }
+
 
     /// <summary>
     /// Prepares the page and its variables on load. Since it is async, things will be null for a bit
@@ -439,7 +520,6 @@
         lc = await Service.GetLocationConstraints(notifList);
         await getAllNotifsJoinedWithMonthsAsync();
     }
-
 
     int returnCount()
     {
@@ -466,9 +546,6 @@
         return convertedTime;
     }
 
-
-
-
     private void ToggleManageDropDown()
     {
         displayManage = !displayManage;
@@ -482,45 +559,6 @@
         displayDate = !displayDate;
     }
 
-
-
-    LineMarkerInteraction[] actions = new LineMarkerInteraction[] { LineMarkerInteraction.None, LineMarkerInteraction.Move, LineMarkerInteraction.Drag };
-    LineMarkerInteraction? action = LineMarkerInteraction.Move;
-
-    string content = "<div style='padding:6px;border:1px solid darkgrey;background:#f0f0f0;'>{x:MMM-dd}<br># of Notifications: {y}</div>";
-    string redLine = "fill:rgba(227, 0, 0, 1);stroke:rgba(227, 0, 0, 1);stroke-width:3";
-    string blueLine = "fill:rgba(0, 122, 163, 1);stroke:rgba(0, 122, 163, 1);stroke-width:3";
-    string greenLine = "fill:rgba(79, 168, 0, 1);stroke:rgba(79, 168, 0, 1);stroke-width:3";
-
-    List<object>
-    notif1 = DataSource.getData();
-    List<object>
-        notif2 = DataSource.getData();
-    List<object>
-        notif3 = DataSource.getData();
-
-    // Dummy Data for Chart
-    public class DataSource
-    {
-        public static List<object>
-            getData()
-        {
-            var rng = new Random();
-            return new List<object>
-                ()
-                    {
-
-                    new {date = new DateTime(2021, 1, 26), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 2, 1), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 3, 1), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 3, 20), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 4, 21), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 4, 26), notificationcount = rng.Next(0, 15)},
-                    new {date = new DateTime(2021, 4, 27), notificationcount = rng.Next(0, 15)}
-                    };
-        }
-    }
-
     /// <summary>
     /// Returns the string as pure HTML from the database to render in page
     /// </summary>
@@ -531,7 +569,6 @@
         return (MarkupString)text;
     }
 
-
     /// <summary>
     /// Gets the yearly sum of the notification passed in.
     /// </summary>
@@ -540,17 +577,17 @@
     public int getYearlySumOfNotif(UserToNotifications notif)
     {
         return notif.Jan
-            + notif.Feb
-            + notif.Mar
-            + notif.Apr
-            + notif.May
-            + notif.Jun
-            + notif.Jul
-            + notif.Aug
-            + notif.Sep
-            + notif.Oct
-            + notif.Nov
-            + notif.Dec;
+        + notif.Feb
+        + notif.Mar
+        + notif.Apr
+        + notif.May
+        + notif.Jun
+        + notif.Jul
+        + notif.Aug
+        + notif.Sep
+        + notif.Oct
+        + notif.Nov
+        + notif.Dec;
     }
 
     public int getIndexOfSubstring(string text, string toMatch)
@@ -581,10 +618,8 @@
         //using var writer = new StreamWriter("../export.csv");
         using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
         {
-
             csv.WriteRecords(allJoinedNotifs);
             writer.Flush();
-
         }
         string filename = "monthly_notif_trigger_export_" + DateTime.Now.ToString("yyyy") + ".csv";
         //var bytes = System.Text.Encoding.UTF8.GetBytes(text);
@@ -592,11 +627,7 @@
         //var result = writer.ToString();
         //Console.WriteLine(result);
         await Service.SaveAs(js, filename, memorystream.ToArray());
-
-
-
     }
-
 }
 
 
