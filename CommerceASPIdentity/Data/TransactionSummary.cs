@@ -14,6 +14,7 @@ namespace EndToEndTest.Data
         private readonly CommerceappContext _context;
         private readonly IHttpContextAccessor _httpCA;
         private List<Transactionsmaster> transactions;
+        private List<TriggeredNotif> notifications;
 
         public TransactionSummary(CommerceappContext context)
         {
@@ -31,6 +32,18 @@ namespace EndToEndTest.Data
                 .ToList();
 
             return transactions;
+        }
+
+        public async Task<List<TriggeredNotif>> getRecentTriggeredNotif (string userEmail)
+        {
+            notifications = _context.TriggeredNotif
+                .Where(x => x.EmailSentTo == userEmail)
+                .OrderByDescending(x => x.DateAdded)
+                .Take(5)
+                .AsNoTracking()
+                .ToList();
+
+            return notifications;
         }
 
         //returns a list with tuples that holds the description of a transaction as the key and the transaction
