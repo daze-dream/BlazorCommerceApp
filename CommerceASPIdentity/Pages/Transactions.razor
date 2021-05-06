@@ -5,6 +5,8 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
 
+@inject NavigationManager  MyNavigationManager
+
 @*
     Using OwningComponentBase ensures that the service and related services
     that share its scope are disposed with the component.
@@ -279,7 +281,6 @@
             newTrans.LocationState = objTransactionsmaster.LocationState;
             var result = Service.CreateTransactionAsync(newTrans);
             await Service.updateUsersBankBalanceAfterTransaction(newTrans, userId);
-            //NavigationManager.NavigateTo("/logindisplay", true);
         }
         else
         {

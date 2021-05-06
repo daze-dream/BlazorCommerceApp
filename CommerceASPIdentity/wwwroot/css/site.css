@@ -86,11 +86,13 @@ n1 {
     background-color: transparent;
     padding: 10px;
     z-index: 2000;
-}
-
-.dropdown:hover .dropdown-content {
     display: table;
 }
+/*
+.dropdown .dropdown-content {
+    
+}
+    */
 
 .notifAlerts {
     background-color: rgba(255, 255, 255, 0.87);
@@ -103,6 +105,7 @@ n1 {
 
 .alertMess {
     font-weight:bold;
+    color: black;
 }
 
 

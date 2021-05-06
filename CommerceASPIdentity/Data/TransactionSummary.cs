@@ -33,7 +33,7 @@ namespace EndToEndTest.Data
             return transactions;
         }
 
-        //returns a dictionary that holds the description of a transaction as the key and the transaction
+        //returns a list with tuples that holds the description of a transaction as the key and the transaction
         //amount as the value
         public async Task<List<Tuple<String, decimal>>> getTransactionDescription(string userID)
         {

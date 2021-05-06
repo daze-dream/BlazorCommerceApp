@@ -7,6 +7,7 @@
 @using Microsoft.AspNetCore.Components.Forms
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
+@inject NavigationManager MyNavigationManager 
 
 @inherits OwningComponentBase<TransactionSummary>
 
@@ -22,20 +23,20 @@
                 value = transaction amount
             -->
             <div class="dropdown">
-                <a class="@displayBell" @onclick="@displayNotifBell" href="Notifications"><i class="oi oi-bell ml-3"></i></a>
-
+                <i class="oi oi-bell ml-3" @onclick="@displayNotifBell">
+                    <a class="@displayBell" href="Notifications">
+                        <div class="dropdown-content">
+                            @foreach (var x in transDesc) //for every transactions made
+                            {
+                                <div class="row notifAlerts">
+                                    <span class="alertMess">$@x.Item2 from @x.Item1</span>
+                                </div>
+                            }
+                        </div>
+                    </a>
+                </i>
                 
-                <div class="dropdown-content">
-                    @foreach (var x in transDesc) //for every transactions made
-                    {
-                <div class="row notifAlerts">
-                    <span class="alertMess">$@x.Item1 from @x.Item2</span>
-                </div>
-                    }
-                </div>
-                 
-
-
+                
             </div>
             <a class="nav-link" href="Notifications">Notifications</a>
         </div>
@@ -44,11 +45,11 @@
                 <button type="submit" class="btn nav_bar_button">Log out</button>
             </form>
         </div>
-
+        <!--
         <div>
             <button class="btn-sm" @onclick="@displayNotifBell">Display</button>
         </div>
-
+        -->
     </Authorized>
     <NotAuthorized>
         <div class="row align-items-center ml-3"><a class="nav-link" href="/">About</a></div>
@@ -66,18 +67,12 @@
 
     private async Task displayNotifBell()
     {
-        if (displayBell == "d-block")
-        {
-            displayBell = "d-none";
-            transDesc.Clear();
-            transactionsList.Clear();
-        }
-        else
-        {
-            transactionsList = await Service.GetRecentTransaction(userID);
-            transDesc = await Service.getTransactionDescription(userID);
+        if (displayBell == "d-none")
             displayBell = "d-block";
-        }
+        else
+            displayBell = "d-none";
+        transactionsList = await Service.GetRecentTransaction(userID);
+        transDesc = await Service.getTransactionDescription(userID);
     }
 
     protected override async Task OnInitializedAsync()
