@@ -30,6 +30,7 @@ namespace EndToEndTest
 
             return await _context.Transactionsmaster
                 .Where(x => x.UserId == currUserID)
+                .OrderByDescending(x => x.Transactiondate)
                 .AsNoTracking()
                 .ToListAsync();
         }

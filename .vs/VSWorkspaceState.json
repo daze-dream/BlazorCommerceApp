@@ -1,11 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CommerceBankWebAppDemo",
-    "\\CommerceBankWebAppDemo\\bin",
-    "\\CommerceBankWebAppDemo\\bin\\Release",
-    "\\CommerceBankWebAppDemo\\bin\\Release\\netcoreapp3.1"
+    "\\CommerceASPIdentity",
+    "\\CommerceBankWebAppDemo"
   ],
-  "SelectedNode": "\\CommerceBankWebAppDemo\\CommerceBankWebAppDemo.sln",
+  "SelectedNode": "\\CommerceASPIdentity\\EndToEndTest.sln",
   "PreviewInSolutionExplorer": false
 }

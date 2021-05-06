@@ -8,7 +8,7 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
 
-@inherits OwningComponentBase<TransactionSummary>
+@inherits OwningComponentBase<NotificationServices>
 
 <AuthorizeView>
     <Authorized>
@@ -22,18 +22,36 @@
                 value = transaction amount
             -->
             <div class="dropdown">
-                <a class="@displayBell" @onclick="@displayNotifBell" href="Notifications"><i class="oi oi-bell ml-3"></i></a>
+                <a class="@displayBell" @onclick="@displayNotifBell" href="Notifications"><i class="oi oi-bell"></i></a>
 
-                
+
                 <div class="dropdown-content">
-                    @foreach (var x in transDesc) //for every transactions made
+                    <div class="row notifAlerts">
+                        <span class="alertMess">CATS...</span>
+                    </div>
+                    @if (notifSummaries == null)
                     {
-                <div class="row notifAlerts">
-                    <span class="alertMess">$@x.Item1 from @x.Item2</span>
-                </div>
+                        <div class="row notifAlerts">
+                            <span class="alertMess">Loading...</span>
+                        </div>
+
+                    }
+                    else
+                    {
+                        @foreach (var x in notifSummaries) //for every transactions made
+                        {
+                            <div class="row notifAlerts">
+                                @if (x.EmailBody.Length < 131)
+                                
+                                    {<span class="alertMess">@x.EmailBody</span>}                                
+                                else
+                                {<span class="alertMess">@x.EmailBody.Substring(131).Substring(0, getIndexOfSubstring(x.EmailBody.Substring(131), "If"))</span>}
+                            </div>
+                        }
                     }
                 </div>
-                 
+
+
 
 
             </div>
@@ -45,9 +63,9 @@
             </form>
         </div>
 
-        <div>
+        <!--<div>
             <button class="btn-sm" @onclick="@displayNotifBell">Display</button>
-        </div>
+        </div>-->
 
     </Authorized>
     <NotAuthorized>
@@ -58,34 +76,50 @@
 </AuthorizeView>
 
 @code {
-    public List<Transactionsmaster> transactionsList;
+    public List<TriggeredNotif> notifSummaries;
+
     public List<Tuple<String, decimal>> transDesc;
     private string userID;
 
     private string displayBell = "d-none";
-
-    private async Task displayNotifBell()
-    {
-        if (displayBell == "d-block")
-        {
-            displayBell = "d-none";
-            transDesc.Clear();
-            transactionsList.Clear();
-        }
-        else
-        {
-            transactionsList = await Service.GetRecentTransaction(userID);
-            transDesc = await Service.getTransactionDescription(userID);
-            displayBell = "d-block";
-        }
-    }
 
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
         userID = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
 
-        transactionsList = await Service.GetRecentTransaction(userID);
-        transDesc = await Service.getTransactionDescription(userID);
+        notifSummaries = await Service.GetTriggeredNotifSummary(user.Identity.Name);
+        notifSummaries.Count();
+        notifSummaries.Count();
+        notifSummaries.Count();
+        notifSummaries.Count();
+
+
+
+    }
+
+    private async Task displayNotifBell()
+    {
+        if (displayBell == "d-block")
+        {
+            displayBell = "d-none";
+            //notifSummaries.Clear();
+        }
+        else
+        {
+            var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+            userID = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+            notifSummaries = await Service.GetTriggeredNotifSummary(user.Identity.Name);
+            notifSummaries = await Service.GetTriggeredNotifSummary(userID);
+            displayBell = "d-block";
+        }
+    }
+
+
+
+
+    public int getIndexOfSubstring(string text, string toMatch)
+    {
+        return text.IndexOf(toMatch);
     }
 }
