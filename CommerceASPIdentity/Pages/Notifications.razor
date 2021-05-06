@@ -24,7 +24,6 @@
             <h2>My Notifications</h2>
             <hr class="solid mt-5 custom_hr_solid" />
         </div>
-
         <div class="container mt-3">
             <div class="row">
                 <div class="col-7 my-auto">
@@ -43,7 +42,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container mt-5">
             @if ((ac == null) && (tc == null) && (lc == null))
             {
@@ -107,7 +105,6 @@
                 }
             }
         </div>
-
         @if (showPopup)
         {
             <div class="modal" tabindex="-1" style="display:block" role="dialog">
@@ -134,7 +131,6 @@
                                     <label class="form-check-label" for="inlineRadio2">Location</label>
                                 </div>
                             </div>
-
                             <div class="@hideAmt container">
                                 <div class="row align-items-center">
                                     <div class="col-12 pl-3 mt-4">
@@ -161,7 +157,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="@hideTm container">
                                 <div class="row align-items-center">
                                     <div class="col-12 pl-3 mt-4">
@@ -182,7 +177,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <form class="row g-3">
                                 <div class="@hideLoc container">
                                     <div class="row align-items-center">
@@ -198,7 +192,6 @@
                                 </div>
                             </form>
                         </div>
-
                         <div class="modal-footer justify-content-between">
                             <div class="col-6 text-left mt-4">
                                 @if (ty == "amount")
@@ -228,25 +221,20 @@
                 </div>
             </div>
         }
-
         @if (smallPopUp)
         {
             <div class="modal" tabindex="-1" style="display:block" role="dialog">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content custom-modal">
-
                         <div class="modal-header">
                             <h5 class="col-12 modal-title text-center">EDIT NOTIFICATION</h5>
                         </div>
-
                         <div class="modal-body">
                             <hr class="solid custom_hr_solid mb-3" />
-
                             <div class="container text-center">
                                 <n1>@message</n1>
                             </div>
                             <form>
-
                                 <div class="@hideAmtSm">
                                     <div class="form-group row mt-4">
                                         <label for="minimumValue" class="col-sm-2 col-form-label">Min: </label>
@@ -269,7 +257,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="@hideTmSm">
                                     <div class="form-group row mt-4">
                                         <label class="col-sm-2 col-form-label">Start Time: </label>
@@ -286,7 +273,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="@hideLocSm">
                                     <div class="form-group row mt-4">
                                         <label class="col-sm-2 col-form-label">Description: </label>
@@ -296,7 +282,6 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                         <div class="modal-footer">
                             <button class="primary_button" @onclick="() => SaveNotification(tempTC)">
@@ -311,20 +296,17 @@
             </div>
         }
     </Authorized>
-
     <NotAuthorized>
         <div class="container mt-5">
             <h6>Please sign in to access your account information.</h6>
         </div>
     </NotAuthorized>
-
 </AuthorizeView>
 
 
 
 
 @code {
-
 
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -357,21 +339,26 @@
     private string message = "";
     private string ty = "";
 
-    public void selectType(string e)
+    /// <summary>
+    /// Requires a string parameter. Assigns a value to the string "ty". Helps to determine which type of button should be displayed.
+    /// </summary>
+    /// <param name="e"></param>
+    private void selectType(string e)
     {
         ty = e;
     }
 
+    /// <summary>
+    /// Functions that aid in Modal popups and hiding Div containers.
+    /// </summary>
     void AddNewNotification()
     {
         showPopup = true;
     }
-
     void ClosePopupOriginal()
     {
         showPopup = false;
     }
-
     void CloseSmallPopup()
     {
         smallPopUp = false;
@@ -379,46 +366,38 @@
         hideSmTime = true;
         hideSmLoc = true;
     }
-
     private void hideAmountCon()
     {
         hideDivAmt = false;
         hideDivLoc = true;
         hideDivTm = true;
     }
-
     private void hideLocCon()
     {
         hideDivAmt = true;
         hideDivLoc = false;
         hideDivTm = true;
     }
-
     private void hideTimeCon() {
         hideDivAmt = true;
         hideDivLoc = true;
         hideDivTm = false;
     }
-
     private void hideSmAmount()
     {
         hideSmAmt = !hideSmAmt;
     }
-
     private void hideSmTimes()
     {
         hideSmTime = !hideSmTime;
     }
-
     private void hideSmLocation()
     {
         hideSmLoc = !hideSmLoc;
     }
 
-
-
     /// <summary>
-    /// Initializes all the appropriate variables to be displayed as soon as the page is loaded
+    /// Initializes all the appropriate variables to be displayed as soon as the page is loaded.
     /// </summary>
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
@@ -455,7 +434,6 @@
             {
                 var result = Service.updateNotificationsAsync(tempAC);
             }
-
         }
         else if (x is TimeConstraint)
         {
@@ -494,7 +472,6 @@
 
             }
         }
-
         showPopup = false;
         notifList = await Service.GetNotifJoinTable(userId);
         ac = await Service.GetAmountConstraints(notifList);
@@ -502,9 +479,11 @@
         lc = await Service.GetLocationConstraints(notifList);
     }
 
-    // Deleting a notification based on the passed in parameter
-    // Should add another DeleteNotif with a parameter for a list of objects, that way we can loop multiple objects
-    //  for deletion.
+    /// <summary>
+    /// Requires an object parameter. Deletes entries from the database given the parameter.
+    /// </summary>
+    /// <param name="notif"></param>
+    /// <returns></returns>
     async Task DeleteNotif(object notif)
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -526,6 +505,11 @@
 
     }
 
+    /// <summary>
+    /// Requires a TimeSpan parameter. Converts the Timespan and outputs a string.
+    /// </summary>
+    /// <param name="theDateTime"></param>
+    /// <returns></returns>
     string revertDateTime(TimeSpan theDateTime)
     {
         DateTime time = DateTime.Today.Add(theDateTime);
@@ -533,6 +517,10 @@
         return convertedTime;
     }
 
+    /// <summary>
+    /// Sets the value of "counter" to display the total number of active notification rules.
+    /// </summary>
+    /// <returns></returns>
     int returnCount()
     {
         int counter = 0;
@@ -551,6 +539,10 @@
         return counter;
     }
 
+    /// <summary>
+    /// Requires an object parameter. Sets the visibility of div containers, values, and existing database values for editing.
+    /// </summary>
+    /// <param name="notif"></param>
     void EditNotif(object notif)
     {
         if (notif is AmountConstraint)

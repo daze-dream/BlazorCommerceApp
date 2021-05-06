@@ -126,9 +126,8 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 326 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
+#line 309 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Notifications.razor"
        
-
 
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -161,21 +160,26 @@ using Microsoft.AspNetCore.Components.Forms;
     private string message = "";
     private string ty = "";
 
-    public void selectType(string e)
+    /// <summary>
+    /// Requires a string parameter. Assigns a value to the string "ty". Helps to determine which type of button should be displayed.
+    /// </summary>
+    /// <param name="e"></param>
+    private void selectType(string e)
     {
         ty = e;
     }
 
+    /// <summary>
+    /// Functions that aid in Modal popups and hiding Div containers.
+    /// </summary>
     void AddNewNotification()
     {
         showPopup = true;
     }
-
     void ClosePopupOriginal()
     {
         showPopup = false;
     }
-
     void CloseSmallPopup()
     {
         smallPopUp = false;
@@ -183,46 +187,38 @@ using Microsoft.AspNetCore.Components.Forms;
         hideSmTime = true;
         hideSmLoc = true;
     }
-
     private void hideAmountCon()
     {
         hideDivAmt = false;
         hideDivLoc = true;
         hideDivTm = true;
     }
-
     private void hideLocCon()
     {
         hideDivAmt = true;
         hideDivLoc = false;
         hideDivTm = true;
     }
-
     private void hideTimeCon() {
         hideDivAmt = true;
         hideDivLoc = true;
         hideDivTm = false;
     }
-
     private void hideSmAmount()
     {
         hideSmAmt = !hideSmAmt;
     }
-
     private void hideSmTimes()
     {
         hideSmTime = !hideSmTime;
     }
-
     private void hideSmLocation()
     {
         hideSmLoc = !hideSmLoc;
     }
 
-
-
     /// <summary>
-    /// Initializes all the appropriate variables to be displayed as soon as the page is loaded
+    /// Initializes all the appropriate variables to be displayed as soon as the page is loaded.
     /// </summary>
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
@@ -259,7 +255,6 @@ using Microsoft.AspNetCore.Components.Forms;
             {
                 var result = Service.updateNotificationsAsync(tempAC);
             }
-
         }
         else if (x is TimeConstraint)
         {
@@ -298,7 +293,6 @@ using Microsoft.AspNetCore.Components.Forms;
 
             }
         }
-
         showPopup = false;
         notifList = await Service.GetNotifJoinTable(userId);
         ac = await Service.GetAmountConstraints(notifList);
@@ -306,9 +300,11 @@ using Microsoft.AspNetCore.Components.Forms;
         lc = await Service.GetLocationConstraints(notifList);
     }
 
-    // Deleting a notification based on the passed in parameter
-    // Should add another DeleteNotif with a parameter for a list of objects, that way we can loop multiple objects
-    //  for deletion.
+    /// <summary>
+    /// Requires an object parameter. Deletes entries from the database given the parameter.
+    /// </summary>
+    /// <param name="notif"></param>
+    /// <returns></returns>
     async Task DeleteNotif(object notif)
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -330,6 +326,11 @@ using Microsoft.AspNetCore.Components.Forms;
 
     }
 
+    /// <summary>
+    /// Requires a TimeSpan parameter. Converts the Timespan and outputs a string.
+    /// </summary>
+    /// <param name="theDateTime"></param>
+    /// <returns></returns>
     string revertDateTime(TimeSpan theDateTime)
     {
         DateTime time = DateTime.Today.Add(theDateTime);
@@ -337,6 +338,10 @@ using Microsoft.AspNetCore.Components.Forms;
         return convertedTime;
     }
 
+    /// <summary>
+    /// Sets the value of "counter" to display the total number of active notification rules.
+    /// </summary>
+    /// <returns></returns>
     int returnCount()
     {
         int counter = 0;
@@ -355,6 +360,10 @@ using Microsoft.AspNetCore.Components.Forms;
         return counter;
     }
 
+    /// <summary>
+    /// Requires an object parameter. Sets the visibility of div containers, values, and existing database values for editing.
+    /// </summary>
+    /// <param name="notif"></param>
     void EditNotif(object notif)
     {
         if (notif is AmountConstraint)

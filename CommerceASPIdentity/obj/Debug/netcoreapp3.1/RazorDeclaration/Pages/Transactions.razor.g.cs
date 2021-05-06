@@ -105,7 +105,7 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 180 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Transactions.razor"
+#line 169 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Transactions.razor"
        
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -119,8 +119,10 @@ using Microsoft.AspNetCore.Components.Forms;
     string credit = "CR";
     string debit = "DR";
 
+    /// <summary>
+    /// List of all abbreviated class States.
+    /// </summary>
     public class States { public string Abbrev { get; set; } };
-    // THINK ABOUT CREATING SEPERATE MODEL OF THIS LIST OF STATES - BUT MAYBE NOT, ONLY NEEDED IN THIS PAGE. DOES NOT NEED TO BE SHARED.
     List<States> allStates = new List<States>
 {
         new States() {Abbrev= "AL"}, new States() {Abbrev= "AK"}, new States() {Abbrev= "AZ"},
@@ -142,13 +144,21 @@ using Microsoft.AspNetCore.Components.Forms;
         new States() {Abbrev= "WV"}, new States() {Abbrev= "WI"}, new States() {Abbrev= "WY"}
     };
 
+    /// <summary>
+    /// Requires decimal? and decimal parameters. Returns 1 decimal - the balance after a transaction.
+    /// </summary>
+    /// <param name="thebal"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
     private decimal getBalance(decimal? thebal, decimal amount)
     {
         return ((Convert.ToDecimal(thebal)) + amount);
     }
 
 
-    /// <summary>get the transactions when loading in the page </summary>
+    /// <summary>
+    /// Get the transactions when loading in the page.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -157,14 +167,17 @@ using Microsoft.AspNetCore.Components.Forms;
         transactionsList = await Service.GetTransactions(userId);
         usersBankAccount = await Service.GetAccount(userId);
     }
-    /// <summary>bool to open and close the Transaction popup</summary>
+
+    /// <summary>
+    /// Function that aids modal pop up.
+    /// </summary>
     void ClosePopup()
     {
         showPopup = false;
     }
 
     /// <summary>
-    /// prepares the transaction to be added
+    /// Prepares the transaction to be added.
     /// </summary>
     async Task AddNewTransaction()
     {
@@ -177,13 +190,12 @@ using Microsoft.AspNetCore.Components.Forms;
     }
 
     /// <summary>
-    /// creates the final transaction and saves it to the server. Then, refreshes the view to update the account and transactions view
+    /// Creates the final transaction and saves it to the server. Then, refreshes the view to update the account and transactions view.
     /// </summary>
     /// <returns> Task, or rather nothing </returns>
     async Task SaveTransaction()
     {
         showPopup = false;
-        // get current userID
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
         string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
         if (objTransactionsmaster.AccountId == 0)
@@ -208,7 +220,6 @@ using Microsoft.AspNetCore.Components.Forms;
             newTrans.LocationState = objTransactionsmaster.LocationState;
             var result = Service.CreateTransactionAsync(newTrans);
             await Service.updateUsersBankBalanceAfterTransaction(newTrans, userId);
-            //NavigationManager.NavigateTo("/logindisplay", true);
         }
         else
         {
@@ -217,7 +228,6 @@ using Microsoft.AspNetCore.Components.Forms;
         // refreshes the transactions afterwards
         transactionsList = await Service.GetTransactions(userId);
         usersBankAccount = await Service.GetAccount(userId);
-
     }
 
 #line default

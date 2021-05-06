@@ -182,7 +182,7 @@ using Utils;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 405 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 228 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
        
 
     [CascadingParameter]
@@ -194,45 +194,139 @@ using Utils;
     List<TriggeredNotif> triggeredList;
     List<joinAllNotifsResult> allJoinedNotifs;
     UserToNotifications tempUTN;
-        //Match match = Regex.Match("")
+    //Match match = Regex.Match("")
 
     AmountConstraint tempAC = new AmountConstraint();
     TimeConstraint tempTC = new TimeConstraint();
     LocationConstraint tempLC = new LocationConstraint();
+
     private bool displayManage = false;
-    private bool displayNotification = false;
-    private bool displayDate = false;
+    private bool showFilter = false;
+    private string manageDropDown => displayManage ? "d-block" : null;
 
     /// <summary>
     /// IMPORTANT: gets the current month and the first 3 letters as an abbreviation. This is used to get the proper monthly count in functions
     /// </summary>
     string currMonth = DateTime.Now.ToString("MMMM").Substring(0, 3);
 
-    bool showFilter = false;
     private int triggerCt = 0;
     private string month = DateTime.Now.ToString("MMMM").Substring(0, 3);
-    private string notiff = "";
+    private string notiff = "All notifications";
 
-    private string manageDropDown => displayManage ? "d-block" : null;
-    private string notificationDropDown => displayNotification ? "d-block" : null;
-    private string dateDropDown => displayDate ? "d-block" : null;
+    /// <summary>
+    /// Changes the bool value of "show filter" - operates the "Filter Notifications" modal.
+    /// </summary>
+    void openFilter()
+    {
+        showFilter = true;
+    }
 
+    /// <summary>
+    /// Changes the bool value of "show filter" - operates the "Filter Notifications" modal.
+    /// </summary>
+    void closeFilter()
+    {
+        showFilter = false;
+    }
+
+    /// <summary>
+    /// Requires an integer and sets the value of the "Triggered" count.
+    /// </summary>
+    /// <param name="val"></param>
     private void setTrigger(int val)
     {
         triggerCt = val;
     }
 
-    private void FilterSearch(ChangeEventArgs changeEventArgs)
+    /// <summary>
+    /// Requires a string parameter (must be a notification ID or "all") and updates values within the notification summary section.
+    /// </summary>
+    /// <param name="idVal"></param>
+    private void setNotifMess(string idVal)
+    {
+        if (idVal != "all")
+        {
+            int id = Int32.Parse(idVal);
+            foreach (var x in ac)
+            {
+                if (id == x.NotificationId)
+                {
+                    notiff = "Transactions between " + "$" + x.Min + " - " + "$" + x.Max + ".";
+                }
+            }
+            foreach (var x in lc)
+            {
+                if (id == x.NotificationId)
+                {
+                    notiff = "Transactions from " + x.Location + ".";
+                }
+            }
+            foreach (var x in tc)
+            {
+                if (id == x.NotificationId)
+                {
+                    notiff = "Transactions between " + revertDateTime(x.TimeIn) + " - " + revertDateTime(x.TimeOut) + ".";
+                }
+            }
+        }
+        else
+        {
+            notiff = "All notifications";
+            return;
+        }
+    }
+
+    /// <summary>
+    /// Function that automatically updates the notification summary section once page is loaded.
+    /// </summary>
+    async Task checkNotif()
+    {
+        if (notiff == "All notifications" && month == "Year: ")
+        {
+            int sum = 0;
+            foreach (var x in notifList)
+            {
+                sum += getYearlySumOfNotif(x);
+            }
+            setTrigger(sum);
+        }
+        else if (notiff == "All notifications" && month != "Year: ")
+        {
+            int total = 0;
+            foreach (var x in notifList)
+            {
+                total += Int32.Parse(@x.GetType().GetProperty(month).GetValue(x).ToString());
+            }
+            setTrigger(total);
+        }
+    }
+
+    /// <summary>
+    /// Function that gets called whenever a user selects values to filter the notification summary section.
+    /// </summary>
+    /// <param name="changeEventArgs"></param>
+    public void FilterSearch(ChangeEventArgs changeEventArgs)
     {
         showFilter = false;
         string notifID = changeEventArgs.Value.ToString();
-        if (notifID == "all")
+        setNotifMess(notifID);
+        if (notiff == "All notifications" && month == "Year: ")
         {
-            notiff = "All notifications";
-            if (triggeredList != null)
+            int sum = 0;
+            foreach (var x in notifList)
             {
-                setTrigger(triggeredList.Count());
+                sum += getYearlySumOfNotif(x);
             }
+            setTrigger(sum);
+        }
+        else if(notiff == "All notifications" && month != "Year: ")
+        {
+            int total = 0;
+            foreach (var x in notifList)
+            {
+                total += Int32.Parse(@x.GetType().GetProperty(month).GetValue(x).ToString());
+            }
+            setTrigger(total);
         }
         else
         {
@@ -243,50 +337,21 @@ using Utils;
                 {
                     if (month == "Year: ")
                     {
-                        setTrigger(Int32.Parse(@getYearlySumOfNotif(y).ToString()));
+                        setTrigger(Int32.Parse(getYearlySumOfNotif(y).ToString()));
+
                     }
                     else
                     {
                         setTrigger(Int32.Parse(@y.GetType().GetProperty(month).GetValue(y).ToString()));
                     }
-                }
-            }
-            foreach (var x in ac)
-            {
-                if (convID == x.NotificationId)
-                {
-                    notiff = "Transactions between " + x.Min + " - " + x.Max + ".";
-                }
-            }
-            foreach (var x in lc)
-            {
-                if (convID == x.NotificationId)
-                {
-                    notiff = "Transactions from " + x.Location + ".";
-                }
-            }
-            foreach (var x in tc)
-            {
-                if (convID == x.NotificationId)
-                {
-                    notiff = "Transactions between " + revertDateTime(x.TimeIn) + " - " + revertDateTime(x.TimeOut) + ".";
+
                 }
             }
         }
     }
 
-    void openFilter()
-    {
-        showFilter = true;
-    }
-    void closeFilter()
-    {
-        showFilter = false;
-    }
-
-
     /// <summary>
-    /// Prepares the page and its variables on load. Since it is async, things will be null for a bit
+    /// Prepares the page and its variables on load. Since it is async, things will be null for a bit.
     /// </summary>
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
@@ -300,8 +365,13 @@ using Utils;
         tc = await Service.GetTimeConstraints(notifList);
         lc = await Service.GetLocationConstraints(notifList);
         await getAllNotifsJoinedWithMonthsAsync();
+        await checkNotif();
     }
 
+    /// <summary>
+    /// Returns the total count of notification rules.
+    /// </summary>
+    /// <returns></returns>
     int returnCount()
     {
         int counter = 0;
@@ -320,6 +390,11 @@ using Utils;
         return counter;
     }
 
+    /// <summary>
+    /// Requires a TimeSpan. Converts the TimeSpan and outputs a string.
+    /// </summary>
+    /// <param name="theDateTime"></param>
+    /// <returns></returns>
     string revertDateTime(TimeSpan theDateTime)
     {
         DateTime time = DateTime.Today.Add(theDateTime);
@@ -327,17 +402,12 @@ using Utils;
         return convertedTime;
     }
 
+    /// <summary>
+    /// Function that toggles the Manage button.
+    /// </summary>
     private void ToggleManageDropDown()
     {
         displayManage = !displayManage;
-    }
-    private void ToggleNotificationDropDown()
-    {
-        displayNotification = !displayNotification;
-    }
-    private void ToggleDateDropDown()
-    {
-        displayDate = !displayDate;
     }
 
     /// <summary>
@@ -393,7 +463,7 @@ using Utils;
 #line hidden
 #nullable disable
 #nullable restore
-#line 612 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 505 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
            
 
     async Task DownloadFile()

@@ -42,7 +42,6 @@
             <h2>My Dashboard</h2>
             <hr class="solid mt-5 custom_hr_solid" />
         </div>
-
         <div class="container mt-3">
             <div class="row">
                 <div class="col-7 my-auto">
@@ -60,7 +59,6 @@
                                     <div class="@manageDropDown dropdown-menu ml-1" aria-labelledby="dropdownMenuButton" @onclick="@ToggleManageDropDown">
                                         <a class="dropdown-item" href="Transactions">Transactions</a>
                                         <a class="dropdown-item" href="Notifications">Notifications</a>
-                                        <!--<a class="dropdown-item" href="/Identity/Account/Manage">Account</a>-->
                                     </div>
                                 </div>
                             </td>
@@ -69,7 +67,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container mt-5">
             <div class="card text-left">
                 <div class="card-header">
@@ -93,46 +90,15 @@
                                 <ul>
                                     @foreach (var x in ac)
                                     {
-                                        <li>ID @x.NotificationId: Transactions between $@x.Min - $@x.Max.</li>
-                                        <!--<ul>
-                                            @foreach (var y in notifList)
-                                            {
-                                                if (x.NotificationId == y.NotificationId)
-                                                {
-                                                    <li>@getYearlySumOfNotif(y) This year</li>
-                                                    <li>@y.GetType().GetProperty(currMonth).GetValue(y) this month</li>
-                                                }
-                                            }
-                                        </ul>-->
+                                        <li>Transactions between $@x.Min - $@x.Max.</li>
                                     }
                                     @foreach (var x in tc)
                                     {
-                                        <li>ID @x.NotificationId: Transactions between @revertDateTime(x.TimeIn) - @revertDateTime(x.TimeOut).</li>
-                                        <ul>
-                                            @foreach (var y in notifList)
-                                            {
-                                                if (x.NotificationId == y.NotificationId)
-                                                {
-                                                    <li>@getYearlySumOfNotif(y) This year</li>
-                                                    <li>@y.GetType().GetProperty(currMonth).GetValue(y) this month</li>
-                                                }
-                                            }
-
-                                        </ul>
+                                        <li>Transactions between @revertDateTime(x.TimeIn) - @revertDateTime(x.TimeOut).</li>
                                     }
                                     @foreach (var x in lc)
                                     {
-                                        <li>ID @x.NotificationId: Transactions from @x.Location.</li>
-                                        <ul>
-                                            @foreach (var y in notifList)
-                                            {
-                                                if (x.NotificationId == y.NotificationId)
-                                                {
-                                                    <li>@getYearlySumOfNotif(y) This year</li>
-                                                    <li>@y.GetType().GetProperty(currMonth).GetValue(y) this month</li>
-                                                }
-                                            }
-                                        </ul>
+                                        <li>Transactions from @x.Location.</li>
                                     }
                                 </ul>
                             }
@@ -141,7 +107,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container mt-5">
             <div class="card text-left">
                 <div class="card-header">
@@ -180,104 +145,11 @@
                 </div>
             </div>
         </div>
-
-
-        <!--
-        <div class="container mt-5">
-            <h3>Testing loading user's notifications with monthly triggers </h3>
-            @if (notifList == null)
-            {
-                <p><em>Loading...</em></p>
-            }
-            else
-            {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            @foreach (var property in typeof(UserToNotifications).GetProperties())
-                            {
-                                if (property.Name == "UserId" || property.Name == "AmountConstraint" || property.Name == "LocationConstraint" || property.Name == "TimeConstraint")
-                                    continue;
-                                else
-                                {
-                                    <th>@property.Name</th>
-                                }
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var x in notifList)
-                        {
-                            <tr>
-                                @foreach (var property in typeof(UserToNotifications).GetProperties())
-                                {
-                                    if (property.Name == "UserId" || property.Name == "AmountConstraint" || property.Name == "LocationConstraint" || property.Name == "TimeConstraint")
-                                        continue;
-                                    else
-                                    {
-                                        <td>@property.GetValue(x)</td>
-                                    }
-                                }
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-            }
-        </div>
-
-        <div class="container mt-3">
-            <h3>Testing stored procedure to load notifications, parameters, and their monthly triggers </h3>
-            <button name="AddTransButton" class="primary_button float-right" type="submit" @onclick="DownloadFile">
-                Export
-            </button>
-            @if (allJoinedNotifs == null)
-            {
-                <p><em> Loading... </em></p>
-            }
-            else
-            {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            @foreach (var property in typeof(joinAllNotifsResult).GetProperties())
-                            {
-                                if (property.Name == "userID")
-                                { continue; }
-                                else
-                                {
-                                    <th>@property.Name</th>
-                                }
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var x in allJoinedNotifs)
-                        {
-                            <tr>
-                                @foreach (var property in typeof(joinAllNotifsResult).GetProperties())
-                                {
-                                    if (property.Name == "userID")
-                                    { continue; }
-                                    else
-                                    {
-                                        <td>@property.GetValue(x)</td>
-                                    }
-                                }
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-        </div>
-            -->
-
         @if (showFilter)
         {
             <div class="modal" tabindex="-1" style="display:block" role="dialog" id="larger-modal">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content custom-modal">
-
                         <div class="modal-header">
                             <h5 class="col-12 modal-title text-center">FILTER NOTIFICATION SUMMARY</h5>
                         </div>
@@ -332,7 +204,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="modal-footer">
                             <button class="primary_button ml-auto" @onclick="closeFilter">
                                 Cancel
@@ -341,59 +212,11 @@
                     </div>
                 </div>
             </div>
-
         }
-
         <div class="container mt-5">
             <div class="row">
             </div>
         </div>
-
-
-
-
-        <!--Testing triggered notifications display
-        <div class="container mt-3">
-            <h3>Testing loading triggered notification table and concantenating the HTML to use as a string to display</h3>
-            @if (triggeredList == null)
-            {
-                <p><em>Loading...</em></p>
-            }
-            else
-            {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Date</th>
-                            <th>Body</th>
-                            <th>Mod Body</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var x in triggeredList)
-                        {
-                            <tr>
-                                <td>@x.TrigNotifId</td>
-                                <td>@x.DateAdded</td>
-                                <td>@getHTMLMarkup(x.EmailBody)</td>
-                                @if (x.EmailBody.Length < 212)
-                                {
-                                    <td>@getHTMLMarkup(x.EmailBody)</td>
-                                }
-                                else
-                                {
-                                    <td>@x.EmailBody.Substring(131).Substring(0, getIndexOfSubstring(x.EmailBody.Substring(131), "If"))</td>
-                                }
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <br />
-
-            }
-        </div>-->
-
     </Authorized>
     <NotAuthorized>
         <div class="container">
@@ -413,45 +236,139 @@
     List<TriggeredNotif> triggeredList;
     List<joinAllNotifsResult> allJoinedNotifs;
     UserToNotifications tempUTN;
-        //Match match = Regex.Match("")
+    //Match match = Regex.Match("")
 
     AmountConstraint tempAC = new AmountConstraint();
     TimeConstraint tempTC = new TimeConstraint();
     LocationConstraint tempLC = new LocationConstraint();
+
     private bool displayManage = false;
-    private bool displayNotification = false;
-    private bool displayDate = false;
+    private bool showFilter = false;
+    private string manageDropDown => displayManage ? "d-block" : null;
 
     /// <summary>
     /// IMPORTANT: gets the current month and the first 3 letters as an abbreviation. This is used to get the proper monthly count in functions
     /// </summary>
     string currMonth = DateTime.Now.ToString("MMMM").Substring(0, 3);
 
-    bool showFilter = false;
     private int triggerCt = 0;
     private string month = DateTime.Now.ToString("MMMM").Substring(0, 3);
-    private string notiff = "";
+    private string notiff = "All notifications";
 
-    private string manageDropDown => displayManage ? "d-block" : null;
-    private string notificationDropDown => displayNotification ? "d-block" : null;
-    private string dateDropDown => displayDate ? "d-block" : null;
+    /// <summary>
+    /// Changes the bool value of "show filter" - operates the "Filter Notifications" modal.
+    /// </summary>
+    void openFilter()
+    {
+        showFilter = true;
+    }
 
+    /// <summary>
+    /// Changes the bool value of "show filter" - operates the "Filter Notifications" modal.
+    /// </summary>
+    void closeFilter()
+    {
+        showFilter = false;
+    }
+
+    /// <summary>
+    /// Requires an integer and sets the value of the "Triggered" count.
+    /// </summary>
+    /// <param name="val"></param>
     private void setTrigger(int val)
     {
         triggerCt = val;
     }
 
-    private void FilterSearch(ChangeEventArgs changeEventArgs)
+    /// <summary>
+    /// Requires a string parameter (must be a notification ID or "all") and updates values within the notification summary section.
+    /// </summary>
+    /// <param name="idVal"></param>
+    private void setNotifMess(string idVal)
+    {
+        if (idVal != "all")
+        {
+            int id = Int32.Parse(idVal);
+            foreach (var x in ac)
+            {
+                if (id == x.NotificationId)
+                {
+                    notiff = "Transactions between " + "$" + x.Min + " - " + "$" + x.Max + ".";
+                }
+            }
+            foreach (var x in lc)
+            {
+                if (id == x.NotificationId)
+                {
+                    notiff = "Transactions from " + x.Location + ".";
+                }
+            }
+            foreach (var x in tc)
+            {
+                if (id == x.NotificationId)
+                {
+                    notiff = "Transactions between " + revertDateTime(x.TimeIn) + " - " + revertDateTime(x.TimeOut) + ".";
+                }
+            }
+        }
+        else
+        {
+            notiff = "All notifications";
+            return;
+        }
+    }
+
+    /// <summary>
+    /// Function that automatically updates the notification summary section once page is loaded.
+    /// </summary>
+    async Task checkNotif()
+    {
+        if (notiff == "All notifications" && month == "Year: ")
+        {
+            int sum = 0;
+            foreach (var x in notifList)
+            {
+                sum += getYearlySumOfNotif(x);
+            }
+            setTrigger(sum);
+        }
+        else if (notiff == "All notifications" && month != "Year: ")
+        {
+            int total = 0;
+            foreach (var x in notifList)
+            {
+                total += Int32.Parse(@x.GetType().GetProperty(month).GetValue(x).ToString());
+            }
+            setTrigger(total);
+        }
+    }
+
+    /// <summary>
+    /// Function that gets called whenever a user selects values to filter the notification summary section.
+    /// </summary>
+    /// <param name="changeEventArgs"></param>
+    public void FilterSearch(ChangeEventArgs changeEventArgs)
     {
         showFilter = false;
         string notifID = changeEventArgs.Value.ToString();
-        if (notifID == "all")
+        setNotifMess(notifID);
+        if (notiff == "All notifications" && month == "Year: ")
         {
-            notiff = "All notifications";
-            if (triggeredList != null)
+            int sum = 0;
+            foreach (var x in notifList)
             {
-                setTrigger(triggeredList.Count());
+                sum += getYearlySumOfNotif(x);
             }
+            setTrigger(sum);
+        }
+        else if(notiff == "All notifications" && month != "Year: ")
+        {
+            int total = 0;
+            foreach (var x in notifList)
+            {
+                total += Int32.Parse(@x.GetType().GetProperty(month).GetValue(x).ToString());
+            }
+            setTrigger(total);
         }
         else
         {
@@ -462,50 +379,21 @@
                 {
                     if (month == "Year: ")
                     {
-                        setTrigger(Int32.Parse(@getYearlySumOfNotif(y).ToString()));
+                        setTrigger(Int32.Parse(getYearlySumOfNotif(y).ToString()));
+
                     }
                     else
                     {
                         setTrigger(Int32.Parse(@y.GetType().GetProperty(month).GetValue(y).ToString()));
                     }
-                }
-            }
-            foreach (var x in ac)
-            {
-                if (convID == x.NotificationId)
-                {
-                    notiff = "Transactions between " + x.Min + " - " + x.Max + ".";
-                }
-            }
-            foreach (var x in lc)
-            {
-                if (convID == x.NotificationId)
-                {
-                    notiff = "Transactions from " + x.Location + ".";
-                }
-            }
-            foreach (var x in tc)
-            {
-                if (convID == x.NotificationId)
-                {
-                    notiff = "Transactions between " + revertDateTime(x.TimeIn) + " - " + revertDateTime(x.TimeOut) + ".";
+
                 }
             }
         }
     }
 
-    void openFilter()
-    {
-        showFilter = true;
-    }
-    void closeFilter()
-    {
-        showFilter = false;
-    }
-
-
     /// <summary>
-    /// Prepares the page and its variables on load. Since it is async, things will be null for a bit
+    /// Prepares the page and its variables on load. Since it is async, things will be null for a bit.
     /// </summary>
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
@@ -519,8 +407,13 @@
         tc = await Service.GetTimeConstraints(notifList);
         lc = await Service.GetLocationConstraints(notifList);
         await getAllNotifsJoinedWithMonthsAsync();
+        await checkNotif();
     }
 
+    /// <summary>
+    /// Returns the total count of notification rules.
+    /// </summary>
+    /// <returns></returns>
     int returnCount()
     {
         int counter = 0;
@@ -539,6 +432,11 @@
         return counter;
     }
 
+    /// <summary>
+    /// Requires a TimeSpan. Converts the TimeSpan and outputs a string.
+    /// </summary>
+    /// <param name="theDateTime"></param>
+    /// <returns></returns>
     string revertDateTime(TimeSpan theDateTime)
     {
         DateTime time = DateTime.Today.Add(theDateTime);
@@ -546,17 +444,12 @@
         return convertedTime;
     }
 
+    /// <summary>
+    /// Function that toggles the Manage button.
+    /// </summary>
     private void ToggleManageDropDown()
     {
         displayManage = !displayManage;
-    }
-    private void ToggleNotificationDropDown()
-    {
-        displayNotification = !displayNotification;
-    }
-    private void ToggleDateDropDown()
-    {
-        displayDate = !displayDate;
     }
 
     /// <summary>

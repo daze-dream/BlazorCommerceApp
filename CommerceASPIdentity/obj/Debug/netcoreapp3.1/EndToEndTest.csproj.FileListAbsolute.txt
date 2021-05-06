@@ -634,13 +634,10 @@ C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIde
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\EndToEndTest.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\EndToEndTest.RazorComponent.input.cache
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\App.razor.g.cs
-C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Counter.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Dashboard.razor.g.cs
-C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\FetchData.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Index.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Notifications.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Transactions.razor.g.cs
-C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\TriggeredNotifDEMO.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\LoginDisplay.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\MainLayout.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\NavMenu.razor.g.cs
@@ -654,13 +651,10 @@ C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIde
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\EndToEndTest.TagHelpers.output.cache
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\EndToEndTest.RazorCoreGenerate.cache
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\App.razor.g.cs
-C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Counter.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Dashboard.razor.g.cs
-C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\FetchData.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Index.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Notifications.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\Transactions.razor.g.cs
-C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Pages\TriggeredNotifDEMO.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Shared\LoginDisplay.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Shared\MainLayout.razor.g.cs
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\obj\Debug\netcoreapp3.1\Razor\Shared\NavMenu.razor.g.cs
@@ -708,7 +702,6 @@ C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIde
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\AngleSharpWrappers.dll
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Bunit.Core.dll
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Bunit.Web.dll
-C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\C1.Blazor.Chart.dll
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\CsvHelper.dll
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Humanizer.dll
 C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authorization.dll

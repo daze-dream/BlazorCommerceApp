@@ -22,5 +22,6 @@ namespace EndToEndTest.Data.CommerceDataModels
         public int Oct { get; set; }
         public int Nov { get; set; }
         public int Dec { get; set; }
+        public int? YearlySum { get; set; }
     }
 }

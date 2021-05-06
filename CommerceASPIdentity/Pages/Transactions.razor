@@ -21,7 +21,6 @@
             <h2>My Transactions</h2>
             <hr class="solid mt-5 custom_hr_solid" />
         </div>
-
         <div class="container mt-3">
             <div class="row">
                 @if (usersBankAccount == null)
@@ -48,8 +47,6 @@
                 }
             </div>
         </div>
-
-
         <div class="container mt-5">
             @if (transactionsList == null)
             {
@@ -68,13 +65,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td>Balance</td>
-                            <td></td>
-                            <td>$@transactionsList[0].Openingbalance</td>
-                        </tr>
                         @foreach (var x in transactionsList)
                         {
                             <tr>
@@ -87,18 +77,22 @@
                                 </td>
                             </tr>
                         }
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Balance</td>
+                            <td></td>
+                            <td>$@transactionsList[0].Openingbalance</td>
+                        </tr>
                     </tbody>
                 </table>
             }
         </div>
-
-
         @if (showPopup)
         {
             <div class="modal" tabindex="-1" style="display:block" role="dialog" id="larger-modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
-
                         <div class="modal-header">
                             <h5 class="col-12 modal-title text-center">ADD TRANSACTION</h5>
                         </div>
@@ -106,7 +100,6 @@
                             <DataAnnotationsValidator />
                             <div class="modal-body">
                                 <hr class="solid custom_hr_solid mb-3" />
-
                                 <div class="container">
                                     <div class="form-group row mt-4">
                                         <label class="col-sm-5 col-form-label">Transaction Type: </label>
@@ -128,7 +121,6 @@
                                                    placeholder="0.01" @bind="objTransactionsmaster.Transactionamount" />
                                         </div>
                                     </div>
-
                                     <div class="form-group row mt-4">
                                         <label class="col-sm-5 col-form-label">Description: </label>
                                         <div class="col-sm-7">
@@ -136,7 +128,6 @@
                                                    @bind="objTransactionsmaster.Description" />
                                         </div>
                                     </div>
-
                                     <div class="form-group row mt-4">
                                         <label class="col-sm-5 col-form-label">State: </label>
                                         <div class="col-sm-7">
@@ -149,13 +140,11 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="row mt-4 align-items-center">
                                         <ValidationSummary />
                                     </div>
                                 </div>
                             </div>
-
                             <div class="modal-footer">
                                 <button class="primary_button" type="submit">
                                     Add
@@ -190,8 +179,10 @@
     string credit = "CR";
     string debit = "DR";
 
+    /// <summary>
+    /// List of all abbreviated class States.
+    /// </summary>
     public class States { public string Abbrev { get; set; } };
-    // THINK ABOUT CREATING SEPERATE MODEL OF THIS LIST OF STATES - BUT MAYBE NOT, ONLY NEEDED IN THIS PAGE. DOES NOT NEED TO BE SHARED.
     List<States> allStates = new List<States>
 {
         new States() {Abbrev= "AL"}, new States() {Abbrev= "AK"}, new States() {Abbrev= "AZ"},
@@ -213,13 +204,21 @@
         new States() {Abbrev= "WV"}, new States() {Abbrev= "WI"}, new States() {Abbrev= "WY"}
     };
 
+    /// <summary>
+    /// Requires decimal? and decimal parameters. Returns 1 decimal - the balance after a transaction.
+    /// </summary>
+    /// <param name="thebal"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
     private decimal getBalance(decimal? thebal, decimal amount)
     {
         return ((Convert.ToDecimal(thebal)) + amount);
     }
 
 
-    /// <summary>get the transactions when loading in the page </summary>
+    /// <summary>
+    /// Get the transactions when loading in the page.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -228,14 +227,17 @@
         transactionsList = await Service.GetTransactions(userId);
         usersBankAccount = await Service.GetAccount(userId);
     }
-    /// <summary>bool to open and close the Transaction popup</summary>
+
+    /// <summary>
+    /// Function that aids modal pop up.
+    /// </summary>
     void ClosePopup()
     {
         showPopup = false;
     }
 
     /// <summary>
-    /// prepares the transaction to be added
+    /// Prepares the transaction to be added.
     /// </summary>
     async Task AddNewTransaction()
     {
@@ -248,13 +250,12 @@
     }
 
     /// <summary>
-    /// creates the final transaction and saves it to the server. Then, refreshes the view to update the account and transactions view
+    /// Creates the final transaction and saves it to the server. Then, refreshes the view to update the account and transactions view.
     /// </summary>
     /// <returns> Task, or rather nothing </returns>
     async Task SaveTransaction()
     {
         showPopup = false;
-        // get current userID
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
         string userId = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
         if (objTransactionsmaster.AccountId == 0)
@@ -279,7 +280,6 @@
             newTrans.LocationState = objTransactionsmaster.LocationState;
             var result = Service.CreateTransactionAsync(newTrans);
             await Service.updateUsersBankBalanceAfterTransaction(newTrans, userId);
-            //NavigationManager.NavigateTo("/logindisplay", true);
         }
         else
         {
@@ -288,6 +288,5 @@
         // refreshes the transactions afterwards
         transactionsList = await Service.GetTransactions(userId);
         usersBankAccount = await Service.GetAccount(userId);
-
     }
 }
