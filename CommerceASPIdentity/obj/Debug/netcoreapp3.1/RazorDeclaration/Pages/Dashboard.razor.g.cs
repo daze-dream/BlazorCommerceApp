@@ -182,7 +182,7 @@ using Utils;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 416 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 405 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
        
 
     [CascadingParameter]
@@ -194,7 +194,7 @@ using Utils;
     List<TriggeredNotif> triggeredList;
     List<joinAllNotifsResult> allJoinedNotifs;
     UserToNotifications tempUTN;
-    //Match match = Regex.Match("")
+        //Match match = Regex.Match("")
 
     AmountConstraint tempAC = new AmountConstraint();
     TimeConstraint tempTC = new TimeConstraint();
@@ -203,15 +203,76 @@ using Utils;
     private bool displayNotification = false;
     private bool displayDate = false;
 
+    /// <summary>
+    /// IMPORTANT: gets the current month and the first 3 letters as an abbreviation. This is used to get the proper monthly count in functions
+    /// </summary>
+    string currMonth = DateTime.Now.ToString("MMMM").Substring(0, 3);
+
     bool showFilter = false;
+    private int triggerCt = 0;
+    private string month = DateTime.Now.ToString("MMMM").Substring(0, 3);
+    private string notiff = "";
 
     private string manageDropDown => displayManage ? "d-block" : null;
     private string notificationDropDown => displayNotification ? "d-block" : null;
     private string dateDropDown => displayDate ? "d-block" : null;
 
-    async Task FilterSearch()
+    private void setTrigger(int val)
+    {
+        triggerCt = val;
+    }
+
+    private void FilterSearch(ChangeEventArgs changeEventArgs)
     {
         showFilter = false;
+        string notifID = changeEventArgs.Value.ToString();
+        if (notifID == "all")
+        {
+            notiff = "All notifications";
+            if (triggeredList != null)
+            {
+                setTrigger(triggeredList.Count());
+            }
+        }
+        else
+        {
+            int convID = Int32.Parse(notifID);
+            foreach (var y in notifList)
+            {
+                if (convID == y.NotificationId)
+                {
+                    if (month == "Year: ")
+                    {
+                        setTrigger(Int32.Parse(@getYearlySumOfNotif(y).ToString()));
+                    }
+                    else
+                    {
+                        setTrigger(Int32.Parse(@y.GetType().GetProperty(month).GetValue(y).ToString()));
+                    }
+                }
+            }
+            foreach (var x in ac)
+            {
+                if (convID == x.NotificationId)
+                {
+                    notiff = "Transactions between " + x.Min + " - " + x.Max + ".";
+                }
+            }
+            foreach (var x in lc)
+            {
+                if (convID == x.NotificationId)
+                {
+                    notiff = "Transactions from " + x.Location + ".";
+                }
+            }
+            foreach (var x in tc)
+            {
+                if (convID == x.NotificationId)
+                {
+                    notiff = "Transactions between " + revertDateTime(x.TimeIn) + " - " + revertDateTime(x.TimeOut) + ".";
+                }
+            }
+        }
     }
 
     void openFilter()
@@ -223,10 +284,6 @@ using Utils;
         showFilter = false;
     }
 
-    /// <summary>
-    /// IMPORTANT: gets the current month and the first 3 letters as an abbreviation. This is used to get the proper monthly count in functions
-    /// </summary>
-    string currMonth = DateTime.Now.ToString("MMMM").Substring(0, 3);
 
     /// <summary>
     /// Prepares the page and its variables on load. Since it is async, things will be null for a bit
@@ -244,7 +301,6 @@ using Utils;
         lc = await Service.GetLocationConstraints(notifList);
         await getAllNotifsJoinedWithMonthsAsync();
     }
-
 
     int returnCount()
     {
@@ -271,9 +327,6 @@ using Utils;
         return convertedTime;
     }
 
-
-
-
     private void ToggleManageDropDown()
     {
         displayManage = !displayManage;
@@ -297,7 +350,6 @@ using Utils;
         return (MarkupString)text;
     }
 
-
     /// <summary>
     /// Gets the yearly sum of the notification passed in.
     /// </summary>
@@ -306,17 +358,17 @@ using Utils;
     public int getYearlySumOfNotif(UserToNotifications notif)
     {
         return notif.Jan
-            + notif.Feb
-            + notif.Mar
-            + notif.Apr
-            + notif.May
-            + notif.Jun
-            + notif.Jul
-            + notif.Aug
-            + notif.Sep
-            + notif.Oct
-            + notif.Nov
-            + notif.Dec;
+        + notif.Feb
+        + notif.Mar
+        + notif.Apr
+        + notif.May
+        + notif.Jun
+        + notif.Jul
+        + notif.Aug
+        + notif.Sep
+        + notif.Oct
+        + notif.Nov
+        + notif.Dec;
     }
 
     public int getIndexOfSubstring(string text, string toMatch)
@@ -341,7 +393,7 @@ using Utils;
 #line hidden
 #nullable disable
 #nullable restore
-#line 571 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
+#line 612 "C:\Users\Sandy\Documents\GitHub\semester-project-group-5-commerce\CommerceASPIdentity\Pages\Dashboard.razor"
            
 
     async Task DownloadFile()
@@ -351,10 +403,8 @@ using Utils;
         //using var writer = new StreamWriter("../export.csv");
         using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
         {
-
             csv.WriteRecords(allJoinedNotifs);
             writer.Flush();
-
         }
         string filename = "monthly_notif_trigger_export_" + DateTime.Now.ToString("yyyy") + ".csv";
         //var bytes = System.Text.Encoding.UTF8.GetBytes(text);
@@ -362,11 +412,7 @@ using Utils;
         //var result = writer.ToString();
         //Console.WriteLine(result);
         await Service.SaveAs(js, filename, memorystream.ToArray());
-
-
-
     }
-
 
 #line default
 #line hidden

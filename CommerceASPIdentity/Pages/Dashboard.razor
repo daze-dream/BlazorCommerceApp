@@ -36,7 +36,7 @@
 
 
 <AuthorizeView>
-    <Authorized>
+    <Authorized Context="Auth2">
         @page "/Account"
         <div class="container mt-5">
             <h2>My Dashboard</h2>
@@ -46,7 +46,8 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-7 my-auto">
-                    <p>Welcome @context.User.Identity.Name! </p>
+                    <p>Welcome @Auth2.User.Identity.Name! </p>
+                    <p>Today is @DateTime.Now.DayOfWeek.ToString(), @DateTime.Now.ToString("MMMMM") @DateTime.Now.Day.ToString() @DateTime.Now.ToString("yyyy").</p>
                 </div>
                 <div class="col-5">
                     <table class="float-right">
@@ -93,7 +94,7 @@
                                     @foreach (var x in ac)
                                     {
                                         <li>ID @x.NotificationId: Transactions between $@x.Min - $@x.Max.</li>
-                                        <ul>
+                                        <!--<ul>
                                             @foreach (var y in notifList)
                                             {
                                                 if (x.NotificationId == y.NotificationId)
@@ -102,8 +103,7 @@
                                                     <li>@y.GetType().GetProperty(currMonth).GetValue(y) this month</li>
                                                 }
                                             }
-
-                                        </ul>
+                                        </ul>-->
                                     }
                                     @foreach (var x in tc)
                                     {
@@ -119,7 +119,6 @@
                                             }
 
                                         </ul>
-
                                     }
                                     @foreach (var x in lc)
                                     {
@@ -133,7 +132,6 @@
                                                     <li>@y.GetType().GetProperty(currMonth).GetValue(y) this month</li>
                                                 }
                                             }
-
                                         </ul>
                                     }
                                 </ul>
@@ -154,12 +152,19 @@
                         <div class="col-2 d-flex align-items-center justify-content-center">
                             <div id="circle" class="text-center pt-5">
                                 Triggered:
-                                <h2>0</h2>
+                                @if (triggeredList == null)
+                                {
+                                    <h2>0</h2>
+                                }
+                                else
+                                {
+                                    <h2>@triggerCt</h2>
+                                }
                             </div>
                         </div>
                         <div class="col-10 dotted_border my-auto">
-                            <p>Month Year</p>
-                            <p>For: Notification or All Notifications</p>
+                            <p>@month @DateTime.Now.ToString("yyyy")</p>
+                            <p>@notiff</p>
                         </div>
                     </div>
                 </div>
@@ -168,11 +173,16 @@
                         <div class="col-6 text-left">
                             <button class="primary_button" @onclick="openFilter">Filter</button>
                         </div>
+                        <div class="col-6 text-right">
+                            <button class="primary_button" @onclick="DownloadFile">Export </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+
+        <!--
         <div class="container mt-5">
             <h3>Testing loading user's notifications with monthly triggers </h3>
             @if (notifList == null)
@@ -260,32 +270,7 @@
                 </table>
             }
         </div>
-
-        <div class="container mt-5">
-            <div class="card text-left">
-                <div class="card-header">
-                    <h3>Notification Summary</h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-3 d-flex flex-wrap justify-content-center align-content-center">
-                            <div>
-                                <div id="circle" class="text-center pt-4 pb-4">
-                                    Triggered:
-                                    @if (triggeredList == null)
-                                    {<h2>0</h2>}
-                                    else
-                                    {<h2>@triggeredList.Count()</h2>}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 text-right">
-                            <button class="primary_button">Export</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            -->
 
         @if (showFilter)
         {
@@ -302,54 +287,56 @@
                                 <div class="form-group row mt-4">
                                     <label class="col-sm-5 col-form-label">Date: </label>
                                     <div class="col-sm-7">
-                                        <select>
+                                        <select class="form-control" @bind="@month">
                                             <option hidden disabled selected></option>
-                                            <!-- THIS IS WHERE WE FOR LOOP ALL THE MONTHS -->
-                                            <option>January</option>
-                                            <option>February</option>
-                                            <option>March</option>
-                                            <option>April</option>
+                                            <option value="Year: ">@DateTime.Now.ToString("yyyy")</option>
+                                            @foreach (var property in typeof(UserToNotifications).GetProperties())
+                                            {
+                                                if (property.Name == "UserId" || property.Name == "AmountConstraint" || property.Name == "LocationConstraint" || property.Name == "TimeConstraint" || property.Name == "NotificationId")
+                                                    continue;
+                                                else
+                                                {
+                                                    <option value="@property.Name">@property.Name</option>
+                                                }
+                                            }
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row mt-4">
                                     <label class="col-sm-5 col-form-label">Type of Notification: </label>
                                     <div class="col-sm-7">
-                                        <select>
+                                        <select class="form-control" @onchange="FilterSearch">
                                             <option hidden disabled selected></option>
-                                            <!-- THIS IS WHERE WE FOR LOOP ALL THE NOTIFICATIONS-->
-                                            <option>Notification - 5pm - 10pm</option>
-                                            <option>Notification - From Target</option>
-                                            <option>Notification - $10.01 - $12.01</option>
+                                            <option value="all">All notifications</option>
+                                            @if ((ac == null) && (tc == null) && (lc == null) && (notifList == null))
+                                            {
+                                                <option>None...</option>
+                                            }
+                                            else
+                                            {
+                                                @foreach (var x in ac)
+                                                {
+                                                    <option value="@x.NotificationId">Between $@x.Min - $@x.Max.</option>
+                                                }
+                                                @foreach (var x in tc)
+                                                {
+                                                    <option value="@x.NotificationId">Between @revertDateTime(x.TimeIn) - @revertDateTime(x.TimeOut).</option>
+                                                }
+                                                @foreach (var x in lc)
+                                                {
+                                                    <option value="@x.NotificationId">From @x.Location.</option>
+                                                }
+                                            }
                                         </select>
                                     </div>
-                                </div>
-                                <div class="row mt-4 align-items-center">
                                 </div>
                             </div>
                         </div>
 
                         <div class="modal-footer">
-                            <button class="primary_button" @onclick="FilterSearch">
-                                Filter
-                            </button>
                             <button class="primary_button ml-auto" @onclick="closeFilter">
                                 Cancel
                             </button>
-
-                            <br />
-                            <!-- This is where I mess around-->
-                            @if (triggeredList == null)
-                            {
-                                <p><em>Standby...</em></p>
-                            }
-                            else
-                            {
-
-                            }
-                            <div class="row">
-                                <button class="primary_button" @onclick="DownloadFile">Export </button> <!-- Align Export Button to the right corner.-->
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -361,7 +348,11 @@
             <div class="row">
             </div>
         </div>
-        <!--Testing triggered notifications display-->
+
+
+
+
+        <!--Testing triggered notifications display
         <div class="container mt-3">
             <h3>Testing loading triggered notification table and concantenating the HTML to use as a string to display</h3>
             @if (triggeredList == null)
@@ -401,9 +392,7 @@
                 <br />
 
             }
-        </div>
-
-
+        </div>-->
 
     </Authorized>
     <NotAuthorized>
@@ -424,7 +413,7 @@
     List<TriggeredNotif> triggeredList;
     List<joinAllNotifsResult> allJoinedNotifs;
     UserToNotifications tempUTN;
-    //Match match = Regex.Match("")
+        //Match match = Regex.Match("")
 
     AmountConstraint tempAC = new AmountConstraint();
     TimeConstraint tempTC = new TimeConstraint();
@@ -433,15 +422,76 @@
     private bool displayNotification = false;
     private bool displayDate = false;
 
+    /// <summary>
+    /// IMPORTANT: gets the current month and the first 3 letters as an abbreviation. This is used to get the proper monthly count in functions
+    /// </summary>
+    string currMonth = DateTime.Now.ToString("MMMM").Substring(0, 3);
+
     bool showFilter = false;
+    private int triggerCt = 0;
+    private string month = DateTime.Now.ToString("MMMM").Substring(0, 3);
+    private string notiff = "";
 
     private string manageDropDown => displayManage ? "d-block" : null;
     private string notificationDropDown => displayNotification ? "d-block" : null;
     private string dateDropDown => displayDate ? "d-block" : null;
 
-    async Task FilterSearch()
+    private void setTrigger(int val)
+    {
+        triggerCt = val;
+    }
+
+    private void FilterSearch(ChangeEventArgs changeEventArgs)
     {
         showFilter = false;
+        string notifID = changeEventArgs.Value.ToString();
+        if (notifID == "all")
+        {
+            notiff = "All notifications";
+            if (triggeredList != null)
+            {
+                setTrigger(triggeredList.Count());
+            }
+        }
+        else
+        {
+            int convID = Int32.Parse(notifID);
+            foreach (var y in notifList)
+            {
+                if (convID == y.NotificationId)
+                {
+                    if (month == "Year: ")
+                    {
+                        setTrigger(Int32.Parse(@getYearlySumOfNotif(y).ToString()));
+                    }
+                    else
+                    {
+                        setTrigger(Int32.Parse(@y.GetType().GetProperty(month).GetValue(y).ToString()));
+                    }
+                }
+            }
+            foreach (var x in ac)
+            {
+                if (convID == x.NotificationId)
+                {
+                    notiff = "Transactions between " + x.Min + " - " + x.Max + ".";
+                }
+            }
+            foreach (var x in lc)
+            {
+                if (convID == x.NotificationId)
+                {
+                    notiff = "Transactions from " + x.Location + ".";
+                }
+            }
+            foreach (var x in tc)
+            {
+                if (convID == x.NotificationId)
+                {
+                    notiff = "Transactions between " + revertDateTime(x.TimeIn) + " - " + revertDateTime(x.TimeOut) + ".";
+                }
+            }
+        }
     }
 
     void openFilter()
@@ -453,10 +503,6 @@
         showFilter = false;
     }
 
-    /// <summary>
-    /// IMPORTANT: gets the current month and the first 3 letters as an abbreviation. This is used to get the proper monthly count in functions
-    /// </summary>
-    string currMonth = DateTime.Now.ToString("MMMM").Substring(0, 3);
 
     /// <summary>
     /// Prepares the page and its variables on load. Since it is async, things will be null for a bit
@@ -474,7 +520,6 @@
         lc = await Service.GetLocationConstraints(notifList);
         await getAllNotifsJoinedWithMonthsAsync();
     }
-
 
     int returnCount()
     {
@@ -501,9 +546,6 @@
         return convertedTime;
     }
 
-
-
-
     private void ToggleManageDropDown()
     {
         displayManage = !displayManage;
@@ -527,7 +569,6 @@
         return (MarkupString)text;
     }
 
-
     /// <summary>
     /// Gets the yearly sum of the notification passed in.
     /// </summary>
@@ -536,17 +577,17 @@
     public int getYearlySumOfNotif(UserToNotifications notif)
     {
         return notif.Jan
-            + notif.Feb
-            + notif.Mar
-            + notif.Apr
-            + notif.May
-            + notif.Jun
-            + notif.Jul
-            + notif.Aug
-            + notif.Sep
-            + notif.Oct
-            + notif.Nov
-            + notif.Dec;
+        + notif.Feb
+        + notif.Mar
+        + notif.Apr
+        + notif.May
+        + notif.Jun
+        + notif.Jul
+        + notif.Aug
+        + notif.Sep
+        + notif.Oct
+        + notif.Nov
+        + notif.Dec;
     }
 
     public int getIndexOfSubstring(string text, string toMatch)
@@ -577,10 +618,8 @@
         //using var writer = new StreamWriter("../export.csv");
         using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
         {
-
             csv.WriteRecords(allJoinedNotifs);
             writer.Flush();
-
         }
         string filename = "monthly_notif_trigger_export_" + DateTime.Now.ToString("yyyy") + ".csv";
         //var bytes = System.Text.Encoding.UTF8.GetBytes(text);
@@ -588,11 +627,7 @@
         //var result = writer.ToString();
         //Console.WriteLine(result);
         await Service.SaveAs(js, filename, memorystream.ToArray());
-
-
-
     }
-
 }
 
 
