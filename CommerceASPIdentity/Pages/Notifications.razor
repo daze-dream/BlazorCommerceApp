@@ -284,9 +284,24 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button class="primary_button" @onclick="() => SaveNotification(tempTC)">
-                                Save
-                            </button>
+                            <div class="col-6 text-left mt-4">
+                                @if (ty == "amount")
+                                {
+                                    <button class="primary_button" @onclick="() => SaveNotification(tempAC)" type="submit"> Save</button>
+                                }
+                                else if (ty == "time")
+                                {
+                                    <button class="primary_button" @onclick="() => SaveNotification(tempTC)" type="submit"> Save</button>
+                                }
+                                else if (ty == "location")
+                                {
+                                    <button class="primary_button" @onclick="() => SaveNotification(tempLC)" type="submit"> Save</button>
+                                }
+                                else
+                                {
+                                    <button class="primary_button">Save</button>
+                                }
+                            </div>
                             <button class="primary_button ml-auto" @onclick="CloseSmallPopup">
                                 Close
                             </button>
@@ -307,7 +322,7 @@
 
 
 @code {
-
+    @inject NavigationManager NavMan;
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     List<AmountConstraint> ac;
@@ -472,7 +487,18 @@
 
             }
         }
-        showPopup = false;
+        //showPopup = false;
+        if(smallPopUp == true)
+        {
+            smallPopUp = false;
+            NavMan.NavigateTo("Notifications", true);
+        }
+        if (showPopup == true)
+        {
+            showPopup = false;
+            NavMan.NavigateTo("Notifications", true);
+        }
+
         notifList = await Service.GetNotifJoinTable(userId);
         ac = await Service.GetAmountConstraints(notifList);
         tc = await Service.GetTimeConstraints(notifList);
@@ -551,6 +577,7 @@
             smallPopUp = true;
             hideSmAmt = false;
             message = "Enter a new minimum and maximum dollar amount";
+            ty = "amount";
         }
         else if (notif is TimeConstraint)
         {
@@ -560,6 +587,7 @@
             smallPopUp = true;
             hideSmTime = false;
             message = "Select a new start and end time.";
+            ty = "time";
         }
         else if (notif is LocationConstraint)
         {
@@ -567,6 +595,7 @@
             smallPopUp = true;
             hideSmLoc = false;
             message = "Enter a new description.";
+            ty = "location";
         }
     }
 }
