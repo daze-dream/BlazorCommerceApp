@@ -5,10 +5,12 @@
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.Data.SqlClient
 @using Microsoft.AspNetCore.Components.Forms
+
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
+@inject NavigationManager MyNavigationManager 
 
-@inherits OwningComponentBase<NotificationServices>
+@inherits OwningComponentBase<TransactionSummary>
 
 <AuthorizeView>
     <Authorized>
@@ -22,38 +24,28 @@
                 value = transaction amount
             -->
             <div class="dropdown">
-                <a class="@displayBell" @onclick="@displayNotifBell" href="Notifications"><i class="oi oi-bell"></i></a>
-
-
-                <div class="dropdown-content">
-                    <div class="row notifAlerts">
-                        <span class="alertMess">CATS...</span>
-                    </div>
-                    @if (notifSummaries == null)
-                    {
-                        <div class="row notifAlerts">
-                            <span class="alertMess">Loading...</span>
-                        </div>
-
-                    }
-                    else
-                    {
-                        @foreach (var x in notifSummaries) //for every transactions made
-                        {
+                <i class="oi oi-bell ml-3" @onclick="@displayNotifBell">
+                    <a class="@displayBell" href="Notifications">
+                        <div class="dropdown-content">
+                            @if (notifications.Count == 0)
+                            {
                             <div class="row notifAlerts">
-                                @if (x.EmailBody.Length < 131)
-                                
-                                    {<span class="alertMess">@x.EmailBody</span>}                                
-                                else
-                                {<span class="alertMess">@x.EmailBody.Substring(131).Substring(0, getIndexOfSubstring(x.EmailBody.Substring(131), "If"))</span>}
+                                <span class="alertMess">No notifications to display</span>
                             </div>
-                        }
-                    }
-                </div>
+                            }
+                            else
+                            {
+                                @foreach (var x in notifications) //for every transactions made
+                            {
 
-
-
-
+                                <div class="row notifAlerts">
+                                    <span class="alertMess">@x.EmailBody.Substring(131).Substring(0, getIndexOfSubstring(x.EmailBody.Substring(131), "If"))</span>
+                                </div>
+                            }
+                            }
+                        </div>
+                    </a>
+                </i>
             </div>
             <a class="nav-link" href="Notifications">Notifications</a>
         </div>
@@ -62,61 +54,49 @@
                 <button type="submit" class="btn nav_bar_button">Log out</button>
             </form>
         </div>
-
-        <!--<div>
-            <button class="btn-sm" @onclick="@displayNotifBell">Display</button>
-        </div>-->
-
     </Authorized>
     <NotAuthorized>
         <div class="row align-items-center ml-3"><a class="nav-link" href="/">About</a></div>
-        <div class="row align-items-center ml-3"><a href="Identity/Account/Register">Register</a></div>
-        <div class="row align-items-center ml-3"><a href="Identity/Account/Login">Log in</a></div>
+        <div class="row align-items-center ml-1"><a href="Identity/Account/RegisterAsp" style="margin-left: 12px">Register</a></div>
+        <div class="row align-items-center ml-3"><a href="Identity/Account/Login" style="margin-right: 5px">Log in</a></div>
+
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
-    public List<TriggeredNotif> notifSummaries;
-
+    public List<Transactionsmaster> transactionsList;
     public List<Tuple<String, decimal>> transDesc;
-    private string userID;
+    public List<TriggeredNotif> notifications;
+    private string userEmail;
 
     private string displayBell = "d-none";
+
+    private async Task displayNotifBell()
+    {
+        if (displayBell == "d-none")
+            displayBell = "d-block";
+        else
+            displayBell = "d-none";
+        //transactionsList = await Service.GetRecentTransaction(userID);
+        //transDesc = await Service.getTransactionDescription(userID);
+        notifications = await Service.getRecentTriggeredNotif(userEmail);
+    }
 
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
-        userID = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+        string userID = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
+        userEmail = user.Identity.Name;
 
-        notifSummaries = await Service.GetTriggeredNotifSummary(user.Identity.Name);
-        notifSummaries.Count();
-        notifSummaries.Count();
-        notifSummaries.Count();
-        notifSummaries.Count();
-
-
-
+        transactionsList = await Service.GetRecentTransaction(userID);
+        transDesc = await Service.getTransactionDescription(userID);
+        notifications = await Service.getRecentTriggeredNotif(userEmail);
     }
 
-    private async Task displayNotifBell()
+    public MarkupString getHTMLMarkup(string text)
     {
-        if (displayBell == "d-block")
-        {
-            displayBell = "d-none";
-            //notifSummaries.Clear();
-        }
-        else
-        {
-            var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
-            userID = user.FindFirst(c => c.Type.Contains("nameidentifier"))?.Value;
-            notifSummaries = await Service.GetTriggeredNotifSummary(user.Identity.Name);
-            notifSummaries = await Service.GetTriggeredNotifSummary(userID);
-            displayBell = "d-block";
-        }
+        return (MarkupString)text;
     }
-
-
-
 
     public int getIndexOfSubstring(string text, string toMatch)
     {
