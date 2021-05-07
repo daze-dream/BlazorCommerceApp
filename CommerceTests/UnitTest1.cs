@@ -18,7 +18,7 @@ using Bunit;
 using Bunit.JSInterop;
 using EndToEndTest.Pages;
 using EndToEndTest.Shared;
-using EndToEndTest.Components;
+//using EndToEndTest.Components;
 using EndToEndTest.Areas;
 using EndToEndTest.Data;
 
