@@ -38,13 +38,13 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "C1.Blazor.Chart": {
-              "target": "Package",
-              "version": "[3.1.20211.65, )"
-            },
             "CsvHelper": {
               "target": "Package",
               "version": "[27.0.2, )"
+            },
+            "Microsoft.AspNetCore.Components.Analyzers": {
+              "target": "Package",
+              "version": "[5.0.5, )"
             },
             "Microsoft.AspNetCore.Components.Forms": {
               "target": "Package",

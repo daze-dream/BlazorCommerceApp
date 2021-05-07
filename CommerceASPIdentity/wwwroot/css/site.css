@@ -92,9 +92,7 @@ n1 {
     background-color: transparent;
     padding: 10px;
     z-index: 2000;
-<<<<<<< HEAD
     display: table;
-=======
 }
 
 .dropdown-item {
@@ -106,16 +104,6 @@ n1 {
     background-color: var(--DarkGreen);
     text-decoration:underline;
 }
-
-.dropdown:hover .dropdown-content {
-        display: table;
->>>>>>> main
-}
-/*
-.dropdown .dropdown-content {
-    
-}
-    */
 
 .notifAlerts {
     background-color: rgba(255, 255, 255, 0.87);

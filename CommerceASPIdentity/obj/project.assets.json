@@ -97,25 +97,6 @@
           "lib/netstandard2.1/Bunit.Web.dll": {}
         }
       },
-      "C1.Blazor.Chart/3.1.20211.65": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.Components": "3.1.4",
-          "Microsoft.AspNetCore.Components.Web": "3.1.4",
-          "Microsoft.TypeScript.MSBuild": "4.0.2",
-          "System.Drawing.Common": "4.7.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/C1.Blazor.Chart.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/C1.Blazor.Chart.dll": {}
-        },
-        "build": {
-          "build/C1.Blazor.Chart.props": {},
-          "buildTransitive/C1.Blazor.Chart.targets": {}
-        }
-      },
       "CsvHelper/27.0.2": {
         "type": "package",
         "dependencies": {
@@ -165,7 +146,7 @@
           "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Components.Analyzers/3.1.14": {
+      "Microsoft.AspNetCore.Components.Analyzers/5.0.5": {
         "type": "package",
         "build": {
           "buildTransitive/netstandard2.0/Microsoft.AspNetCore.Components.Analyzers.targets": {}
@@ -196,13 +177,13 @@
           "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.Forms.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Components.Web/3.1.4": {
+      "Microsoft.AspNetCore.Components.Web/3.1.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.Components": "3.1.4",
-          "Microsoft.AspNetCore.Components.Forms": "3.1.4",
-          "Microsoft.Extensions.DependencyInjection": "3.1.4",
-          "Microsoft.JSInterop": "3.1.4"
+          "Microsoft.AspNetCore.Components": "3.1.1",
+          "Microsoft.AspNetCore.Components.Forms": "3.1.1",
+          "Microsoft.Extensions.DependencyInjection": "3.1.1",
+          "Microsoft.JSInterop": "3.1.1"
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.Web.dll": {}
@@ -1298,13 +1279,6 @@
           "build/netcoreapp2.1/Microsoft.TestPlatform.TestHost.props": {}
         }
       },
-      "Microsoft.TypeScript.MSBuild/4.0.2": {
-        "type": "package",
-        "build": {
-          "build/Microsoft.TypeScript.MSBuild.props": {},
-          "build/Microsoft.TypeScript.MSBuild.targets": {}
-        }
-      },
       "Microsoft.VisualStudio.Web.CodeGeneration/3.1.5": {
         "type": "package",
         "dependencies": {
@@ -1846,7 +1820,7 @@
           "Microsoft.Win32.SystemEvents": "4.7.0"
         },
         "compile": {
-          "ref/netcoreapp3.0/System.Drawing.Common.dll": {}
+          "ref/netcoreapp3.0/_._": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Drawing.Common.dll": {}
@@ -2877,27 +2851,6 @@
         "lib/netstandard2.1/Bunit.Web.xml"
       ]
     },
-    "C1.Blazor.Chart/3.1.20211.65": {
-      "sha512": "0J9IpyA/qEiahU3qRMhKRqfldEqXt7E9dZlTT+ro8gKIm++nb++mqzBHuMuv19I74hdYdpsV6b97Zz02gjuTxQ==",
-      "type": "package",
-      "path": "c1.blazor.chart/3.1.20211.65",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "build/C1.Blazor.Chart.props",
-        "build/Microsoft.AspNetCore.StaticWebAssets.props",
-        "buildTransitive/C1.Blazor.Chart.targets",
-        "c1.blazor.chart.3.1.20211.65.nupkg.sha512",
-        "c1.blazor.chart.nuspec",
-        "images/icon.png",
-        "lib/netstandard2.0/C1.Blazor.Chart.dll",
-        "lib/netstandard2.0/C1.Blazor.Chart.xml",
-        "license_EN.txt",
-        "staticwebassets/scripts.js",
-        "staticwebassets/scripts.js.map",
-        "staticwebassets/styles.css"
-      ]
-    },
     "CsvHelper/27.0.2": {
       "sha512": "BXIM6epjyGh0C73L6t4+EPl1kNiMSIkjkgNXco6USKmO8Dqa+Zw/vujYJwP9S/s51iaR7zZ90mQKHfp/iLfv6A==",
       "type": "package",
@@ -2970,10 +2923,10 @@
         "microsoft.aspnetcore.components.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Components.Analyzers/3.1.14": {
-      "sha512": "IEoLcR/w2f0pLzsN37KVVe3fkvlnpfr8yCqVMDCa+GA3JyIlxLxYap4LJ1lgvwswyW8cgWkSK/o8mKkNbEc3qw==",
+    "Microsoft.AspNetCore.Components.Analyzers/5.0.5": {
+      "sha512": "psHOvHEWJC5BDNCAp7BJQMhv68mbhZMPFArf4RArrSYzIYMxQPDS/DgnAs3getHzQhHqEkrAhfEa7YXyW+bZSw==",
       "type": "package",
-      "path": "microsoft.aspnetcore.components.analyzers/3.1.14",
+      "path": "microsoft.aspnetcore.components.analyzers/5.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2982,7 +2935,7 @@
         "analyzers/dotnet/cs/Microsoft.AspNetCore.Components.Analyzers.dll",
         "build/netstandard2.0/Microsoft.AspNetCore.Components.Analyzers.targets",
         "buildTransitive/netstandard2.0/Microsoft.AspNetCore.Components.Analyzers.targets",
-        "microsoft.aspnetcore.components.analyzers.3.1.14.nupkg.sha512",
+        "microsoft.aspnetcore.components.analyzers.5.0.5.nupkg.sha512",
         "microsoft.aspnetcore.components.analyzers.nuspec"
       ]
     },
@@ -3020,10 +2973,10 @@
         "microsoft.aspnetcore.components.forms.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Components.Web/3.1.4": {
-      "sha512": "/t7ibFcyoXRDf5DE6Tx5evy+KQgaKzCGQeq8aiLR/4ujegUKWJVZaOxS+EwwZ44FEfWkyZTCZDGIdQyIdh5fZA==",
+    "Microsoft.AspNetCore.Components.Web/3.1.1": {
+      "sha512": "Qf/sWul2eAk2/Lop1DC3p637eWqGvbh0uxcQQXb45DPty4NEg9hf/bZlPPlSB1g9f2CaZIA56piM+CbRuLAzTg==",
       "type": "package",
-      "path": "microsoft.aspnetcore.components.web/3.1.4",
+      "path": "microsoft.aspnetcore.components.web/3.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3033,7 +2986,7 @@
         "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.Web.xml",
         "lib/netstandard2.0/Microsoft.AspNetCore.Components.Web.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Components.Web.xml",
-        "microsoft.aspnetcore.components.web.3.1.4.nupkg.sha512",
+        "microsoft.aspnetcore.components.web.3.1.1.nupkg.sha512",
         "microsoft.aspnetcore.components.web.nuspec"
       ]
     },
@@ -4617,108 +4570,6 @@
         "lib/uap10.0/testhost.dll",
         "microsoft.testplatform.testhost.16.9.4.nupkg.sha512",
         "microsoft.testplatform.testhost.nuspec"
-      ]
-    },
-    "Microsoft.TypeScript.MSBuild/4.0.2": {
-      "sha512": "vLrqOLd1vpOD73rBVNejxiJQrIrK33p6uRpXSSIWWCr0qzLUiPg/uCQKAFeKr+R5c/W+cCDRtMBTDw3nVBgCbw==",
-      "type": "package",
-      "path": "microsoft.typescript.msbuild/4.0.2",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "License.txt",
-        "build/Microsoft.TypeScript.MSBuild.props",
-        "build/Microsoft.TypeScript.MSBuild.targets",
-        "microsoft.typescript.msbuild.4.0.2.nupkg.sha512",
-        "microsoft.typescript.msbuild.nuspec",
-        "tools/Microsoft.TypeScript.Default.props",
-        "tools/Microsoft.TypeScript.targets",
-        "tools/net45/System.IO.FileSystem.Primitives.dll",
-        "tools/net45/System.IO.FileSystem.dll",
-        "tools/net45/TypeScript.Tasks.dll",
-        "tools/netstandard1.3/TypeScript.Tasks.dll",
-        "tools/tsc/cancellationToken.js",
-        "tools/tsc/cs/diagnosticMessages.generated.json",
-        "tools/tsc/de/diagnosticMessages.generated.json",
-        "tools/tsc/en/diagnosticMessages.generated.json",
-        "tools/tsc/es/diagnosticMessages.generated.json",
-        "tools/tsc/fr/diagnosticMessages.generated.json",
-        "tools/tsc/it/diagnosticMessages.generated.json",
-        "tools/tsc/ja/diagnosticMessages.generated.json",
-        "tools/tsc/ko/diagnosticMessages.generated.json",
-        "tools/tsc/lib.d.ts",
-        "tools/tsc/lib.dom.d.ts",
-        "tools/tsc/lib.dom.iterable.d.ts",
-        "tools/tsc/lib.es2015.collection.d.ts",
-        "tools/tsc/lib.es2015.core.d.ts",
-        "tools/tsc/lib.es2015.d.ts",
-        "tools/tsc/lib.es2015.generator.d.ts",
-        "tools/tsc/lib.es2015.iterable.d.ts",
-        "tools/tsc/lib.es2015.promise.d.ts",
-        "tools/tsc/lib.es2015.proxy.d.ts",
-        "tools/tsc/lib.es2015.reflect.d.ts",
-        "tools/tsc/lib.es2015.symbol.d.ts",
-        "tools/tsc/lib.es2015.symbol.wellknown.d.ts",
-        "tools/tsc/lib.es2016.array.include.d.ts",
-        "tools/tsc/lib.es2016.d.ts",
-        "tools/tsc/lib.es2016.full.d.ts",
-        "tools/tsc/lib.es2017.d.ts",
-        "tools/tsc/lib.es2017.full.d.ts",
-        "tools/tsc/lib.es2017.intl.d.ts",
-        "tools/tsc/lib.es2017.object.d.ts",
-        "tools/tsc/lib.es2017.sharedmemory.d.ts",
-        "tools/tsc/lib.es2017.string.d.ts",
-        "tools/tsc/lib.es2017.typedarrays.d.ts",
-        "tools/tsc/lib.es2018.asyncgenerator.d.ts",
-        "tools/tsc/lib.es2018.asynciterable.d.ts",
-        "tools/tsc/lib.es2018.d.ts",
-        "tools/tsc/lib.es2018.full.d.ts",
-        "tools/tsc/lib.es2018.intl.d.ts",
-        "tools/tsc/lib.es2018.promise.d.ts",
-        "tools/tsc/lib.es2018.regexp.d.ts",
-        "tools/tsc/lib.es2019.array.d.ts",
-        "tools/tsc/lib.es2019.d.ts",
-        "tools/tsc/lib.es2019.full.d.ts",
-        "tools/tsc/lib.es2019.object.d.ts",
-        "tools/tsc/lib.es2019.string.d.ts",
-        "tools/tsc/lib.es2019.symbol.d.ts",
-        "tools/tsc/lib.es2020.bigint.d.ts",
-        "tools/tsc/lib.es2020.d.ts",
-        "tools/tsc/lib.es2020.full.d.ts",
-        "tools/tsc/lib.es2020.intl.d.ts",
-        "tools/tsc/lib.es2020.promise.d.ts",
-        "tools/tsc/lib.es2020.string.d.ts",
-        "tools/tsc/lib.es2020.symbol.wellknown.d.ts",
-        "tools/tsc/lib.es5.d.ts",
-        "tools/tsc/lib.es6.d.ts",
-        "tools/tsc/lib.esnext.array.d.ts",
-        "tools/tsc/lib.esnext.asynciterable.d.ts",
-        "tools/tsc/lib.esnext.bigint.d.ts",
-        "tools/tsc/lib.esnext.d.ts",
-        "tools/tsc/lib.esnext.full.d.ts",
-        "tools/tsc/lib.esnext.intl.d.ts",
-        "tools/tsc/lib.esnext.promise.d.ts",
-        "tools/tsc/lib.esnext.string.d.ts",
-        "tools/tsc/lib.esnext.symbol.d.ts",
-        "tools/tsc/lib.scripthost.d.ts",
-        "tools/tsc/lib.webworker.d.ts",
-        "tools/tsc/lib.webworker.importscripts.d.ts",
-        "tools/tsc/node_modules/@microsoft/typescript-etw/bin/ia32/typescript-etw.node",
-        "tools/tsc/node_modules/@microsoft/typescript-etw/index.js",
-        "tools/tsc/node_modules/@microsoft/typescript-etw/package.json",
-        "tools/tsc/node_modules/source-map-support.js",
-        "tools/tsc/pl/diagnosticMessages.generated.json",
-        "tools/tsc/pt-BR/diagnosticMessages.generated.json",
-        "tools/tsc/ru/diagnosticMessages.generated.json",
-        "tools/tsc/tr/diagnosticMessages.generated.json",
-        "tools/tsc/tsc.js",
-        "tools/tsc/tsserver.js",
-        "tools/tsc/typesMap.json",
-        "tools/tsc/typingsInstaller.js",
-        "tools/tsc/watchGuard.js",
-        "tools/tsc/zh-CN/diagnosticMessages.generated.json",
-        "tools/tsc/zh-TW/diagnosticMessages.generated.json"
       ]
     },
     "Microsoft.VisualStudio.Web.CodeGeneration/3.1.5": {
@@ -9177,8 +9028,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "C1.Blazor.Chart >= 3.1.20211.65",
       "CsvHelper >= 27.0.2",
+      "Microsoft.AspNetCore.Components.Analyzers >= 5.0.5",
       "Microsoft.AspNetCore.Components.Forms >= 3.1.14",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 3.1.9",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 5.0.4",
@@ -9232,13 +9083,13 @@
     "frameworks": {
       "netcoreapp3.1": {
         "dependencies": {
-          "C1.Blazor.Chart": {
-            "target": "Package",
-            "version": "[3.1.20211.65, )"
-          },
           "CsvHelper": {
             "target": "Package",
             "version": "[27.0.2, )"
+          },
+          "Microsoft.AspNetCore.Components.Analyzers": {
+            "target": "Package",
+            "version": "[5.0.5, )"
           },
           "Microsoft.AspNetCore.Components.Forms": {
             "target": "Package",
