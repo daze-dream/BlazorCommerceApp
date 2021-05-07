@@ -92,6 +92,7 @@ n1 {
     background-color: transparent;
     padding: 10px;
     z-index: 2000;
+    display: table;
 }
 
 .dropdown-item {
@@ -102,10 +103,6 @@ n1 {
 .dropdown-item:hover{
     background-color: var(--DarkGreen);
     text-decoration:underline;
-}
-
-.dropdown:hover .dropdown-content {
-        display: table;
 }
 
 .notifAlerts {
@@ -119,6 +116,7 @@ n1 {
 
 .alertMess {
     font-weight:bold;
+    color: black;
 }
 
 
